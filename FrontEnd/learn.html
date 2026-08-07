@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn touch typing with TypeForge lessons and guided practice.">
+    <meta name="theme-color" content="#080a0f">
+    <title>Learn Typing — TypeForge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/learn.css">
+</head>
+<body class="learn-page">
+
+    <!-- NAVBAR -->
+    <header class="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <span class="logo-mark">T</span>
+                <span>Type<span>Forge</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="test.html">Typing Test</a>
+                <a href="learn.html" class="active">Learn</a>
+                <a href="dashboard.html">Progress</a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="login.html" class="login-link">Log in</a>
+                <a href="signup.html" class="btn btn-small">Get Started</a>
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main class="learn-main">
+        <div class="container">
+
+            <!-- PAGE HEADER -->
+            <section class="learn-hero">
+                <div>
+                    <span class="section-label">Typing Academy</span>
+                    <h1>Learn to type with <span>confidence.</span></h1>
+                    <p>Build proper finger placement, accuracy and speed through structured lessons.</p>
+                </div>
+                <div class="learn-progress">
+                    <span>Your progress</span>
+                    <strong>68%</strong>
+                    <div class="progress-bar"><span></span></div>
+                    <small>17 of 25 lessons completed</small>
+                </div>
+            </section>
+
+            <!-- LEARNING PATH -->
+            <section class="learning-path-section">
+                <div class="section-heading">
+                    <span class="section-label">Learning Path</span>
+                    <h2>Build your skills step by step</h2>
+                    <p>Complete each stage to develop strong typing fundamentals.</p>
+                </div>
+
+                <div class="lesson-path">
+
+                    <article class="lesson-card completed">
+                        <div class="lesson-number"><i class="fa-solid fa-check"></i></div>
+                        <div class="lesson-content">
+                            <span>Level 01 · Completed</span>
+                            <h3>Home Row Basics</h3>
+                            <p>Learn proper finger placement and keyboard positioning.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fa-regular fa-clock"></i> 10 min</span>
+                                <span><i class="fa-solid fa-list-check"></i> 5 lessons</span>
+                            </div>
+                        </div>
+                        <a href="lesson.html?level=1" class="lesson-action" aria-label="Review Home Row Basics">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="lesson-card active">
+                        <div class="lesson-number">02</div>
+                        <div class="lesson-content">
+                            <span>Level 02 · In Progress</span>
+                            <h3>Letter Control</h3>
+                            <p>Improve accuracy by practicing individual keys and combinations.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fa-regular fa-clock"></i> 15 min</span>
+                                <span><i class="fa-solid fa-list-check"></i> 7 lessons</span>
+                            </div>
+                        </div>
+                        <a href="lesson.html?level=2" class="lesson-action" aria-label="Continue Letter Control">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="lesson-card">
+                        <div class="lesson-number">03</div>
+                        <div class="lesson-content">
+                            <span>Level 03 · Locked</span>
+                            <h3>Word Flow</h3>
+                            <p>Connect letters naturally and develop a consistent rhythm.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fa-regular fa-clock"></i> 20 min</span>
+                                <span><i class="fa-solid fa-list-check"></i> 6 lessons</span>
+                            </div>
+                        </div>
+                        <span class="lesson-action locked">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                    </article>
+
+                    <article class="lesson-card">
+                        <div class="lesson-number">04</div>
+                        <div class="lesson-content">
+                            <span>Level 04 · Locked</span>
+                            <h3>Speed Training</h3>
+                            <p>Increase your typing speed while maintaining accuracy.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fa-regular fa-clock"></i> 25 min</span>
+                                <span><i class="fa-solid fa-list-check"></i> 7 lessons</span>
+                            </div>
+                        </div>
+                        <span class="lesson-action locked">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- CURRENT LESSON -->
+            <section class="current-lesson">
+                <div class="current-lesson-content">
+                    <span class="section-label">Continue Learning</span>
+                    <h2>Letter Control</h2>
+                    <p>You're currently working on improving accuracy across the middle and upper keyboard rows.</p>
+                    <div class="current-progress">
+                        <div>
+                            <span>Lesson 4 of 7</span>
+                            <strong>57%</strong>
+                        </div>
+                        <div class="progress-bar"><span style="width:57%"></span></div>
+                    </div>
+                    <a href="lesson.html?level=2&lesson=4" class="btn btn-primary">
+                        Continue Lesson
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="lesson-preview">
+                    <div class="preview-label">Today's exercise</div>
+                    <div class="exercise-text">asdf jkl; asdf jkl; fjdk slaj</div>
+                    <div class="exercise-key">
+                        <span>F</span>
+                        <span>J</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRACTICE AREAS -->
+            <section class="practice-section">
+                <div class="section-heading">
+                    <span class="section-label">Practice</span>
+                    <h2>Work on specific skills</h2>
+                </div>
+
+                <div class="practice-grid">
+                    <a href="lesson.html?practice=accuracy" class="practice-card">
+                        <div class="practice-icon"><i class="fa-solid fa-bullseye"></i></div>
+                        <h3>Accuracy</h3>
+                        <p>Reduce mistakes and improve precision.</p>
+                        <span>Practice <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <a href="lesson.html?practice=home-row" class="practice-card">
+                        <div class="practice-icon"><i class="fa-solid fa-house"></i></div>
+                        <h3>Home Row</h3>
+                        <p>Strengthen your foundation and finger placement.</p>
+                        <span>Practice <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <a href="lesson.html?practice=speed" class="practice-card">
+                        <div class="practice-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <h3>Speed</h3>
+                        <p>Push your WPM while keeping your accuracy high.</p>
+                        <span>Practice <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <a href="lesson.html?practice=weak-keys" class="practice-card">
+                        <div class="practice-icon"><i class="fa-solid fa-keyboard"></i></div>
+                        <h3>Weak Keys</h3>
+                        <p>Focus on the keys that slow you down.</p>
+                        <span>Practice <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <span class="logo-mark">T</span>
+                    <span>Type<span>Forge</span></span>
+                </a>
+                <p>Practice smarter. Type better.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="test.html">Typing Test</a>
+                <a href="learn.html">Learn</a>
+                <a href="dashboard.html">Progress</a>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 TypeForge</span>
+                <span>Built with HTML, CSS, JavaScript & Python</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/learn.js"></script>
+</body>
+</html>
