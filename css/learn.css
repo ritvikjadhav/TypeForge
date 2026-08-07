@@ -1,0 +1,452 @@
+
+/* ========================================
+   TYPEFORGE — LEARNING PAGE
+   ======================================== */
+
+.learn-main {
+    padding: 65px 0 100px;
+}
+
+.learn-hero {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    align-items: end;
+    gap: 60px;
+    padding-bottom: 70px;
+    border-bottom: 1px solid var(--border);
+}
+
+.learn-hero h1 {
+    max-width: 700px;
+    margin-bottom: 18px;
+    font-size: clamp(2.7rem, 5vw, 4.3rem);
+}
+
+.learn-hero h1 span {
+    color: var(--accent-light);
+}
+
+.learn-hero p {
+    max-width: 570px;
+    font-size: .95rem;
+}
+
+.learn-progress {
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+}
+
+.learn-progress > span {
+    display: block;
+    color: var(--text-muted);
+    font-size: .65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.learn-progress strong {
+    display: block;
+    margin: 5px 0 12px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2rem;
+}
+
+.learn-progress small {
+    display: block;
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: .65rem;
+}
+
+.progress-bar {
+    height: 5px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--surface-light);
+}
+
+.progress-bar span {
+    display: block;
+    width: 68%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--accent);
+}
+
+/* ========================================
+   LEARNING PATH
+   ======================================== */
+
+.learning-path-section {
+    padding-top: 75px;
+}
+
+.lesson-path {
+    position: relative;
+    display: grid;
+    gap: 12px;
+}
+
+.lesson-path::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    bottom: 40px;
+    left: 29px;
+    width: 1px;
+    background: var(--border);
+}
+
+.lesson-card {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 60px 1fr 45px;
+    align-items: center;
+    gap: 20px;
+    min-height: 145px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    transition: all var(--transition);
+}
+
+.lesson-card:hover {
+    border-color: var(--border-hover);
+    transform: translateX(4px);
+}
+
+.lesson-card.active {
+    border-color: rgba(124,92,255,.3);
+    background: linear-gradient(100deg, rgba(124,92,255,.07), var(--surface));
+}
+
+.lesson-card.completed {
+    border-color: rgba(69,212,131,.15);
+}
+
+.lesson-number {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--bg-soft);
+    color: var(--text-muted);
+    font-family: "Space Grotesk", sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+}
+
+.lesson-card.completed .lesson-number {
+    border-color: rgba(69,212,131,.25);
+    background: rgba(69,212,131,.08);
+    color: var(--success);
+}
+
+.lesson-card.active .lesson-number {
+    border-color: rgba(124,92,255,.35);
+    background: var(--accent-soft);
+    color: var(--accent-light);
+}
+
+.lesson-content > span {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text-muted);
+    font-size: .62rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.lesson-card.active .lesson-content > span {
+    color: var(--accent-light);
+}
+
+.lesson-content h3 {
+    margin-bottom: 6px;
+}
+
+.lesson-content p {
+    max-width: 650px;
+    margin-bottom: 10px;
+    font-size: .76rem;
+}
+
+.lesson-meta {
+    display: flex;
+    gap: 18px;
+    color: var(--text-muted);
+    font-size: .65rem;
+}
+
+.lesson-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.lesson-action {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-soft);
+    color: var(--text-muted);
+    transition: all var(--transition);
+}
+
+.lesson-action:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent-light);
+}
+
+.lesson-action.locked {
+    cursor: not-allowed;
+    opacity: .55;
+}
+
+/* ========================================
+   CURRENT LESSON
+   ======================================== */
+
+.current-lesson {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 30px;
+    margin-top: 85px;
+    padding: 35px;
+    border: 1px solid rgba(124,92,255,.2);
+    border-radius: var(--radius-xl);
+    background:
+        radial-gradient(circle at 85% 20%, rgba(124,92,255,.12), transparent 35%),
+        var(--surface);
+}
+
+.current-lesson-content h2 {
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.current-lesson-content > p {
+    max-width: 600px;
+    margin-bottom: 25px;
+    font-size: .82rem;
+}
+
+.current-progress {
+    max-width: 520px;
+    margin-bottom: 25px;
+}
+
+.current-progress > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    font-size: .67rem;
+}
+
+.current-progress strong {
+    color: var(--text-soft);
+}
+
+.lesson-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 230px;
+    padding: 25px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+}
+
+.preview-label {
+    margin-bottom: 18px;
+    color: var(--text-muted);
+    font-size: .65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.exercise-text {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text-soft);
+    font-family: "Space Grotesk", monospace;
+    font-size: .95rem;
+    line-height: 1.8;
+}
+
+.exercise-key {
+    display: flex;
+    gap: 7px;
+    margin-top: 15px;
+}
+
+.exercise-key span {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(124,92,255,.3);
+    border-radius: 7px;
+    background: var(--accent-soft);
+    color: var(--accent-light);
+    font-family: "Space Grotesk", sans-serif;
+    font-size: .72rem;
+    font-weight: 700;
+}
+
+/* ========================================
+   PRACTICE AREAS
+   ======================================== */
+
+.practice-section {
+    padding-top: 85px;
+}
+
+.practice-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.practice-card {
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    transition: all var(--transition);
+}
+
+.practice-card:hover {
+    border-color: rgba(124,92,255,.3);
+    background: var(--surface-light);
+    transform: translateY(-4px);
+}
+
+.practice-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent-light);
+}
+
+.practice-card h3 {
+    margin-bottom: 7px;
+}
+
+.practice-card p {
+    min-height: 44px;
+    font-size: .73rem;
+    line-height: 1.7;
+}
+
+.practice-card > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    color: var(--accent-light);
+    font-size: .7rem;
+    font-weight: 600;
+}
+
+.practice-card > span i {
+    transition: transform var(--transition);
+}
+
+.practice-card:hover > span i {
+    transform: translateX(4px);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 950px) {
+    .learn-hero {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .learn-progress {
+        max-width: 400px;
+    }
+
+    .practice-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .current-lesson {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .learn-main {
+        padding-top: 40px;
+    }
+
+    .learn-hero {
+        padding-bottom: 50px;
+    }
+
+    .learn-hero h1 {
+        font-size: 2.6rem;
+    }
+
+    .lesson-path::before {
+        display: none;
+    }
+
+    .lesson-card {
+        grid-template-columns: 45px 1fr;
+        gap: 15px;
+        padding: 18px;
+    }
+
+    .lesson-number {
+        width: 44px;
+        height: 44px;
+    }
+
+    .lesson-action {
+        display: none;
+    }
+
+    .lesson-content p {
+        font-size: .72rem;
+    }
+
+    .current-lesson {
+        margin-top: 60px;
+        padding: 22px;
+    }
+
+    .practice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .practice-card p {
+        min-height: auto;
+    }
+}
