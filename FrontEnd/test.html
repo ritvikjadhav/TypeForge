@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TypeForge typing speed test. Test your WPM, accuracy and typing consistency.">
+    <meta name="theme-color" content="#080a0f">
+    <title>Typing Test — TypeForge</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/test.css">
+</head>
+
+<body class="test-page">
+
+    <!-- NAVBAR -->
+    <header class="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <span class="logo-mark">T</span>
+                <span>Type<span>Forge</span></span>
+            </a>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="test.html" class="active">Typing Test</a>
+                <a href="learn.html">Learn</a>
+                <a href="dashboard.html">Progress</a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <a href="login.html" class="login-link">Log in</a>
+                <a href="signup.html" class="btn btn-small">Get Started</a>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main class="test-main">
+        <div class="container">
+
+            <!-- TEST HEADER -->
+            <div class="test-header">
+                <div>
+                    <span class="section-label">Typing Test</span>
+                    <h1>Test your typing speed</h1>
+                </div>
+
+                <button class="test-help" id="testHelp" aria-label="Typing test help">
+                    <i class="fa-solid fa-circle-question"></i>
+                </button>
+            </div>
+
+            <!-- TEST CONTROLS -->
+            <div class="test-controls">
+                <div class="mode-controls">
+                    <button class="mode-button" data-time="15">15s</button>
+                    <button class="mode-button active" data-time="30">30s</button>
+                    <button class="mode-button" data-time="60">60s</button>
+                    <button class="mode-button" data-time="120">120s</button>
+                </div>
+
+                <div class="test-options">
+                    <button id="textMode" class="option-button">
+                        <i class="fa-solid fa-font"></i>
+                        Words
+                    </button>
+
+                    <button id="difficultyButton" class="option-button">
+                        <i class="fa-solid fa-sliders"></i>
+                        Medium
+                    </button>
+
+                    <button id="settingsButton" class="option-button" aria-label="Test settings">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- LIVE STATS -->
+            <div class="live-stats">
+                <div class="live-stat">
+                    <span>WPM</span>
+                    <strong id="wpm">0</strong>
+                </div>
+
+                <div class="live-stat">
+                    <span>Accuracy</span>
+                    <strong id="accuracy">100%</strong>
+                </div>
+
+                <div class="live-stat">
+                    <span>Time</span>
+                    <strong id="timer">30</strong>
+                </div>
+
+                <div class="live-stat">
+                    <span>Errors</span>
+                    <strong id="errors">0</strong>
+                </div>
+            </div>
+
+            <!-- TYPING TEST -->
+            <section class="typing-box" id="typingBox">
+
+                <div class="typing-status">
+                    <span class="status-indicator" id="statusIndicator"></span>
+                    <span id="testStatus">Click the text and start typing</span>
+                </div>
+
+                <div class="typing-progress">
+                    <span id="typingProgress"></span>
+                </div>
+
+                <div
+                    class="typing-text"
+                    id="typingText"
+                    tabindex="0"
+                    aria-label="Typing test text"
+                ></div>
+
+                <input
+                    type="text"
+                    id="typingInput"
+                    class="typing-input"
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    aria-label="Type the displayed text"
+                >
+
+                <div class="typing-hint">
+                    <i class="fa-solid fa-keyboard"></i>
+                    Start typing to begin the test
+                </div>
+
+            </section>
+
+            <!-- TEST ACTIONS -->
+            <div class="test-actions">
+                <button class="action-button" id="restartTest">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    Restart
+                </button>
+
+                <span class="action-divider"></span>
+
+                <span class="shortcut">
+                    <kbd>Tab</kbd> + <kbd>Enter</kbd>
+                    Restart test
+                </span>
+            </div>
+
+            <!-- KEYBOARD -->
+            <section class="keyboard-section">
+                <div class="keyboard-heading">
+                    <div>
+                        <span class="section-label">Keyboard</span>
+                        <h2>Keep your fingers moving</h2>
+                    </div>
+
+                    <span class="keyboard-status">
+                        <span></span>
+                        Active key
+                    </span>
+                </div>
+
+                <div class="keyboard" id="keyboard">
+
+                    <div class="keyboard-row">
+                        <span class="key key-esc">Esc</span>
+                        <span class="key" data-key="1">1</span>
+                        <span class="key" data-key="2">2</span>
+                        <span class="key" data-key="3">3</span>
+                        <span class="key" data-key="4">4</span>
+                        <span class="key" data-key="5">5</span>
+                        <span class="key" data-key="6">6</span>
+                        <span class="key" data-key="7">7</span>
+                        <span class="key" data-key="8">8</span>
+                        <span class="key" data-key="9">9</span>
+                        <span class="key" data-key="0">0</span>
+                        <span class="key" data-key="-">-</span>
+                        <span class="key" data-key="=">=</span>
+                        <span class="key key-backspace">Backspace</span>
+                    </div>
+
+                    <div class="keyboard-row">
+                        <span class="key key-tab">Tab</span>
+                        <span class="key" data-key="q">Q</span>
+                        <span class="key" data-key="w">W</span>
+                        <span class="key" data-key="e">E</span>
+                        <span class="key" data-key="r">R</span>
+                        <span class="key" data-key="t">T</span>
+                        <span class="key" data-key="y">Y</span>
+                        <span class="key" data-key="u">U</span>
+                        <span class="key" data-key="i">I</span>
+                        <span class="key" data-key="o">O</span>
+                        <span class="key" data-key="p">P</span>
+                        <span class="key" data-key="[">[</span>
+                        <span class="key" data-key="]">]</span>
+                        <span class="key" data-key="\">\</span>
+                    </div>
+
+                    <div class="keyboard-row">
+                        <span class="key key-caps">Caps</span>
+                        <span class="key" data-key="a">A</span>
+                        <span class="key" data-key="s">S</span>
+                        <span class="key" data-key="d">D</span>
+                        <span class="key" data-key="f">F</span>
+                        <span class="key" data-key="g">G</span>
+                        <span class="key" data-key="h">H</span>
+                        <span class="key" data-key="j">J</span>
+                        <span class="key" data-key="k">K</span>
+                        <span class="key" data-key="l">L</span>
+                        <span class="key" data-key=";">;</span>
+                        <span class="key" data-key="'">'</span>
+                        <span class="key key-enter">Enter</span>
+                    </div>
+
+                    <div class="keyboard-row">
+                        <span class="key key-shift">Shift</span>
+                        <span class="key" data-key="z">Z</span>
+                        <span class="key" data-key="x">X</span>
+                        <span class="key" data-key="c">C</span>
+                        <span class="key" data-key="v">V</span>
+                        <span class="key" data-key="b">B</span>
+                        <span class="key" data-key="n">N</span>
+                        <span class="key" data-key="m">M</span>
+                        <span class="key" data-key=",">,</span>
+                        <span class="key" data-key=".">.</span>
+                        <span class="key" data-key="/">/</span>
+                        <span class="key key-shift">Shift</span>
+                    </div>
+
+                    <div class="keyboard-row">
+                        <span class="key key-small">Ctrl</span>
+                        <span class="key key-small">Alt</span>
+                        <span class="key space-key" data-key=" ">Space</span>
+                        <span class="key key-small">Alt</span>
+                        <span class="key key-small">Ctrl</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- RESULT PANEL -->
+            <section class="result-panel" id="resultPanel" hidden>
+
+                <div class="result-header">
+                    <span class="section-label">Test Complete</span>
+                    <h2>Great work.</h2>
+                    <p>Here's how you performed.</p>
+                </div>
+
+                <div class="result-main">
+                    <div class="result-wpm">
+                        <span>WPM</span>
+                        <strong id="finalWpm">0</strong>
+                    </div>
+
+                    <div class="result-stats">
+                        <div>
+                            <span>Accuracy</span>
+                            <strong id="finalAccuracy">0%</strong>
+                        </div>
+
+                        <div>
+                            <span>Characters</span>
+                            <strong id="finalCharacters">0</strong>
+                        </div>
+
+                        <div>
+                            <span>Errors</span>
+                            <strong id="finalErrors">0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="btn btn-primary" id="tryAgain">
+                        Try Again
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+
+                    <a href="dashboard.html" class="btn btn-outline">
+                        View Progress
+                        <i class="fa-solid fa-chart-line"></i>
+                    </a>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <!-- SETTINGS MODAL -->
+    <div class="modal" id="settingsModal" hidden>
+        <div class="modal-overlay" id="modalOverlay"></div>
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <span class="section-label">Settings</span>
+                    <h2>Test preferences</h2>
+                </div>
+
+                <button id="closeSettings" aria-label="Close settings">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="setting-group">
+                <label for="languageSelect">Language</label>
+                <select id="languageSelect">
+                    <option value="english">English</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label for="punctuationToggle">Punctuation</label>
+                <button class="toggle-button" id="punctuationToggle" aria-pressed="false">
+                    <span></span>
+                </button>
+            </div>
+
+            <div class="setting-group">
+                <label for="numbersToggle">Numbers</label>
+                <button class="toggle-button" id="numbersToggle" aria-pressed="false">
+                    <span></span>
+                </button>
+            </div>
+
+            <button class="btn btn-primary modal-close-button" id="saveSettings">
+                Done
+            </button>
+        </div>
+    </div>
+
+    <!-- HELP MODAL -->
+    <div class="modal" id="helpModal" hidden>
+        <div class="modal-overlay" id="helpOverlay"></div>
+
+        <div class="modal-content help-content">
+            <div class="modal-header">
+                <div>
+                    <span class="section-label">How it works</span>
+                    <h2>Typing Test</h2>
+                </div>
+
+                <button id="closeHelp" aria-label="Close help">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="help-list">
+                <div>
+                    <span>01</span>
+                    <p>Choose your test duration.</p>
+                </div>
+                <div>
+                    <span>02</span>
+                    <p>Start typing the displayed text.</p>
+                </div>
+                <div>
+                    <span>03</span>
+                    <p>Try to maintain both speed and accuracy.</p>
+                </div>
+                <div>
+                    <span>04</span>
+                    <p>View your results when the timer ends.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/typing.js"></script>
+</body>
+</html>
