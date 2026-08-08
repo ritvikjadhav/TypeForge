@@ -1,60 +1,43 @@
 /* ========================================
-   TYPEFORGE — TYPING ENGINE
+   TYPEFORGE — TYPING TEST ENGINE
    ======================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (!document.querySelector(".typing-box")) return;
-
-    new TypeForgeTypingTest();
+    const typingTest = document.querySelector("#typingTest");
+    if (!typingTest) return;
+    new TypingTest();
 });
 
-class TypeForgeTypingTest {
+class TypingTest {
     constructor() {
-        this.textElement = document.querySelector(".typing-text");
-        this.inputElement = document.querySelector(".typing-input");
-        this.progressElement = document.querySelector(".typing-progress span");
-        this.statusIndicator = document.querySelector(".status-indicator");
-        this.statusText = document.querySelector(".typing-status span:last-child");
+        this.passage = document.querySelector("#passage");
+        this.input = document.querySelector("#typingInput");
+        this.timerDisplay = document.querySelector("#timer");
+        this.wpmDisplay = document.querySelector("#wpm");
+        this.accuracyDisplay = document.querySelector("#accuracy");
+        this.errorsDisplay = document.querySelector("#errors");
+        this.progressBar = document.querySelector("#progressBar");
+        this.restartButton = document.querySelector("#restartTest");
+        this.modeButtons = document.querySelectorAll("[data-time]");
 
-        this.wpmElement = document.querySelector("[data-stat='wpm']");
-        this.accuracyElement = document.querySelector("[data-stat='accuracy']");
-        this.timeElement = document.querySelector("[data-stat='time']");
-        this.errorsElement = document.querySelector("[data-stat='errors']");
-
-        this.resultPanel = document.querySelector(".result-panel");
-
-        this.modeButtons = document.querySelectorAll(".mode-button");
-        this.optionButtons = document.querySelectorAll(".option-button");
-
-        this.restartButton = document.querySelector("[data-action='restart']");
-        this.settingsButton = document.querySelector("[data-action='settings']");
-        this.helpButton = document.querySelector("[data-action='help']");
-
-        this.currentIndex = 0;
-        this.errors = 0;
-        this.correctCharacters = 0;
-        this.totalTyped = 0;
+        this.text = "";
+        this.started = false;
+        this.finished = false;
         this.startTime = null;
         this.timer = null;
-        this.remainingTime = 30;
-        this.testDuration = 30;
-        this.testMode = "time";
-        this.wordLimit = 25;
-        this.isRunning = false;
-        this.isFinished = false;
+        this.timeLimit = 30;
+        this.timeLeft = 30;
+        this.errors = 0;
+        this.correct = 0;
+        this.typed = 0;
 
-        this.textPool = [
-            "Great typing comes from accuracy before speed. Keep your hands relaxed and let every keystroke become natural.",
-            "The best way to improve your typing speed is to practice consistently while maintaining control and accuracy.",
-            "Technology moves quickly, but strong fundamentals remain important. Learn the keyboard and the speed will follow.",
-            "A good typist does not rush every letter. Instead, they develop rhythm, accuracy, and confidence through repetition.",
-            "Small improvements become impressive results when you practice every day and focus on correcting your weakest habits.",
-            "Programming requires patience and precision. Clean typing helps you think clearly and turn ideas into working code.",
-            "Your speed is not defined by one test. Track your progress over time and focus on becoming better than yesterday.",
-            "Consistent practice creates muscle memory. The more accurately you type, the less attention you need to give each key."
+        this.passages = [
+            "Success in typing does not come from rushing. It comes from accuracy, rhythm, consistency, and regular practice. Focus on every letter and let your speed improve naturally.",
+            "Technology changes every day, but the ability to communicate clearly remains important. Good typing skills help you work faster, write better, and stay focused on your ideas.",
+            "The fastest typists are not always the people who press the keys hardest. They understand rhythm and accuracy, allowing their fingers to move naturally across the keyboard.",
+            "Learning to type properly is a small investment that can save hundreds of hours over time. Practice regularly, keep your hands relaxed, and concentrate on accuracy before speed.",
+            "Every great skill begins with repetition. Your typing speed will improve when you practice consistently and learn from your mistakes instead of trying to become fast immediately."
         ];
-
-        this.currentText = "";
 
         this.init();
     }
@@ -64,140 +47,26 @@ class TypeForgeTypingTest {
        ======================================== */
 
     init() {
-        this.bindEvents();
-        this.generateText();
+        this.generatePassage();
+        this.setupEvents();
         this.updateStats();
-        this.updateTimeDisplay();
-    }
-
-    bindEvents() {
-        if (this.inputElement) {
-            this.inputElement.addEventListener(
-                "input",
-                event => this.handleInput(event)
-            );
-
-            this.inputElement.addEventListener(
-                "keydown",
-                event => this.handleKeyDown(event)
-            );
-
-            this.inputElement.addEventListener(
-                "blur",
-                () => {
-                    if (this.isRunning && !this.isFinished) {
-                        this.inputElement.focus();
-                    }
-                }
-            );
-        }
-
-        this.textElement?.addEventListener("click", () => {
-            this.focusInput();
-        });
-
-        this.modeButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                const mode = button.dataset.mode;
-
-                this.modeButtons.forEach(item =>
-                    item.classList.remove("active")
-                );
-
-                button.classList.add("active");
-
-                this.setMode(mode);
-            });
-        });
-
-        this.restartButton?.addEventListener("click", () => {
-            this.restart();
-        });
-
-        document.addEventListener("keydown", event => {
-            if (event.key === "Escape") {
-                this.closeModals();
-            }
-
-            if (
-                event.key === "Tab" &&
-                document.activeElement !== this.inputElement
-            ) {
-                event.preventDefault();
-                this.focusInput();
-            }
-        });
-
-        this.initKeyboard();
-        this.initSettings();
-        this.initHelp();
+        this.updateTimer();
+        this.focusInput();
     }
 
     /* ========================================
-       TEST MODES
+       GENERATE PASSAGE
        ======================================== */
 
-    setMode(mode) {
-        this.testMode = mode;
+    generatePassage() {
+        this.text =
+            this.passages[
+                Math.floor(Math.random() * this.passages.length)
+            ];
 
-        if (mode === "words") {
-            this.wordLimit = 25;
-            this.remainingTime = 0;
-        } else {
-            this.testDuration = Number(mode) || 30;
-            this.remainingTime = this.testDuration;
-        }
+        this.passage.innerHTML = "";
 
-        this.restart();
-    }
-
-    /* ========================================
-       TEXT GENERATION
-       ======================================== */
-
-    generateText() {
-        if (!this.textElement) return;
-
-        let text = "";
-
-        if (this.testMode === "words") {
-            const words = [];
-
-            while (words.length < this.wordLimit) {
-                const sentence =
-                    this.textPool[
-                        Math.floor(Math.random() * this.textPool.length)
-                    ];
-
-                words.push(...sentence.split(" "));
-            }
-
-            text = words.slice(0, this.wordLimit).join(" ");
-        } else {
-            const sentences = [];
-
-            while (sentences.join(" ").length < 650) {
-                sentences.push(
-                    this.textPool[
-                        Math.floor(Math.random() * this.textPool.length)
-                    ]
-                );
-            }
-
-            text = sentences.join(" ");
-        }
-
-        this.currentText = text;
-
-        this.renderText();
-    }
-
-    renderText() {
-        if (!this.textElement) return;
-
-        this.textElement.innerHTML = "";
-
-        [...this.currentText].forEach((character, index) => {
+        [...this.text].forEach((character, index) => {
             const span = document.createElement("span");
 
             span.textContent = character;
@@ -207,307 +76,296 @@ class TypeForgeTypingTest {
                 span.classList.add("current");
             }
 
-            this.textElement.appendChild(span);
+            this.passage.appendChild(span);
         });
     }
 
     /* ========================================
-       INPUT HANDLING
+       EVENTS
        ======================================== */
 
-    handleInput(event) {
-        if (this.isFinished) return;
+    setupEvents() {
+        this.input.addEventListener("input", () => {
+            this.handleTyping();
+        });
 
-        const value = event.target.value;
-
-        if (!this.isRunning && value.length > 0) {
-            this.startTest();
-        }
-
-        if (value.length > this.currentText.length) {
-            event.target.value = value.substring(
-                0,
-                this.currentText.length
-            );
-        }
-
-        this.updateCharacters(value);
-        this.updateStats();
-
-        if (this.testMode === "words") {
-            if (value.length >= this.currentText.length) {
-                this.finishTest();
+        this.input.addEventListener("keydown", event => {
+            if (event.key === "Tab") {
+                event.preventDefault();
             }
+        });
 
-            return;
-        }
+        this.passage.addEventListener("click", () => {
+            this.focusInput();
+        });
 
-        if (this.currentIndex >= this.currentText.length) {
-            this.finishTest();
-        }
+        this.restartButton?.addEventListener("click", () => {
+            this.restart();
+        });
+
+        this.modeButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                this.modeButtons.forEach(item => {
+                    item.classList.remove("active");
+                });
+
+                button.classList.add("active");
+
+                this.timeLimit =
+                    Number(button.dataset.time);
+
+                this.restart();
+            });
+        });
+
+        document.addEventListener("keydown", event => {
+            if (
+                event.key.length === 1 ||
+                event.key === "Backspace" ||
+                event.key === " "
+            ) {
+                this.focusInput();
+            }
+        });
     }
 
-    updateCharacters(value) {
-        const characters = this.textElement.querySelectorAll("span");
+    /* ========================================
+       TYPING
+       ======================================== */
 
+    handleTyping() {
+        if (this.finished) return;
+
+        const typedText = this.input.value;
+
+        if (!this.started && typedText.length > 0) {
+            this.start();
+        }
+
+        this.typed = typedText.length;
+        this.correct = 0;
         this.errors = 0;
-        this.correctCharacters = 0;
-        this.totalTyped = value.length;
-        this.currentIndex = value.length;
+
+        const characters =
+            this.passage.querySelectorAll("span");
 
         characters.forEach((character, index) => {
             character.classList.remove(
                 "correct",
-                "incorrect",
+                "wrong",
                 "current"
             );
 
-            if (index < value.length) {
-                if (value[index] === this.currentText[index]) {
+            if (index < typedText.length) {
+                if (
+                    typedText[index] ===
+                    this.text[index]
+                ) {
                     character.classList.add("correct");
-                    this.correctCharacters++;
+                    this.correct++;
                 } else {
-                    character.classList.add("incorrect");
+                    character.classList.add("wrong");
                     this.errors++;
                 }
             }
 
-            if (index === value.length) {
+            if (index === typedText.length) {
                 character.classList.add("current");
             }
         });
 
+        this.updateStats();
         this.updateProgress();
-        this.highlightCurrentKey();
+
+        if (
+            typedText.length >=
+            this.text.length
+        ) {
+            this.finish();
+        }
     }
 
     /* ========================================
-       START / TIMER
+       TIMER
        ======================================== */
 
-    startTest() {
-        if (this.isRunning || this.isFinished) return;
-
-        this.isRunning = true;
+    start() {
+        this.started = true;
         this.startTime = Date.now();
 
-        this.setStatus("Typing...", true);
+        this.timer = setInterval(() => {
+            this.timeLeft--;
 
-        if (this.testMode !== "words") {
-            this.timer = setInterval(() => {
-                this.remainingTime--;
+            this.updateTimer();
+            this.updateStats();
 
-                this.updateTimeDisplay();
-                this.updateStats();
+            if (this.timeLeft <= 0) {
+                this.finish();
+            }
+        }, 1000);
+    }
 
-                if (this.remainingTime <= 0) {
-                    this.finishTest();
-                }
-            }, 1000);
+    updateTimer() {
+        if (!this.timerDisplay) return;
+
+        this.timerDisplay.textContent =
+            `${this.timeLeft}s`;
+    }
+
+    /* ========================================
+       STATISTICS
+       ======================================== */
+
+    updateStats() {
+        if (!this.started) {
+            this.wpmDisplay.textContent = "0";
+            this.accuracyDisplay.textContent = "100%";
+            this.errorsDisplay.textContent = "0";
+            return;
         }
+
+        const elapsed =
+            Math.max(
+                (Date.now() - this.startTime) / 1000,
+                1
+            );
+
+        const minutes = elapsed / 60;
+
+        const wpm =
+            Math.round(
+                (this.correct / 5) /
+                minutes
+            );
+
+        const accuracy =
+            this.typed > 0
+                ? Math.round(
+                    (this.correct /
+                        this.typed) *
+                    100
+                )
+                : 100;
+
+        this.wpmDisplay.textContent =
+            Math.max(wpm, 0);
+
+        this.accuracyDisplay.textContent =
+            `${Math.max(
+                0,
+                Math.min(100, accuracy)
+            )}%`;
+
+        this.errorsDisplay.textContent =
+            this.errors;
+    }
+
+    /* ========================================
+       PROGRESS
+       ======================================== */
+
+    updateProgress() {
+        if (!this.progressBar) return;
+
+        const progress =
+            (this.typed /
+                this.text.length) *
+            100;
+
+        this.progressBar.style.width =
+            `${Math.min(progress, 100)}%`;
     }
 
     /* ========================================
        FINISH
        ======================================== */
 
-    finishTest() {
-        if (this.isFinished) return;
+    finish() {
+        if (this.finished) return;
 
-        this.isFinished = true;
-        this.isRunning = false;
+        this.finished = true;
+        this.started = false;
 
         clearInterval(this.timer);
 
-        const result = this.calculateResults();
+        this.input.blur();
 
-        this.saveResult(result);
-        this.showResult(result);
-
-        this.setStatus("Test complete", false);
-        this.removeCurrentHighlight();
+        this.saveResult();
     }
 
     /* ========================================
-       CALCULATIONS
+       SAVE RESULT
        ======================================== */
 
-    calculateResults() {
-        const elapsedSeconds = this.getElapsedSeconds();
-        const elapsedMinutes = Math.max(elapsedSeconds / 60, 1 / 60);
+    saveResult() {
+        const history =
+            JSON.parse(
+                localStorage.getItem(
+                    "typeforge-history"
+                ) || "[]"
+            );
 
-        const wpm = Math.round(
-            (this.correctCharacters / 5) / elapsedMinutes
-        );
+        const elapsed =
+            this.startTime
+                ? Math.round(
+                    (Date.now() -
+                        this.startTime) /
+                    1000
+                )
+                : 0;
+
+        const minutes =
+            Math.max(elapsed / 60, 1 / 60);
+
+        const wpm =
+            Math.round(
+                (this.correct / 5) /
+                minutes
+            );
 
         const accuracy =
-            this.totalTyped > 0
+            this.typed > 0
                 ? Math.round(
-                      (this.correctCharacters / this.totalTyped) * 100
-                  )
+                    (this.correct /
+                        this.typed) *
+                    100
+                )
                 : 100;
 
-        const rawWpm = Math.round(
-            (this.totalTyped / 5) / elapsedMinutes
-        );
-
-        return {
-            wpm: Math.max(0, wpm),
-            rawWpm: Math.max(0, rawWpm),
-            accuracy: Math.max(0, Math.min(100, accuracy)),
+        history.unshift({
+            wpm: Math.max(wpm, 0),
+            accuracy,
             errors: this.errors,
-            characters: this.totalTyped,
-            correctCharacters: this.correctCharacters,
-            duration: elapsedSeconds,
-            mode: this.testMode,
+            characters: this.typed,
+            correctCharacters: this.correct,
+            duration: elapsed,
             date: new Date().toISOString()
-        };
-    }
+        });
 
-    getElapsedSeconds() {
-        if (!this.startTime) return 0;
-
-        return Math.max(
-            1,
-            Math.round((Date.now() - this.startTime) / 1000)
+        localStorage.setItem(
+            "typeforge-history",
+            JSON.stringify(
+                history.slice(0, 50)
+            )
         );
+
+        this.showFinishedMessage();
     }
 
     /* ========================================
-       LIVE STATS
+       FINISHED MESSAGE
        ======================================== */
 
-    updateStats() {
-        const elapsedSeconds = this.getElapsedSeconds();
-        const minutes = Math.max(elapsedSeconds / 60, 1 / 60);
+    showFinishedMessage() {
+        const message =
+            document.querySelector(
+                "#testMessage"
+            );
 
-        const wpm = Math.round(
-            (this.correctCharacters / 5) / minutes
-        );
-
-        const accuracy =
-            this.totalTyped > 0
-                ? Math.round(
-                      (this.correctCharacters / this.totalTyped) * 100
-                  )
-                : 100;
-
-        this.setText(this.wpmElement, Math.max(0, wpm));
-        this.setText(
-            this.accuracyElement,
-            `${accuracy}%`
-        );
-        this.setText(
-            this.errorsElement,
-            this.errors
-        );
-    }
-
-    updateTimeDisplay() {
-        if (!this.timeElement) return;
-
-        if (this.testMode === "words") {
-            this.timeElement.textContent =
-                this.getElapsedSeconds() + "s";
-            return;
+        if (message) {
+            message.textContent =
+                "Test complete — great work!";
         }
-
-        this.timeElement.textContent =
-            `${this.remainingTime}s`;
-    }
-
-    updateProgress() {
-        if (!this.progressElement) return;
-
-        let progress = 0;
-
-        if (this.testMode === "words") {
-            progress =
-                (this.currentIndex / this.currentText.length) * 100;
-        } else {
-            progress =
-                (this.currentIndex / this.currentText.length) * 100;
-        }
-
-        this.progressElement.style.width =
-            `${Math.min(100, progress)}%`;
-    }
-
-    /* ========================================
-       KEYBOARD
-       ======================================== */
-
-    initKeyboard() {
-        this.keyboardKeys = document.querySelectorAll(".key");
-
-        if (!this.keyboardKeys.length) return;
-
-        this.keyboardKeys.forEach(key => {
-            key.addEventListener("mousedown", event => {
-                event.preventDefault();
-                this.focusInput();
-            });
-        });
-    }
-
-    handleKeyDown(event) {
-        this.highlightKey(event.key);
-
-        if (event.key === "Tab") {
-            event.preventDefault();
-        }
-    }
-
-    highlightKey(keyValue) {
-        if (!this.keyboardKeys?.length) return;
-
-        this.keyboardKeys.forEach(key => {
-            key.classList.remove("active");
-
-            const keyData = key.dataset.key;
-
-            if (
-                keyData &&
-                keyData.toLowerCase() === keyValue.toLowerCase()
-            ) {
-                key.classList.add("active");
-
-                setTimeout(() => {
-                    key.classList.remove("active");
-                }, 100);
-            }
-        });
-    }
-
-    highlightCurrentKey() {
-        if (!this.keyboardKeys?.length) return;
-
-        const nextCharacter =
-            this.currentText[this.currentIndex];
-
-        if (!nextCharacter) return;
-
-        const keyValue =
-            nextCharacter === " "
-                ? " "
-                : nextCharacter.toLowerCase();
-
-        this.keyboardKeys.forEach(key => {
-            key.classList.remove("active");
-
-            if (
-                key.dataset.key &&
-                key.dataset.key.toLowerCase() === keyValue
-            ) {
-                key.classList.add("active");
-            }
-        });
-    }
-
-    removeCurrentHighlight() {
-        this.keyboardKeys?.forEach(key =>
-            key.classList.remove("active")
-        );
     }
 
     /* ========================================
@@ -517,225 +375,41 @@ class TypeForgeTypingTest {
     restart() {
         clearInterval(this.timer);
 
-        this.currentIndex = 0;
-        this.errors = 0;
-        this.correctCharacters = 0;
-        this.totalTyped = 0;
+        this.started = false;
+        this.finished = false;
         this.startTime = null;
-        this.isRunning = false;
-        this.isFinished = false;
+        this.errors = 0;
+        this.correct = 0;
+        this.typed = 0;
+        this.timeLeft = this.timeLimit;
 
-        if (this.testMode !== "words") {
-            this.remainingTime = this.testDuration;
-        }
+        this.input.value = "";
 
-        if (this.inputElement) {
-            this.inputElement.value = "";
-        }
-
-        this.hideResult();
-        this.generateText();
+        this.generatePassage();
+        this.updateTimer();
         this.updateStats();
-        this.updateTimeDisplay();
         this.updateProgress();
-        this.setStatus("Ready to type", false);
-        this.removeCurrentHighlight();
 
-        setTimeout(() => this.focusInput(), 100);
+        const message =
+            document.querySelector(
+                "#testMessage"
+            );
+
+        if (message) {
+            message.textContent =
+                "Click the passage and start typing";
+        }
+
+        this.focusInput();
     }
+
+    /* ========================================
+       FOCUS
+       ======================================== */
 
     focusInput() {
-        if (!this.inputElement || this.isFinished) return;
-
-        this.inputElement.focus();
-    }
-
-    /* ========================================
-       STATUS
-       ======================================== */
-
-    setStatus(text, active = false) {
-        if (this.statusText) {
-            this.statusText.textContent = text;
-        }
-
-        if (this.statusIndicator) {
-            this.statusIndicator.classList.toggle(
-                "active",
-                active
-            );
+        if (!this.finished) {
+            this.input.focus();
         }
     }
-
-    /* ========================================
-       RESULT PANEL
-       ======================================== */
-
-    showResult(result) {
-        if (!this.resultPanel) return;
-
-        this.setResultValue(
-            "[data-result='wpm']",
-            result.wpm
-        );
-
-        this.setResultValue(
-            "[data-result='accuracy']",
-            `${result.accuracy}%`
-        );
-
-        this.setResultValue(
-            "[data-result='errors']",
-            result.errors
-        );
-
-        this.setResultValue(
-            "[data-result='raw']",
-            result.rawWpm
-        );
-
-        this.resultPanel.hidden = false;
-
-        this.resultPanel.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-    }
-
-    hideResult() {
-        if (this.resultPanel) {
-            this.resultPanel.hidden = true;
-        }
-    }
-
-    setResultValue(selector, value) {
-        const element =
-            this.resultPanel?.querySelector(selector);
-
-        if (element) {
-            element.textContent = value;
-        }
-    }
-
-    /* ========================================
-       LOCAL STORAGE
-       ======================================== */
-
-    saveResult(result) {
-        const history = this.getHistory();
-
-        history.unshift(result);
-
-        const trimmedHistory = history.slice(0, 50);
-
-        localStorage.setItem(
-            "typeforge-history",
-            JSON.stringify(trimmedHistory)
-        );
-
-        const best = Number(
-            localStorage.getItem("typeforge-best-wpm") || 0
-        );
-
-        if (result.wpm > best) {
-            localStorage.setItem(
-                "typeforge-best-wpm",
-                result.wpm
-            );
-        }
-
-        this.updateDashboardStats(result);
-    }
-
-    getHistory() {
-        try {
-            return JSON.parse(
-                localStorage.getItem("typeforge-history")
-            ) || [];
-        } catch {
-            return [];
-        }
-    }
-
-    updateDashboardStats(result) {
-        const stats = this.getDashboardStats();
-
-        stats.tests++;
-        stats.totalCharacters += result.characters;
-        stats.totalCorrect += result.correctCharacters;
-
-        if (result.wpm > stats.bestWpm) {
-            stats.bestWpm = result.wpm;
-        }
-
-        stats.averageWpm =
-            stats.averageWpm === 0
-                ? result.wpm
-                : Math.round(
-                      (stats.averageWpm * (stats.tests - 1) +
-                          result.wpm) /
-                          stats.tests
-                  );
-
-        localStorage.setItem(
-            "typeforge-stats",
-            JSON.stringify(stats)
-        );
-    }
-
-    getDashboardStats() {
-        try {
-            return JSON.parse(
-                localStorage.getItem("typeforge-stats")
-            ) || {
-                tests: 0,
-                totalCharacters: 0,
-                totalCorrect: 0,
-                bestWpm: 0,
-                averageWpm: 0
-            };
-        } catch {
-            return {
-                tests: 0,
-                totalCharacters: 0,
-                totalCorrect: 0,
-                bestWpm: 0,
-                averageWpm: 0
-            };
-        }
-    }
-
-    /* ========================================
-       SETTINGS
-       ======================================== */
-
-    initSettings() {
-        if (!this.settingsButton) return;
-
-        this.settingsButton.addEventListener("click", () => {
-            const modal = document.querySelector("#settingsModal");
-
-            if (modal) {
-                modal.hidden = false;
-            }
-        });
-    }
-
-    /* ========================================
-       HELP
-       ======================================== */
-
-    initHelp() {
-        if (!this.helpButton) return;
-
-        this.helpButton.addEventListener("click", () => {
-            const modal = document.querySelector("#helpModal");
-
-            if (modal) {
-                modal.hidden = false;
-            }
-        });
-    }
-
-    closeModals() {
-    
+}
