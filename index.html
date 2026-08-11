@@ -3,428 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TypeForge is a modern typing speed test and learning platform. Improve your typing speed, accuracy and consistency.">
-    <meta name="author" content="TypeForge">
-    <meta name="theme-color" content="#080a0f">
-
-    <title>TypeForge — Typing Speed Test & Practice</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <!-- Main CSS -->
+    <meta name="theme-color" content="#FAF7EE">
+    <meta name="description" content="TypeForge is a focused typing practice platform designed to improve your speed, accuracy and consistency.">
+    <meta name="keywords" content="typing test, typing speed, WPM test, typing practice, touch typing">
+    <title>KeySync — Type Better. Think Faster.</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-    <!-- NAVBAR -->
-    <header class="header">
-        <nav class="navbar container">
-            <a href="index.html" class="logo">
-                <span class="logo-mark">T</span>
-                <span>Type<span>Forge</span></span>
+    <div class="site-shell">
+        <header class="navbar">
+            <a href="index.html" class="brand" aria-label="TypeForge home">
+                <span class="brand-mark">T</span>
+                <span>TypeForge</span>
             </a>
-
-            <div class="nav-links">
-                <a href="#test">Typing Test</a>
-                <a href="#learn">Learn</a>
+            <nav class="nav-links" aria-label="Main navigation">
                 <a href="#features">Features</a>
-                <a href="#progress">Progress</a>
-            </div>
-
+                <a href="test.html">Typing Test</a>
+                <a href="learn.html">Learn</a>
+                <a href="dashboard.html">Dashboard</a>
+            </nav>
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fa-solid fa-moon"></i>
+                    <span>◐</span>
                 </button>
-                <a href="login.html" class="login-link">Log in</a>
-                <a href="signup.html" class="btn btn-small">Get Started</a>
+                <a href="test.html" class="nav-cta">Start Test <span>↗</span></a>
             </div>
-
-            <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
-                <i class="fa-solid fa-bars"></i>
+            <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+                <span></span>
+                <span></span>
             </button>
-        </nav>
-    </header>
+        </header>
 
-    <main>
-
-        <!-- HERO -->
-        <section class="hero">
-            <div class="hero-bg"></div>
-            <div class="container hero-container">
-                <div class="hero-content">
-                    <span class="badge">
-                        <span></span>
-                        Improve your typing
-                    </span>
-
-                    <h1>
-                        Type faster.<br>
-                        <span>Think faster.</span>
-                    </h1>
-
-                    <p>
-                        Test your typing speed, improve accuracy, learn touch typing
-                        and track your progress in one simple workspace.
+        <main>
+            <section class="hero">
+                <div class="hero-copy">
+                    <div class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        A better way to type
+                    </div>
+                    <h1>Type better.<br><em>Think faster.</em></h1>
+                    <p class="hero-description">
+                        Build real typing speed through focused practice,
+                        instant feedback and simple progress tracking.
                     </p>
-
-                    <div class="hero-buttons">
-                        <a href="test.html" class="btn btn-primary">
-                            Start Typing Test
-                            <i class="fa-solid fa-arrow-right"></i>
+                    <div class="hero-actions">
+                        <a href="test.html" class="button button-primary">
+                            Start typing
+                            <span>→</span>
                         </a>
-                        <a href="#learn" class="btn btn-outline">Learn to Type</a>
+                        <a href="learn.html" class="button button-secondary">
+                            Explore learning
+                        </a>
                     </div>
-
                     <div class="hero-note">
-                        <i class="fa-solid fa-keyboard"></i>
-                        Free to start · No account required
+                        <span class="check">✓</span>
+                        No account required
+                        <span class="note-divider"></span>
+                        Start in seconds
                     </div>
                 </div>
 
-                <!-- TYPING PREVIEW -->
-                <div class="typing-preview">
-                    <div class="preview-header">
-                        <div class="window-dots">
+                <div class="hero-visual">
+                    <div class="typing-window">
+                        <div class="window-top">
+                            <div class="window-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <span class="window-label">TYPE TEST</span>
+                            <span class="window-time">30s</span>
+                        </div>
+                        <div class="window-stats">
+                            <div>
+                                <span>WPM</span>
+                                <strong>87</strong>
+                            </div>
+                            <div>
+                                <span>Accuracy</span>
+                                <strong>98.4%</strong>
+                            </div>
+                            <div>
+                                <span>Errors</span>
+                                <strong>2</strong>
+                            </div>
+                        </div>
+                        <div class="demo-passage">
+                            <span class="typed">The best way to</span>
+                            <span class="active-word"> improve</span>
+                            <span class="remaining"> your typing is to practice with intention. Every keystroke builds consistency.</span>
+                        </div>
+                        <div class="demo-cursor"></div>
+                        <div class="window-progress">
                             <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <span>Typing Test</span>
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </div>
-
-                    <div class="preview-stats">
-                        <div>
-                            <small>WPM</small>
-                            <strong>87</strong>
-                        </div>
-                        <div>
-                            <small>Accuracy</small>
-                            <strong>98%</strong>
-                        </div>
-                        <div>
-                            <small>Time</small>
-                            <strong>00:42</strong>
                         </div>
                     </div>
-
-                    <div class="preview-text">
-                        <span class="correct">
-                            The best way to improve your typing is to practice consistently and
-                        </span>
-                        <span class="current">f</span>
-                        <span>ocus on accuracy before speed.</span>
-                    </div>
-
-                    <div class="preview-progress">
-                        <span></span>
-                    </div>
-
-                    <div class="preview-keyboard">
+                    <div class="floating-stat floating-stat-one">
+                        <span class="floating-icon">↗</span>
                         <div>
-                            <span>Q</span><span>W</span><span>E</span><span>R</span><span>T</span>
-                            <span>Y</span><span>U</span><span>I</span><span>O</span><span>P</span>
+                            <strong>+24%</strong>
+                            <small>speed improvement</small>
                         </div>
+                    </div>
+                    <div class="floating-stat floating-stat-two">
+                        <span class="mini-ring">98</span>
                         <div>
-                            <span>A</span><span>S</span><span>D</span><span>F</span><span>G</span>
-                            <span>H</span><span>J</span><span>K</span><span>L</span>
-                        </div>
-                        <div>
-                            <span>Z</span><span>X</span><span>C</span><span>V</span><span>B</span>
-                            <span>N</span><span>M</span>
+                            <strong>Accuracy</strong>
+                            <small>your priority</small>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- TEST MODES -->
-        <section class="section" id="test">
-            <div class="container">
+            <section class="quick-proof">
+                <div class="proof-intro">
+                    <span>BUILT AROUND BETTER TYPING</span>
+                </div>
+                <div class="proof-item">
+                    <strong>Real-time</strong>
+                    <span>feedback</span>
+                </div>
+                <div class="proof-item">
+                    <strong>Accuracy</strong>
+                    <span>before speed</span>
+                </div>
+                <div class="proof-item">
+                    <strong>Progress</strong>
+                    <span>that matters</span>
+                </div>
+            </section>
+
+            <section class="features section" id="features">
                 <div class="section-heading">
-                    <span class="section-label">Typing Test</span>
-                    <h2>Choose your challenge</h2>
-                    <p>Pick a duration and see how fast you can type.</p>
-                </div>
-
-                <div class="test-grid">
-                    <a href="test.html?time=15" class="test-card">
-                        <strong>15s</strong>
-                        <div>
-                            <h3>Quick Test</h3>
-                            <p>A fast speed check.</p>
-                        </div>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-
-                    <a href="test.html?time=30" class="test-card active">
-                        <strong>30s</strong>
-                        <div>
-                            <h3>Standard Test</h3>
-                            <p>Our recommended test.</p>
-                        </div>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-
-                    <a href="test.html?time=60" class="test-card">
-                        <strong>60s</strong>
-                        <div>
-                            <h3>Endurance Test</h3>
-                            <p>Test your consistency.</p>
-                        </div>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-
-                    <a href="test.html?time=120" class="test-card">
-                        <strong>120s</strong>
-                        <div>
-                            <h3>Long Test</h3>
-                            <p>Push your limits.</p>
-                        </div>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- FEATURES -->
-        <section class="section features" id="features">
-            <div class="container">
-                <div class="section-heading">
-                    <span class="section-label">Features</span>
-                    <h2>Everything you need to improve</h2>
-                    <p>Simple tools that turn practice into progress.</p>
-                </div>
-
-                <div class="features-grid">
-                    <article class="feature-card">
-                        <div class="feature-icon"><i class="fa-solid fa-gauge-high"></i></div>
-                        <h3>Speed & Accuracy</h3>
-                        <p>Get your WPM, accuracy, errors and consistency instantly after every test.</p>
-                    </article>
-
-                    <article class="feature-card">
-                        <div class="feature-icon"><i class="fa-solid fa-keyboard"></i></div>
-                        <h3>Keyboard Practice</h3>
-                        <p>Practice individual keys and improve your finger positioning.</p>
-                    </article>
-
-                    <article class="feature-card">
-                        <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
-                        <h3>Track Progress</h3>
-                        <p>See your typing history and understand how your speed changes over time.</p>
-                    </article>
-
-                    <article class="feature-card">
-                        <div class="feature-icon"><i class="fa-solid fa-fire"></i></div>
-                        <h3>Daily Practice</h3>
-                        <p>Build a consistent practice habit with daily goals and typing streaks.</p>
-                    </article>
-
-                    <article class="feature-card">
-                        <div class="feature-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                        <h3>Typing Lessons</h3>
-                        <p>Follow structured lessons from basic finger placement to advanced typing.</p>
-                    </article>
-
-                    <article class="feature-card">
-                        <div class="feature-icon"><i class="fa-solid fa-trophy"></i></div>
-                        <h3>Personal Bests</h3>
-                        <p>Save your best scores and challenge yourself to beat them.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- LEARNING -->
-        <section class="section learning" id="learn">
-            <div class="container learning-container">
-                <div class="learning-content">
-                    <span class="section-label">Learn</span>
-                    <h2>Build proper typing habits, <span>not just speed.</span></h2>
+                    <div>
+                        <span class="section-label">01 — THE EXPERIENCE</span>
+                        <h2>Everything you need.<br><em>Nothing you don't.</em></h2>
+                    </div>
                     <p>
-                        Learn touch typing step by step with focused lessons that help
-                        you build accuracy and muscle memory.
+                        TypeForge keeps typing practice focused so you can
+                        spend less time navigating and more time improving.
                     </p>
+                </div>
 
-                    <div class="learning-list">
-                        <div>
-                            <span>01</span>
-                            <p><strong>Finger Position</strong> Start with the correct home-row position.</p>
+                <div class="feature-grid">
+                    <article class="feature-card feature-large">
+                        <div class="feature-number">01</div>
+                        <div class="feature-content">
+                            <span class="feature-icon">⌁</span>
+                            <h3>Instant feedback</h3>
+                            <p>
+                                See every mistake as you type. Correct and
+                                incorrect characters are highlighted instantly
+                                so you know exactly where you're losing speed.
+                            </p>
                         </div>
-                        <div>
-                            <span>02</span>
-                            <p><strong>Letter Practice</strong> Build accuracy one key at a time.</p>
+                        <div class="mini-type-demo">
+                            <span>The quick brown fox</span>
+                            <b> jumps</b>
+                            <i> over the lazy dog.</i>
                         </div>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-number">02</div>
+                        <span class="feature-icon">↗</span>
+                        <h3>Measure what matters</h3>
+                        <p>
+                            Track WPM, accuracy, errors and consistency
+                            after every test.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-number">03</div>
+                        <span class="feature-icon">◒</span>
+                        <h3>Learn step by step</h3>
+                        <p>
+                            Structured lessons take you from fundamentals
+                            to advanced typing control.
+                        </p>
+                    </article>
+
+                    <article class="feature-card feature-wide">
                         <div>
-                            <span>03</span>
-                            <p><strong>Word Practice</strong> Turn individual keystrokes into rhythm.</p>
+                            <div class="feature-number">04</div>
+                            <span class="feature-icon">⌘</span>
+                            <h3>Practice your way</h3>
+                            <p>
+                                Choose your test duration, practice mode and
+                                difficulty. Your keyboard becomes the only
+                                thing you need.
+                            </p>
                         </div>
-                        <div>
-                            <span>04</span>
-                            <p><strong>Speed Training</strong> Increase speed without sacrificing accuracy.</p>
+                        <div class="keyboard-preview" aria-hidden="true">
+                            <span>Q</span><span>W</span><span>E</span><span>R</span><span>T</span><span>Y</span><span>U</span><span>I</span><span>O</span><span>P</span>
+                            <span>A</span><span>S</span><span>D</span><span>F</span><span>G</span><span>H</span><span>J</span><span>K</span><span>L</span>
+                            <span>Z</span><span>X</span><span>C</span><span>V</span><span>B</span><span>N</span><span>M</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="workflow section">
+                <div class="section-heading centered">
+                    <span class="section-label">02 — THE METHOD</span>
+                    <h2>Test. Learn. <em>Improve.</em></h2>
+                    <p>
+                        A simple loop designed to make every practice session count.
+                    </p>
+                </div>
+
+                <div class="workflow-grid">
+                    <article class="workflow-card">
+                        <span class="workflow-index">01</span>
+                        <div class="workflow-line"></div>
+                        <h3>Test</h3>
+                        <p>
+                            Find your current speed and accuracy with a
+                            distraction-free typing test.
+                        </p>
+                        <a href="test.html">Take a test →</a>
+                    </article>
+                    <article class="workflow-card">
+                        <span class="workflow-index">02</span>
+                        <div class="workflow-line"></div>
+                        <h3>Learn</h3>
+                        <p>
+                            Work on the specific skills that are holding
+                            your typing back.
+                        </p>
+                        <a href="learn.html">Start learning →</a>
+                    </article>
+                    <article class="workflow-card">
+                        <span class="workflow-index">03</span>
+                        <div class="workflow-line"></div>
+                        <h3>Improve</h3>
+                        <p>
+                            Compare your results over time and turn practice
+                            into measurable progress.
+                        </p>
+                        <a href="dashboard.html">View progress →</a>
+                    </article>
+                </div>
+            </section>
+
+            <section class="showcase section">
+                <div class="showcase-card">
+                    <div class="showcase-copy">
+                        <span class="section-label">03 — YOUR PROGRESS</span>
+                        <h2>Know where you're going.</h2>
+                        <p>
+                            Your typing history gives you a clear picture of
+                            what's improving and what needs more work.
+                        </p>
+                        <a href="dashboard.html" class="text-link">
+                            View your dashboard <span>→</span>
+                        </a>
+                    </div>
+                    <div class="dashboard-preview">
+                        <div class="preview-header">
+                            <div>
+                                <span>This week</span>
+                                <strong>Typing performance</strong>
+                            </div>
+                            <span class="preview-badge">+12.8%</span>
+                        </div>
+                        <div class="chart">
+                            <div class="chart-labels">
+                                <span>100</span>
+                                <span>75</span>
+                                <span>50</span>
+                                <span>25</span>
+                                <span>0</span>
+                            </div>
+                            <div class="chart-area">
+                                <div class="chart-grid"></div>
+                                <svg viewBox="0 0 500 180" preserveAspectRatio="none" aria-hidden="true">
+                                    <path d="M0 145 C55 138, 65 118, 110 124 S165 105, 205 112 S260 80, 300 94 S355 65, 390 76 S445 45, 500 35"></path>
+                                    <circle cx="500" cy="35" r="5"></circle>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="preview-footer">
+                            <div><span>Average</span><strong>76 WPM</strong></div>
+                            <div><span>Best</span><strong>91 WPM</strong></div>
+                            <div><span>Accuracy</span><strong>97.2%</strong></div>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <a href="learn.html" class="btn btn-primary">
-                        Start Learning
-                        <i class="fa-solid fa-arrow-right"></i>
+            <section class="cta section">
+                <div class="cta-inner">
+                    <span class="section-label">READY WHEN YOU ARE</span>
+                    <h2>Your keyboard is<br><em>waiting.</em></h2>
+                    <p>
+                        Take your first test and find out what you're capable of.
+                    </p>
+                    <a href="test.html" class="button button-light">
+                        Start your first test
+                        <span>↗</span>
                     </a>
                 </div>
+            </section>
+        </main>
 
-                <div class="learning-card">
-                    <div class="learning-card-header">
-                        <span>Your Progress</span>
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </div>
-
-                    <div class="progress-circle">
-                        <div>
-                            <strong>68%</strong>
-                            <span>Complete</span>
-                        </div>
-                    </div>
-
-                    <div class="learning-info">
-                        <div>
-                            <span>Current Level</span>
-                            <strong>Intermediate</strong>
-                        </div>
-                        <div>
-                            <span>Lessons</span>
-                            <strong>17 / 25</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PROGRESS -->
-        <section class="section progress-section" id="progress">
-            <div class="container">
-                <div class="section-heading">
-                    <span class="section-label">Progress</span>
-                    <h2>See yourself getting better.</h2>
-                    <p>Your typing history gives you a clear picture of your improvement.</p>
-                </div>
-
-                <div class="progress-dashboard">
-                    <div class="dashboard-header">
-                        <div>
-                            <span>Average WPM</span>
-                            <strong>78 WPM</strong>
-                            <small><i class="fa-solid fa-arrow-up"></i> 12% this month</small>
-                        </div>
-
-                        <select aria-label="Select progress period">
-                            <option>Last 30 days</option>
-                            <option>Last 7 days</option>
-                            <option>Last 90 days</option>
-                        </select>
-                    </div>
-
-                    <div class="chart">
-                        <div class="chart-line line-1"></div>
-                        <div class="chart-line line-2"></div>
-                        <div class="chart-line line-3"></div>
-                        <div class="chart-line line-4"></div>
-                        <div class="chart-path"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ -->
-        <section class="section faq">
-            <div class="container faq-container">
-                <div class="section-heading">
-                    <span class="section-label">FAQ</span>
-                    <h2>Common questions</h2>
-                </div>
-
-                <div class="faq-list">
-                    <details>
-                        <summary>
-                            What does WPM mean?
-                            <i class="fa-solid fa-plus"></i>
-                        </summary>
-                        <p>WPM means words per minute. It is the standard measurement used to describe typing speed.</p>
-                    </details>
-
-                    <details>
-                        <summary>
-                            How is accuracy calculated?
-                            <i class="fa-solid fa-plus"></i>
-                        </summary>
-                        <p>Accuracy measures how many of your typed characters match the expected text.</p>
-                    </details>
-
-                    <details>
-                        <summary>
-                            Can I save my typing results?
-                            <i class="fa-solid fa-plus"></i>
-                        </summary>
-                        <p>Yes. Once accounts are implemented, your results, personal records and progress will be saved to your profile.</p>
-                    </details>
-
-                    <details>
-                        <summary>
-                            Do I need an account to take a test?
-                            <i class="fa-solid fa-plus"></i>
-                        </summary>
-                        <p>No. You can start a typing test without creating an account.</p>
-                    </details>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta">
-            <div class="container">
-                <div class="cta-content">
-                    <h2>Ready to test your speed?</h2>
-                    <p>Start typing and discover your real WPM.</p>
-                    <a href="test.html" class="btn btn-primary">
-                        Start Typing Test
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container footer-container">
+        <footer class="footer">
             <div class="footer-brand">
-                <a href="index.html" class="logo">
-                    <span class="logo-mark">T</span>
-                    <span>Type<span>Forge</span></span>
+                <a href="index.html" class="brand">
+                    <span class="brand-mark">T</span>
+                    <span>TypeForge</span>
                 </a>
-                <p>Practice smarter. Type better.</p>
+                <p>Type better. Think faster.</p>
             </div>
-
             <div class="footer-links">
-                <a href="#test">Typing Test</a>
-                <a href="#learn">Learn</a>
-                <a href="#features">Features</a>
-                <a href="#progress">Progress</a>
+                <a href="test.html">Typing Test</a>
+                <a href="learn.html">Learn</a>
+                <a href="dashboard.html">Dashboard</a>
             </div>
-
-            <div class="footer-bottom">
-                <span>© 2026 TypeForge</span>
-                <span>Built with HTML, CSS, JavaScript & Python</span>
+            <div class="footer-copy">
+                © <span id="year"></span> TypeForge
             </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script src="js/main.js"></script>
 </body>
-</html>
+                    </html>
