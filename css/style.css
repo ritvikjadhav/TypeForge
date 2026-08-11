@@ -8,15 +8,13 @@
     --muted: #706E65;
     --soft: #A4A197;
     --border: #DEDCD2;
-    --accent: #1C1C18;
-    --white: #FFFFFF;
     --success: #3D7658;
     --danger: #C84D42;
     --max-width: 1240px;
     --radius-sm: 8px;
     --radius-md: 14px;
     --radius-lg: 24px;
-    --ease: cubic-bezier(.2,.7,.2,1);
+    --ease: cubic-bezier(.2, .7, .2, 1);
 }
 
 * {
@@ -45,7 +43,6 @@ body.dark {
     --muted: #B5B2A8;
     --soft: #858279;
     --border: #414138;
-    --accent: #FAF7EE;
 }
 
 a {
@@ -77,7 +74,7 @@ button {
     gap: 10px;
     font-size: 18px;
     font-weight: 800;
-    letter-spacing: -0.04em;
+    letter-spacing: -.04em;
 }
 
 .brand-mark {
@@ -155,10 +152,10 @@ button {
     min-height: 680px;
     margin: auto;
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
+    grid-template-columns: .9fr 1.1fr;
     align-items: center;
     gap: 70px;
-    padding: 85px 0 105px;
+    padding: 85px 0 95px;
 }
 
 .eyebrow {
@@ -192,7 +189,7 @@ button {
 .hero h1 em {
     display: block;
     margin-top: 8px;
-    font-family: "Playfair Display", Georgia, serif !important;
+    font-family: "Playfair Display", Georgia, serif;
     font-size: 1em;
     font-weight: 600;
     font-style: italic;
@@ -200,24 +197,18 @@ button {
     line-height: .96;
 }
 
-.section-heading h2 em,
-.cta h2 em {
-    font-family: "Playfair Display", serif;
-    font-weight: 600;
-}
-
 .hero-description {
     max-width: 470px;
     margin-top: 30px;
     color: var(--muted);
     font-size: 16px;
-    line-height: 1.75;
+    line-height: 1.7;
 }
 
 .hero-actions {
     display: flex;
     gap: 10px;
-    margin-top: 34px;
+    margin-top: 32px;
 }
 
 .button {
@@ -230,7 +221,9 @@ button {
     border-radius: 8px;
     font-size: 12px;
     font-weight: 700;
-    transition: transform .25s var(--ease), background .25s ease;
+    transition:
+        transform .25s var(--ease),
+        background .25s ease;
 }
 
 .button:hover {
@@ -255,10 +248,10 @@ button {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 22px;
+    margin-top: 20px;
     color: var(--soft);
-    font-size: 10px;
     font-family: "DM Mono", monospace;
+    font-size: 10px;
 }
 
 .check {
@@ -269,8 +262,8 @@ button {
 .note-divider {
     width: 1px;
     height: 12px;
-    background: var(--border);
     margin: 0 4px;
+    background: var(--border);
 }
 
 .hero-visual {
@@ -307,6 +300,7 @@ button {
 .window-dots span {
     width: 6px;
     height: 6px;
+
     border-radius: 50%;
     background: var(--border);
 }
@@ -314,6 +308,7 @@ button {
 .window-label,
 .window-time {
     color: var(--soft);
+
     font-family: "DM Mono", monospace;
     font-size: 9px;
     letter-spacing: .08em;
@@ -327,22 +322,27 @@ button {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+
     padding: 27px 0;
 }
 
 .window-stats div {
     padding-right: 10px;
+
     border-right: 1px solid var(--border);
 }
 
 .window-stats div:last-child {
-    border: 0;
+    border-right: 0;
 }
 
 .window-stats span {
     display: block;
+
     margin-bottom: 7px;
+
     color: var(--soft);
+
     font-family: "DM Mono", monospace;
     font-size: 9px;
 }
@@ -354,30 +354,38 @@ button {
 
 .demo-passage {
     position: relative;
+
     min-height: 180px;
+
     padding: 28px 0;
+
     color: var(--soft);
+
     font-size: 19px;
     line-height: 1.9;
     letter-spacing: -.02em;
 }
 
-.demo-passage .typed {
+.demo-passage .typed,
+.demo-passage .active-word {
     color: var(--ink);
 }
 
 .demo-passage .active-word {
-    color: var(--ink);
     border-bottom: 2px solid var(--ink);
 }
 
 .demo-cursor {
     position: absolute;
+
     left: 311px;
     bottom: 67px;
+
     width: 2px;
     height: 24px;
+
     background: var(--ink);
+
     animation: blink 1s infinite;
 }
 
@@ -389,27 +397,37 @@ button {
 
 .window-progress {
     height: 3px;
+
     overflow: hidden;
+
     border-radius: 10px;
+
     background: var(--surface-alt);
 }
 
 .window-progress span {
     display: block;
+
     width: 73%;
     height: 100%;
+
     background: var(--ink);
 }
 
 .floating-stat {
     position: absolute;
+
     display: flex;
     align-items: center;
     gap: 11px;
+
     padding: 12px 15px;
+
     border: 1px solid var(--border);
     border-radius: 10px;
+
     background: var(--bg);
+
     box-shadow: 0 15px 40px rgba(28, 28, 24, .08);
 }
 
@@ -427,11 +445,15 @@ button {
 .mini-ring {
     width: 30px;
     height: 30px;
+
     display: grid;
     place-items: center;
+
     border-radius: 50%;
+
     background: var(--ink);
     color: var(--bg);
+
     font-family: "DM Mono", monospace;
     font-size: 10px;
 }
@@ -447,15 +469,23 @@ button {
 
 .floating-stat small {
     margin-top: 2px;
+
     color: var(--soft);
     font-size: 9px;
 }
 
+
+/* ========================================
+   QUICK PROOF
+   ======================================== */
+
 .quick-proof {
     width: min(calc(100% - 48px), var(--max-width));
     margin: auto;
+
     display: grid;
     grid-template-columns: 1.4fr repeat(3, 1fr);
+
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
 }
@@ -463,10 +493,13 @@ button {
 .proof-item,
 .proof-intro {
     min-height: 100px;
+
     display: flex;
     justify-content: center;
     flex-direction: column;
+
     padding: 20px 28px;
+
     border-right: 1px solid var(--border);
 }
 
@@ -477,6 +510,7 @@ button {
 .proof-intro span,
 .section-label {
     color: var(--soft);
+
     font-family: "DM Mono", monospace;
     font-size: 9px;
     letter-spacing: .1em;
@@ -491,52 +525,80 @@ button {
     font-size: 12px;
 }
 
+
+/* ========================================
+   GENERAL SECTIONS
+   ======================================== */
+
 .section {
     width: min(calc(100% - 48px), var(--max-width));
     margin: auto;
-    padding: 135px 0;
+
+    padding: 105px 0;
 }
 
 .section-heading {
     display: grid;
     grid-template-columns: 1fr 340px;
-    gap: 60px;
     align-items: end;
-    margin-bottom: 55px;
+
+    gap: 50px;
+    margin-bottom: 45px;
 }
 
 .section-heading h2 {
-    margin-top: 17px;
+    margin-top: 15px;
+
     font-size: clamp(42px, 5vw, 70px);
     line-height: .98;
     letter-spacing: -.065em;
 }
 
+.section-heading h2 em {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+}
+
 .section-heading > p {
     color: var(--muted);
+
     font-size: 14px;
-    line-height: 1.8;
+    line-height: 1.7;
 }
+
+
+/* ========================================
+   FEATURES
+   ======================================== */
 
 .feature-grid {
     display: grid;
+
     grid-template-columns: 1.35fr 1fr 1fr;
+
     gap: 12px;
 }
 
 .feature-card {
-    min-height: 320px;
     position: relative;
+
+    min-height: 320px;
+
     padding: 30px;
+
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
+
     background: var(--surface);
+
     overflow: hidden;
 }
 
 .feature-card.feature-large {
     grid-row: span 2;
+
     min-height: 652px;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -544,22 +606,28 @@ button {
 
 .feature-wide {
     grid-column: span 2;
+
     min-height: 320px;
+
     display: grid;
     grid-template-columns: 1fr 1.15fr;
-    gap: 30px;
     align-items: center;
+
+    gap: 30px;
 }
 
 .feature-number {
     color: var(--soft);
+
     font-family: "DM Mono", monospace;
     font-size: 10px;
 }
 
 .feature-icon {
     display: block;
-    margin: 35px 0 18px;
+
+    margin: 32px 0 17px;
+
     font-size: 27px;
 }
 
@@ -570,16 +638,22 @@ button {
 
 .feature-card p {
     max-width: 390px;
-    margin-top: 13px;
+
+    margin-top: 12px;
+
     color: var(--muted);
+
     font-size: 12px;
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 .mini-type-demo {
-    padding: 22px;
+    padding: 20px 0 0;
+
     border-top: 1px solid var(--border);
+
     color: var(--soft);
+
     font-family: "DM Mono", monospace;
     font-size: 12px;
     line-height: 1.8;
@@ -598,30 +672,57 @@ button {
     font-style: normal;
 }
 
+
+/* ========================================
+   KEYBOARD PREVIEW
+   Proper QWERTY layout
+   ======================================== */
+
 .keyboard-preview {
+    width: 100%;
+    max-width: 440px;
+
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 5px;
+
+    grid-template-columns: repeat(10, minmax(24px, 1fr));
+
+    gap: 6px;
+
+    margin-left: auto;
 }
 
 .keyboard-preview span {
+    width: 100%;
     height: 38px;
+
     display: grid;
     place-items: center;
+
     border: 1px solid var(--border);
-    border-radius: 5px;
+    border-radius: 6px;
+
     color: var(--muted);
+
     font-family: "DM Mono", monospace;
     font-size: 9px;
+
+    background: transparent;
 }
 
-.keyboard-preview span:nth-child(n + 11):nth-child(-n + 19) {
-    transform: translateX(10px);
+/* Home row starts after first key */
+.keyboard-preview span:nth-child(11) {
+    grid-column: 2;
 }
 
-.keyboard-preview span:nth-child(n + 20) {
-    transform: translateX(25px);
+/* Bottom row starts after two keys */
+.keyboard-preview span:nth-child(20) {
+    grid-column: 3;
 }
+
+
+/* ========================================
+   WORKFLOW
+   ======================================== */
 
 .workflow {
     border-top: 1px solid var(--border);
@@ -629,14 +730,17 @@ button {
 
 .centered {
     display: block;
+
     max-width: 650px;
+
     margin-left: auto;
     margin-right: auto;
+
     text-align: center;
 }
 
 .centered h2 {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 
 .centered > p {
@@ -646,17 +750,23 @@ button {
 
 .workflow-grid {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 12px;
 }
 
 .workflow-card {
-    padding: 35px;
+    min-width: 0;
+
+    padding: 28px 30px;
+
     border-top: 1px solid var(--border);
 }
 
 .workflow-index {
     color: var(--soft);
+
     font-family: "DM Mono", monospace;
     font-size: 10px;
 }
@@ -664,7 +774,9 @@ button {
 .workflow-line {
     width: 100%;
     height: 1px;
-    margin: 30px 0;
+
+    margin: 24px 0;
+
     background: var(--border);
 }
 
@@ -674,11 +786,14 @@ button {
 }
 
 .workflow-card p {
-    min-height: 75px;
-    margin: 12px 0 22px;
+    min-height: 60px;
+
+    margin: 10px 0 18px;
+
     color: var(--muted);
+
     font-size: 12px;
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 .workflow-card a,
@@ -692,22 +807,33 @@ button {
     text-decoration: underline;
 }
 
+
+/* ========================================
+   SHOWCASE / DASHBOARD
+   ======================================== */
+
 .showcase {
-    padding-top: 40px;
+    padding-top: 25px;
 }
 
 .showcase-card {
     display: grid;
+
     grid-template-columns: .8fr 1.2fr;
-    gap: 80px;
     align-items: center;
-    padding: 70px;
+
+    gap: 70px;
+
+    padding: 65px;
+
     border-radius: var(--radius-lg);
+
     background: var(--surface-alt);
 }
 
 .showcase-copy h2 {
-    margin: 17px 0;
+    margin: 15px 0;
+
     font-size: clamp(35px, 4vw, 55px);
     line-height: 1;
     letter-spacing: -.06em;
@@ -715,10 +841,13 @@ button {
 
 .showcase-copy p {
     max-width: 350px;
-    margin-bottom: 28px;
+
+    margin-bottom: 25px;
+
     color: var(--muted);
+
     font-size: 13px;
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 .text-link {
@@ -728,8 +857,10 @@ button {
 
 .dashboard-preview {
     padding: 25px;
+
     border: 1px solid var(--border);
     border-radius: 14px;
+
     background: var(--surface);
 }
 
@@ -743,38 +874,51 @@ button {
 .preview-header > div span,
 .preview-footer span {
     display: block;
+
     color: var(--soft);
+
     font-family: "DM Mono", monospace;
     font-size: 8px;
 }
 
 .preview-header strong {
     display: block;
+
     margin-top: 5px;
+
     font-size: 12px;
 }
 
 .preview-badge {
     padding: 6px 9px;
+
     border-radius: 5px;
+
     background: var(--surface-alt);
+
     font-family: "DM Mono", monospace;
     font-size: 8px;
 }
 
 .chart {
     display: flex;
+
     height: 190px;
+
     margin-top: 25px;
 }
 
 .chart-labels {
     width: 35px;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0 0 8px;
+
+    padding-bottom: 8px;
+
     color: var(--soft);
+
     font-family: "DM Mono", monospace;
     font-size: 7px;
 }
@@ -787,6 +931,7 @@ button {
 .chart-grid {
     position: absolute;
     inset: 0;
+
     background: repeating-linear-gradient(
         to bottom,
         transparent 0,
@@ -823,9 +968,14 @@ button {
     font-size: 14px;
 }
 
+
+/* ========================================
+   FINAL CTA
+   ======================================== */
+
 .cta {
     width: 100%;
-    padding: 120px max(24px, calc((100vw - var(--max-width)) / 2));
+    padding: 110px max(24px, calc((100vw - var(--max-width)) / 2));
     background: var(--ink);
     color: var(--bg);
 }
@@ -841,18 +991,23 @@ button {
 }
 
 .cta h2 {
-    margin: 20px 0;
+    margin: 18px 0;
     font-size: clamp(52px, 7vw, 92px);
     line-height: .9;
     letter-spacing: -.07em;
 }
 
+.cta h2 em {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+}
+
 .cta p {
     max-width: 420px;
-    margin: 0 auto 32px;
+    margin: 0 auto 30px;
     color: #A9A79E;
     font-size: 13px;
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 .button-light {
@@ -860,9 +1015,14 @@ button {
     color: var(--ink);
 }
 
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
 .footer {
     width: min(calc(100% - 48px), var(--max-width));
-    min-height: 120px;
+    min-height: 110px;
     margin: auto;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -871,20 +1031,45 @@ button {
     border-top: 1px solid var(--border);
 }
 
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .footer-brand p {
-    margin-top: 8px;
+    margin-top: 7px;
     color: var(--soft);
     font-size: 10px;
 }
 
-.footer-links {
+.footer-socials {
     display: flex;
-    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
 }
 
-.footer-links a {
+.footer-socials a {
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
     color: var(--muted);
-    font-size: 10px;
+    transition:
+        color .25s var(--ease),
+        transform .25s var(--ease);
+}
+
+.footer-socials a:hover {
+    color: var(--ink);
+    transform: translateY(-2px);
+}
+
+.footer-socials svg {
+    width: 20px;
+    height: 20px;
+    display: block;
 }
 
 .footer-copy {
@@ -894,10 +1079,17 @@ button {
     font-size: 9px;
 }
 
+
+/* ========================================
+   TABLET
+   ======================================== */
+
 @media (max-width: 1000px) {
+
     .hero {
         grid-template-columns: 1fr;
         padding-top: 70px;
+        padding-bottom: 80px;
     }
 
     .hero-copy {
@@ -915,7 +1107,7 @@ button {
     .feature-card.feature-large {
         grid-column: span 2;
         grid-row: auto;
-        min-height: 480px;
+        min-height: 460px;
     }
 
     .feature-wide {
@@ -928,8 +1120,17 @@ button {
     }
 }
 
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
 @media (max-width: 760px) {
+
+    /* ---------- NAV ---------- */
+
     .navbar {
+        width: calc(100% - 32px);
         height: 70px;
     }
 
@@ -939,9 +1140,9 @@ button {
     }
 
     .menu-toggle {
-        display: flex;
         width: 38px;
         height: 38px;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         gap: 5px;
@@ -958,165 +1159,486 @@ button {
         position: absolute;
         z-index: 20;
         top: 70px;
-        left: 24px;
-        right: 24px;
+        left: 16px;
+        right: 16px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 0;
-        padding: 12px;
+        padding: 10px;
         border: 1px solid var(--border);
         border-radius: 12px;
         background: var(--surface);
-        box-shadow: 0 20px 50px rgba(28,28,24,.08);
+        box-shadow: 0 20px 50px rgba(28, 28, 24, .08);
     }
 
     .nav-links.mobile-open a {
         width: 100%;
-        padding: 13px;
+        padding: 12px;
     }
 
+
+    /* ---------- HERO ---------- */
+
     .hero {
-        width: min(calc(100% - 32px), var(--max-width));
-        padding: 60px 0 80px;
+        width: calc(100% - 32px);
+
+        min-height: auto;
+
+        padding: 55px 0 65px;
+
+        gap: 45px;
     }
-    
+
     .hero h1 {
         font-size: clamp(52px, 14.5vw, 80px);
         line-height: .9;
     }
 
     .hero h1 em {
-        margin-top: 8px;
-        line-height: .95;
+        margin-top: 6px;
+        line-height: .94;
     }
 
     .hero-description {
+        margin-top: 24px;
+
         font-size: 14px;
+        line-height: 1.65;
     }
 
     .hero-actions {
         flex-direction: column;
+
+        margin-top: 28px;
     }
 
     .button {
         width: 100%;
     }
 
+    .hero-note {
+        flex-wrap: wrap;
+        }
     .hero-visual {
-        min-height: 390px;
+        min-height: 360px;
     }
 
     .typing-window {
+        width: 100%;
+
         padding: 0 18px 20px;
+
+        transform: none;
+    }
+
+    .window-top {
+        height: 52px;
+    }
+
+    .window-stats {
+        padding: 22px 0;
+    }
+
+    .window-stats strong {
+        font-size: 19px;
     }
 
     .demo-passage {
+        min-height: 145px;
+
+        padding: 20px 0;
+
         font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .demo-cursor {
+        left: 190px;
+        bottom: 58px;
+
+        height: 19px;
+    }
+
+    .floating-stat {
+        padding: 9px 11px;
     }
 
     .floating-stat-one {
-        right: -5px;
-        top: 30px;
+        top: 15px;
+        right: -3px;
     }
 
     .floating-stat-two {
-        left: -5px;
-        bottom: 20px;
+        bottom: 10px;
+        left: -3px;
     }
+
+
+    /* ---------- QUICK PROOF ---------- */
 
     .quick-proof {
         width: calc(100% - 32px);
+
         grid-template-columns: 1fr 1fr;
     }
 
     .proof-intro {
         grid-column: span 2;
-        min-height: 65px;
+
+        min-height: 58px;
+
+        padding: 15px 18px;
     }
 
     .proof-item {
-        min-height: 80px;
+        min-height: 70px;
+
+        padding: 16px 18px;
+
         border-top: 1px solid var(--border);
     }
 
+    .proof-item:nth-child(3) {
+        border-right: 0;
+    }
+
+
+    /* ---------- SECTIONS ---------- */
+
     .section {
         width: calc(100% - 32px);
-        padding: 90px 0;
+
+        padding: 70px 0;
     }
 
     .section-heading {
         display: block;
+
+        margin-bottom: 30px;
+    }
+
+    .section-heading h2 {
+        margin-top: 13px;
+
+        font-size: clamp(35px, 10vw, 52px);
+        line-height: .98;
     }
 
     .section-heading > p {
-        margin-top: 25px;
+        margin-top: 18px;
+
+        font-size: 12px;
+        line-height: 1.65;
     }
 
-    .feature-grid,
-    .workflow-grid {
+
+    /* ---------- FEATURES ---------- */
+
+    .feature-grid {
         grid-template-columns: 1fr;
+
+        gap: 10px;
     }
 
+    .feature-card,
     .feature-card.feature-large,
     .feature-wide {
         grid-column: auto;
-        min-height: 360px;
+
+        min-height: 0;
+
+        padding: 24px;
     }
 
+    .feature-card.feature-large {
+        min-height: 300px;
+
+        display: flex;
+    }
+
+    .feature-card h3 {
+        font-size: 19px;
+    }
+
+    .feature-card p {
+        max-width: 100%;
+
+        margin-top: 10px;
+
+        font-size: 11px;
+        line-height: 1.65;
+    }
+
+    .feature-icon {
+        margin: 24px 0 14px;
+    }
+
+    .mini-type-demo {
+        margin-top: 30px;
+        padding-top: 17px;
+
+        font-size: 10px;
+    }
+
+
+    /* ---------- PRACTICE YOUR WAY ---------- */
+
     .feature-wide {
-        display: block;
+        display: flex;
+
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 24px;
+    }
+
+    .feature-wide > div:first-child {
+        width: 100%;
     }
 
     .keyboard-preview {
-        margin-top: 35px;
+        width: 100%;
+
+        max-width: 330px;
+
+        margin: 0 auto;
+
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+
+        gap: 4px;
+    }
+
+    .keyboard-preview span {
+        height: 30px;
+
+        border-radius: 5px;
+
+        font-size: 7px;
+    }
+
+    .keyboard-preview span:nth-child(11) {
+        grid-column: 2;
+    }
+
+    .keyboard-preview span:nth-child(20) {
+        grid-column: 3;
+    }
+
+
+    /* ---------- TEST / LEARN / IMPROVE ---------- */
+
+    .workflow {
+        padding-top: 65px;
+        padding-bottom: 65px;
+    }
+
+    .centered {
+        margin-bottom: 28px;
+    }
+
+    .centered h2 {
+        margin-bottom: 12px;
+    }
+
+    .centered > p {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .workflow-grid {
+        grid-template-columns: 1fr;
+
+        gap: 0;
     }
 
     .workflow-card {
-        padding: 25px 0;
+        min-height: 0;
+
+        padding: 22px 0;
+
+        border-top: 1px solid var(--border);
+        border-bottom: 0;
     }
 
-    .showcase-card {
-        padding: 30px 22px;
+    .workflow-card:last-child {
+        border-bottom: 1px solid var(--border);
     }
 
-    .preview-footer {
-        gap: 15px;
+    .workflow-line {
+        display: none;
     }
 
-    .preview-footer strong {
+    .workflow-card h3 {
+        margin: 13px 0 7px;
+
+        font-size: 30px;
+        line-height: 1;
+    }
+
+    .workflow-card p {
+        min-height: 0;
+
+        max-width: 100%;
+
+        margin: 0 0 16px;
+
+        font-size: 11px;
+        line-height: 1.65;
+    }
+
+    .workflow-card a {
         font-size: 11px;
     }
 
-    .cta {
-        padding: 90px 16px;
+
+    /* ---------- SHOWCASE ---------- */
+
+    .showcase {
+        padding-top: 25px;
+        padding-bottom: 70px;
     }
+
+    .showcase-card {
+        padding: 28px 20px;
+
+        gap: 30px;
+    }
+
+    .showcase-copy h2 {
+        margin: 13px 0;
+
+        font-size: 36px;
+    }
+
+    .showcase-copy p {
+        margin-bottom: 20px;
+
+        font-size: 12px;
+        line-height: 1.65;
+    }
+
+    .dashboard-preview {
+        padding: 18px;
+    }
+
+    .chart {
+        height: 150px;
+
+        margin-top: 20px;
+    }
+
+    .preview-footer {
+        gap: 10px;
+    }
+
+    .preview-footer strong {
+        font-size: 10px;
+    }
+
+
+    /* ---------- CTA ---------- */
+
+    .cta {
+        padding: 75px 16px;
+    }
+
+    .cta h2 {
+        margin: 16px 0;
+
+        font-size: clamp(48px, 13vw, 68px);
+    }
+
+    .cta p {
+        margin-bottom: 25px;
+
+        font-size: 12px;
+        line-height: 1.65;
+    }
+
+
+    /* ---------- FOOTER ---------- */
 
     .footer {
         width: calc(100% - 32px);
+
+        min-height: 0;
+
         grid-template-columns: 1fr;
-        padding: 30px 0;
+
+        gap: 20px;
+
+        padding: 28px 0;
+    }
+
+    .footer-brand {
+        align-items: flex-start;
+    }
+
+    .footer-socials {
+        justify-content: flex-start;
+
+        gap: 16px;
     }
 
     .footer-copy {
         justify-self: start;
+
         order: 3;
     }
 }
-.footer-socials {
-    display: flex;
-    gap: 18px;
-    justify-content: center;
-    align-items: center;
-}
 
-.footer-socials a {
-    color: var(--muted); /* uses theme color */
-    transition: color .25s var(--ease), transform .25s var(--ease);
-    font-size: 18px;
-}
 
-.footer-socials a:hover {
-    color: var(--ink); /* changes to ink on hover */
-    transform: translateY(-2px);
+/* ========================================
+   SMALL PHONES
+   ======================================== */
+
+@media (max-width: 400px) {
+
+    .hero {
+        padding-top: 45px;
+    }
+
+    .hero h1 {
+        font-size: 50px;
+    }
+
+    .typing-window {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .window-stats strong {
+        font-size: 17px;
+    }
+
+    .demo-passage {
+        font-size: 13px;
+    }
+
+    .keyboard-preview {
+        max-width: 290px;
+
+        gap: 3px;
+    }
+
+    .keyboard-preview span {
+        height: 27px;
+        font-size: 6px;
+    }
+
+    .feature-card,
+    .feature-card.feature-large,
+    .feature-wide {
+        padding: 21px;
+    }
+
+    .workflow-card h3 {
+        font-size: 27px;
+    }
+
+    .cta h2 {
+        font-size: 46px;
+    }
 }
+ 
