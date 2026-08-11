@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VelType typing lesson — build accuracy, rhythm and speed through focused practice.">
+    <meta name="theme-color" content="#FAF7EE">
+    <title>Lesson — VelType</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lesson.css">
+</head>
+<body class="lesson-page">
+    <div class="site-shell">
+        <header class="navbar">
+            <a href="index.html" class="brand" aria-label="VelType home">
+                <span class="brand-mark">VT</span>
+                <span>VelType</span>
+            </a>
+
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="test.html">Typing Test</a>
+                <a href="learn.html" class="active">Learn</a>
+                <a href="dashboard.html">Dashboard</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+                    <span>◐</span>
+                </button>
+                <a href="test.html" class="nav-cta">
+                    Test <span>↗</span>
+                </a>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <main class="lesson-main">
+            <div class="lesson-container">
+
+                <div class="lesson-topbar">
+                    <a href="learn.html" class="back-link">
+                        <span>←</span> Back to learning
+                    </a>
+                    <span class="lesson-stage" id="lessonStage">LEVEL 01</span>
+                </div>
+
+                <section class="lesson-header">
+                    <div>
+                        <span class="eyebrow">
+                            <span class="eyebrow-dot"></span>
+                            <span id="lessonCategory">TYPING ACADEMY</span>
+                        </span>
+                        <h1 id="lessonTitle">Home Row <em>Fundamentals.</em></h1>
+                        <p id="lessonDescription">
+                            Build accurate finger placement and control with focused home-row practice.
+                        </p>
+                    </div>
+
+                    <div class="lesson-progress-card">
+                        <div class="progress-card-top">
+                            <span>LESSON PROGRESS</span>
+                            <strong id="lessonProgress">0%</strong>
+                        </div>
+                        <div class="lesson-progress-bar">
+                            <span id="lessonProgressBar"></span>
+                        </div>
+                        <div class="progress-card-bottom">
+                            <span id="exerciseCount">Exercise 1 of 5</span>
+                            <span id="exerciseStatus">Ready</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="lesson-workspace">
+
+                    <div class="workspace-header">
+                        <div>
+                            <span class="section-label">CURRENT EXERCISE</span>
+                            <h2 id="exerciseTitle">Home Row Warm-up</h2>
+                        </div>
+                        <div class="exercise-meta">
+                            <span id="exerciseLevel">BEGINNER</span>
+                            <span class="meta-divider"></span>
+                            <span id="exerciseTime">2 MIN</span>
+                        </div>
+                    </div>
+
+                    <div class="typing-panel" id="typingPanel">
+
+                        <div class="typing-stats">
+                            <div class="typing-stat">
+                                <span>WPM</span>
+                                <strong id="wpm">0</strong>
+                            </div>
+                            <div class="typing-stat">
+                                <span>ACCURACY</span>
+                                <strong id="accuracy">100%</strong>
+                            </div>
+                            <div class="typing-stat">
+                                <span>ERRORS</span>
+                                <strong id="errors">0</strong>
+                            </div>
+                            <div class="typing-stat">
+                                <span>TIME</span>
+                                <strong id="timer">00:00</strong>
+                            </div>
+                        </div>
+
+                        <div class="passage-area">
+                            <div class="passage-label">
+                                <span>TYPE THE PASSAGE</span>
+                                <span id="passageProgress">0 / 0</span>
+                            </div>
+
+                            <div
+                                class="typing-passage"
+                                id="typingPassage"
+                                tabindex="0"
+                                role="textbox"
+                                aria-label="Typing exercise"
+                                aria-live="polite">
+                            </div>
+
+                            <div class="typing-hint" id="typingHint">
+                                Start typing to begin the exercise
+                            </div>
+                        </div>
+
+                        <div class="typing-footer">
+                            <div class="accuracy-indicator">
+                                <span class="indicator-dot"></span>
+                                <span id="liveStatus">Waiting for input</span>
+                            </div>
+
+                            <button
+                                class="reset-button"
+                                id="resetExercise"
+                                type="button">
+                                Reset <span>↻</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="keyboard-section">
+                        <div class="keyboard-heading">
+                            <span>KEYBOARD GUIDE</span>
+                            <small>Use your physical keyboard to type</small>
+                        </div>
+
+                        <div class="virtual-keyboard" id="virtualKeyboard" aria-hidden="true">
+                            <div class="keyboard-row">
+                                <span data-key="q">Q</span>
+                                <span data-key="w">W</span>
+                                <span data-key="e">E</span>
+                                <span data-key="r">R</span>
+                                <span data-key="t">T</span>
+                                <span data-key="y">Y</span>
+                                <span data-key="u">U</span>
+                                <span data-key="i">I</span>
+                                <span data-key="o">O</span>
+                                <span data-key="p">P</span>
+                            </div>
+                            <div class="keyboard-row keyboard-row-middle">
+                                <span data-key="a">A</span>
+                                <span data-key="s">S</span>
+                                <span data-key="d">D</span>
+                                <span data-key="f">F</span>
+                                <span data-key="g">G</span>
+                                <span data-key="h">H</span>
+                                <span data-key="j">J</span>
+                                <span data-key="k">K</span>
+                                <span data-key="l">L</span>
+                            </div>
+                            <div class="keyboard-row keyboard-row-bottom">
+                                <span data-key="z">Z</span>
+                                <span data-key="x">X</span>
+                                <span data-key="c">C</span>
+                                <span data-key="v">V</span>
+                                <span data-key="b">B</span>
+                                <span data-key="n">N</span>
+                                <span data-key="m">M</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <section class="lesson-navigation">
+                    <div class="exercise-navigation">
+                        <button
+                            class="lesson-nav-button secondary"
+                            id="previousExercise"
+                            type="button"
+                            disabled>
+                            <span>←</span>
+                            Previous
+                        </button>
+
+                        <div class="exercise-dots" id="exerciseDots" aria-label="Exercise progress"></div>
+
+                        <button
+                            class="lesson-nav-button primary"
+                            id="nextExercise"
+                            type="button">
+                            Next
+                            <span>→</span>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="lesson-complete" id="lessonComplete" hidden>
+                    <div class="complete-icon">✓</div>
+                    <span class="section-label">LESSON COMPLETE</span>
+                    <h2>You're getting <em>faster.</em></h2>
+                    <p id="completionMessage">
+                        Great work. Your practice has been saved.
+                    </p>
+
+                    <div class="completion-stats">
+                        <div>
+                            <span>AVERAGE WPM</span>
+                            <strong id="finalWpm">0</strong>
+                        </div>
+                        <div>
+                            <span>ACCURACY</span>
+                            <strong id="finalAccuracy">0%</strong>
+                        </div>
+                        <div>
+                            <span>EXERCISES</span>
+                            <strong id="finalExercises">5/5</strong>
+                        </div>
+                    </div>
+
+                    <div class="completion-actions">
+                        <button
+                            class="button button-secondary"
+                            id="retryLesson"
+                            type="button">
+                            Practice again
+                        </button>
+
+                        <a
+                            href="learn.html"
+                            class="button button-primary">
+                            Back to learning
+                            <span>→</span>
+                        </a>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-brand">
+                <a href="index.html" class="brand">
+                    <span class="brand-mark">VT</span>
+                    <span>VelType</span>
+                </a>
+                <p>Velocity meets typing.</p>
+            </div>
+
+            <div class="footer-copy">
+                © 2026 VelType. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/lesson.js"></script>
+</body>
+</html>
