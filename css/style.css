@@ -192,9 +192,11 @@ button {
 .hero h1 em {
     display: block;
     margin-top: 8px;
-    font-family: "Playfair Display", serif;
+    font-family: "Playfair Display", Georgia, serif !important;
+    font-size: 1em;
     font-weight: 600;
     font-style: italic;
+    letter-spacing: -.045em;
     line-height: .96;
 }
 
