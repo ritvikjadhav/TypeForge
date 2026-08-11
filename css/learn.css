@@ -1,452 +1,810 @@
-
 /* ========================================
-   TYPEFORGE — LEARNING PAGE
+   VELTYPE — LEARNING PAGE
    ======================================== */
 
-.learn-main {
-    padding: 65px 0 100px;
+.learn-page {
+    background: var(--bg);
+}
+
+.learn-page main {
+    overflow: hidden;
 }
 
 .learn-hero {
+    width: min(calc(100% - 48px), var(--max-width));
+    min-height: 590px;
+    margin: auto;
     display: grid;
-    grid-template-columns: 1fr 340px;
-    align-items: end;
-    gap: 60px;
-    padding-bottom: 70px;
+    grid-template-columns: 1fr 390px;
+    align-items: center;
+    gap: 80px;
+    padding: 85px 0 100px;
     border-bottom: 1px solid var(--border);
 }
 
+.learn-hero-copy {
+    max-width: 720px;
+}
+
 .learn-hero h1 {
-    max-width: 700px;
-    margin-bottom: 18px;
-    font-size: clamp(2.7rem, 5vw, 4.3rem);
+    max-width: 760px;
+    font-size: clamp(52px, 6vw, 88px);
+    line-height: .92;
+    letter-spacing: -.075em;
+    font-weight: 800;
 }
 
-.learn-hero h1 span {
-    color: var(--accent-light);
-}
-
-.learn-hero p {
-    max-width: 570px;
-    font-size: .95rem;
-}
-
-.learn-progress {
-    padding: 22px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--surface);
-}
-
-.learn-progress > span {
+.learn-hero h1 em {
     display: block;
-    color: var(--text-muted);
-    font-size: .65rem;
+    margin-top: 9px;
+    font-family: "Playfair Display", serif;
+    font-size: .96em;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .08em;
+    font-style: italic;
+    line-height: .98;
 }
 
-.learn-progress strong {
-    display: block;
-    margin: 5px 0 12px;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 2rem;
+.learn-hero-copy > p {
+    max-width: 520px;
+    margin-top: 28px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
 }
 
-.learn-progress small {
-    display: block;
-    margin-top: 8px;
-    color: var(--text-muted);
-    font-size: .65rem;
+.learn-hero-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 32px;
 }
 
-.progress-bar {
+.learn-progress-card {
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: 0 22px 60px rgba(28, 28, 24, .06);
+}
+
+.progress-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.progress-card-top > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.progress-card-top strong {
+    font-size: 15px;
+    letter-spacing: -.03em;
+}
+
+.progress-percent {
+    font-family: "DM Mono", monospace;
+    font-size: 24px;
+    letter-spacing: -.05em;
+}
+
+.large-progress {
     height: 5px;
+    margin-top: 26px;
     overflow: hidden;
     border-radius: 10px;
-    background: var(--surface-light);
+    background: var(--surface-alt);
 }
 
-.progress-bar span {
+.large-progress span {
     display: block;
-    width: 68%;
+    width: 0;
     height: 100%;
     border-radius: inherit;
-    background: var(--accent);
+    background: var(--ink);
+    transition: width 1s var(--ease);
+}
+
+.progress-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 9px;
+    color: var(--soft);
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
+}
+
+.progress-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 28px;
+    border-top: 1px solid var(--border);
+}
+
+.progress-stats div {
+    padding: 18px 10px 0 0;
+    border-right: 1px solid var(--border);
+}
+
+.progress-stats div:not(:first-child) {
+    padding-left: 14px;
+}
+
+.progress-stats div:last-child {
+    border-right: 0;
+}
+
+.progress-stats span {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--soft);
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
+}
+
+.progress-stats strong {
+    font-size: 20px;
+    letter-spacing: -.05em;
 }
 
 /* ========================================
    LEARNING PATH
    ======================================== */
 
-.learning-path-section {
-    padding-top: 75px;
+.learning-path {
+    padding-top: 125px;
 }
 
-.lesson-path {
+.path-list {
+    display: grid;
+    gap: 10px;
+}
+
+.path-card {
     position: relative;
     display: grid;
-    gap: 12px;
-}
-
-.lesson-path::before {
-    content: "";
-    position: absolute;
-    top: 40px;
-    bottom: 40px;
-    left: 29px;
-    width: 1px;
-    background: var(--border);
-}
-
-.lesson-card {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: 60px 1fr 45px;
+    grid-template-columns: 72px 1fr 48px;
     align-items: center;
-    gap: 20px;
-    min-height: 145px;
-    padding: 22px;
+    gap: 25px;
+    min-height: 160px;
+    padding: 25px;
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     background: var(--surface);
-    transition: all var(--transition);
+    transition:
+        transform .35s var(--ease),
+        border-color .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
 }
 
-.lesson-card:hover {
-    border-color: var(--border-hover);
-    transform: translateX(4px);
+.path-card::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 20px;
+    bottom: 20px;
+    width: 2px;
+    border-radius: 4px;
+    background: transparent;
+    transition: background .35s ease;
 }
 
-.lesson-card.active {
-    border-color: rgba(124,92,255,.3);
-    background: linear-gradient(100deg, rgba(124,92,255,.07), var(--surface));
+.path-card:hover {
+    transform: translateX(5px);
+    border-color: #C9C7BD;
+    box-shadow: 0 18px 45px rgba(28, 28, 24, .055);
 }
 
-.lesson-card.completed {
-    border-color: rgba(69,212,131,.15);
+.path-card.current {
+    background: var(--surface-alt);
 }
 
-.lesson-number {
-    width: 58px;
-    height: 58px;
+.path-card.current::before {
+    background: var(--ink);
+}
+
+.path-card.completed::before {
+    background: var(--success);
+}
+
+.path-card.locked {
+    opacity: .58;
+}
+
+.path-status {
+    width: 60px;
+    height: 60px;
     display: grid;
     place-items: center;
     border: 1px solid var(--border);
     border-radius: 50%;
-    background: var(--bg-soft);
-    color: var(--text-muted);
-    font-family: "Space Grotesk", sans-serif;
-    font-size: .85rem;
-    font-weight: 700;
+    background: var(--bg);
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
 }
 
-.lesson-card.completed .lesson-number {
-    border-color: rgba(69,212,131,.25);
-    background: rgba(69,212,131,.08);
+.path-status b {
+    display: none;
+    font-size: 8px;
+    letter-spacing: .04em;
+}
+
+.path-card.current .path-status {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+}
+
+.path-card.completed .path-status {
+    border-color: rgba(61, 118, 88, .3);
+    background: rgba(61, 118, 88, .08);
     color: var(--success);
 }
 
-.lesson-card.active .lesson-number {
-    border-color: rgba(124,92,255,.35);
-    background: var(--accent-soft);
-    color: var(--accent-light);
+.path-card.completed .path-status span {
+    display: none;
 }
 
-.lesson-content > span {
+.path-card.completed .path-status b {
     display: block;
-    margin-bottom: 4px;
-    color: var(--text-muted);
-    font-size: .62rem;
-    font-weight: 600;
-    letter-spacing: .06em;
-    text-transform: uppercase;
 }
 
-.lesson-card.active .lesson-content > span {
-    color: var(--accent-light);
+.path-card.current .path-status span {
+    display: none;
 }
 
-.lesson-content h3 {
-    margin-bottom: 6px;
+.path-card.current .path-status b {
+    display: block;
 }
 
-.lesson-content p {
-    max-width: 650px;
-    margin-bottom: 10px;
-    font-size: .76rem;
+.path-content {
+    min-width: 0;
 }
 
-.lesson-meta {
+.path-meta {
     display: flex;
-    gap: 18px;
-    color: var(--text-muted);
-    font-size: .65rem;
-}
-
-.lesson-meta span {
-    display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 18px;
+    margin-bottom: 7px;
+    color: var(--soft);
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
+    letter-spacing: .07em;
 }
 
-.lesson-action {
-    width: 40px;
-    height: 40px;
+.path-card.current .path-meta {
+    color: var(--muted);
+}
+
+.path-content h3 {
+    font-size: 24px;
+    letter-spacing: -.045em;
+}
+
+.path-content > p {
+    max-width: 650px;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.path-progress {
+    max-width: 420px;
+    margin-top: 15px;
+}
+
+.path-progress > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    color: var(--soft);
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
+}
+
+.progress-line {
+    height: 3px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--border);
+}
+
+.progress-line span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--ink);
+    transition: width 1s var(--ease);
+}
+
+.path-action {
+    width: 44px;
+    height: 44px;
     display: grid;
     place-items: center;
     border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--bg-soft);
-    color: var(--text-muted);
-    transition: all var(--transition);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink);
+    font-size: 15px;
+    transition:
+        transform .3s var(--ease),
+        background .3s ease,
+        border-color .3s ease;
 }
 
-.lesson-action:hover {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    color: var(--accent-light);
+.path-action:hover {
+    transform: translate(3px, -3px);
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
 }
 
-.lesson-action.locked {
-    cursor: not-allowed;
-    opacity: .55;
+.locked-action {
+    cursor: default;
+    color: var(--soft);
 }
 
 /* ========================================
-   CURRENT LESSON
+   CONTINUE LEARNING
    ======================================== */
 
-.current-lesson {
+.continue-section {
+    padding-top: 110px;
+}
+
+.continue-card {
     display: grid;
-    grid-template-columns: 1.15fr .85fr;
-    gap: 30px;
-    margin-top: 85px;
-    padding: 35px;
-    border: 1px solid rgba(124,92,255,.2);
-    border-radius: var(--radius-xl);
-    background:
-        radial-gradient(circle at 85% 20%, rgba(124,92,255,.12), transparent 35%),
-        var(--surface);
+    grid-template-columns: 1fr .9fr;
+    gap: 60px;
+    align-items: center;
+    padding: 65px;
+    border-radius: var(--radius-lg);
+    background: var(--surface-alt);
 }
 
-.current-lesson-content h2 {
-    margin-bottom: 10px;
-    font-size: 2rem;
+.continue-copy h2 {
+    margin: 17px 0 12px;
+    font-size: clamp(38px, 4vw, 56px);
+    line-height: .98;
+    letter-spacing: -.065em;
 }
 
-.current-lesson-content > p {
-    max-width: 600px;
-    margin-bottom: 25px;
-    font-size: .82rem;
+.continue-copy > p {
+    max-width: 480px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
 }
 
-.current-progress {
-    max-width: 520px;
-    margin-bottom: 25px;
+.lesson-progress {
+    max-width: 470px;
+    margin: 27px 0;
 }
 
-.current-progress > div:first-child {
+.lesson-progress-info {
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
-    color: var(--text-muted);
-    font-size: .67rem;
+    color: var(--soft);
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
 }
 
-.current-progress strong {
-    color: var(--text-soft);
+.lesson-progress .progress-line span {
+    width: 57%;
 }
 
-.lesson-preview {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 230px;
-    padding: 25px;
+.exercise-preview {
+    min-height: 285px;
+    padding: 28px;
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--bg);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    box-shadow: 0 18px 50px rgba(28, 28, 24, .05);
 }
 
-.preview-label {
-    margin-bottom: 18px;
-    color: var(--text-muted);
-    font-size: .65rem;
-    font-weight: 600;
-    text-transform: uppercase;
+.exercise-top {
+    display: flex;
+    justify-content: space-between;
+    color: var(--soft);
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
     letter-spacing: .08em;
 }
 
 .exercise-text {
-    padding: 20px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: var(--surface);
-    color: var(--text-soft);
-    font-family: "Space Grotesk", monospace;
-    font-size: .95rem;
+    margin-top: 55px;
+    color: var(--ink);
+    font-family: "DM Mono", monospace;
+    font-size: 17px;
     line-height: 1.8;
+    letter-spacing: -.04em;
 }
 
-.exercise-key {
+.exercise-key-row {
     display: flex;
-    gap: 7px;
-    margin-top: 15px;
+    gap: 6px;
+    margin-top: 35px;
 }
 
-.exercise-key span {
+.exercise-key-row span {
     width: 34px;
     height: 34px;
     display: grid;
     place-items: center;
-    border: 1px solid rgba(124,92,255,.3);
-    border-radius: 7px;
-    background: var(--accent-soft);
-    color: var(--accent-light);
-    font-family: "Space Grotesk", sans-serif;
-    font-size: .72rem;
-    font-weight: 700;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface-alt);
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+}
+
+.exercise-key-row span:nth-child(2),
+.exercise-key-row span:nth-child(4) {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+}
+
+.exercise-note {
+    margin-top: 18px;
+    color: var(--soft);
+    font-size: 9px;
 }
 
 /* ========================================
-   PRACTICE AREAS
+   FOCUSED PRACTICE
    ======================================== */
 
-.practice-section {
-    padding-top: 85px;
+.practice {
+    padding-top: 120px;
 }
 
 .practice-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    gap: 10px;
 }
 
 .practice-card {
-    padding: 24px;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     background: var(--surface);
-    transition: all var(--transition);
+    transition:
+        transform .35s var(--ease),
+        border-color .35s ease,
+        box-shadow .35s ease;
 }
 
-.practice-card:hover {
-    border-color: rgba(124,92,255,.3);
-    background: var(--surface-light);
-    transform: translateY(-4px);
+.practice-card:hover,
+.practice-card.is-hovered {
+    transform: translateY(-6px);
+    border-color: #C9C7BD;
+    box-shadow: 0 22px 55px rgba(28, 28, 24, .07);
 }
 
-.practice-icon {
-    width: 42px;
-    height: 42px;
+.practice-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.practice-number {
+    color: var(--soft);
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+}
+
+.practice-symbol {
+    width: 34px;
+    height: 34px;
     display: grid;
     place-items: center;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    background: var(--accent-soft);
-    color: var(--accent-light);
+    border-radius: 50%;
+    background: var(--surface-alt);
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
 }
 
 .practice-card h3 {
-    margin-bottom: 7px;
+    margin-top: 48px;
+    font-size: 21px;
+    letter-spacing: -.045em;
 }
 
 .practice-card p {
-    min-height: 44px;
-    font-size: .73rem;
-    line-height: 1.7;
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.75;
 }
 
-.practice-card > span {
+.practice-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 18px;
-    color: var(--accent-light);
-    font-size: .7rem;
-    font-weight: 600;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 25px;
+    font-size: 10px;
+    font-weight: 700;
 }
 
-.practice-card > span i {
-    transition: transform var(--transition);
+.practice-link b {
+    font-size: 15px;
+    transition: transform .3s var(--ease);
 }
 
-.practice-card:hover > span i {
-    transform: translateX(4px);
+.practice-card:hover .practice-link b {
+    transform: translateX(5px);
+}
+
+/* ========================================
+   LEARNING TIP
+   ======================================== */
+
+.learning-tip {
+    padding-top: 110px;
+    padding-bottom: 120px;
+}
+
+.tip-card {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 35px;
+    align-items: center;
+    padding: 50px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.tip-mark {
+    font-family: "Playfair Display", serif;
+    font-size: 100px;
+    line-height: .6;
+    font-style: italic;
+}
+
+.tip-card h2 {
+    margin: 15px 0 10px;
+    font-size: clamp(30px, 4vw, 46px);
+    letter-spacing: -.06em;
+}
+
+.tip-card p {
+    max-width: 580px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.text-link {
+    white-space: nowrap;
+}
+
+/* ========================================
+   SCROLL REVEAL
+   ======================================== */
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity .7s var(--ease),
+        transform .7s var(--ease);
+    transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================
+   INTERACTIONS
+   ======================================== */
+
+.path-action.is-loading,
+.button.is-loading {
+    pointer-events: none;
+    opacity: .6;
+}
+
+.theme-transition,
+.theme-transition * {
+    transition:
+        background-color .35s ease,
+        color .35s ease,
+        border-color .35s ease !important;
+}
+
+/* ========================================
+   CTA
+   ======================================== */
+
+.learn-page .cta {
+    margin-top: 0;
 }
 
 /* ========================================
    RESPONSIVE
    ======================================== */
 
-@media (max-width: 950px) {
+@media (max-width: 1050px) {
     .learn-hero {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 45px;
     }
 
-    .learn-progress {
-        max-width: 400px;
+    .learn-progress-card {
+        max-width: 500px;
     }
 
     .practice-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .current-lesson {
+    .continue-card {
         grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 50px;
     }
 }
 
-@media (max-width: 650px) {
-    .learn-main {
-        padding-top: 40px;
-    }
-
+@media (max-width: 760px) {
     .learn-hero {
-        padding-bottom: 50px;
+        width: calc(100% - 32px);
+        min-height: auto;
+        padding: 60px 0 75px;
     }
 
     .learn-hero h1 {
-        font-size: 2.6rem;
+        font-size: clamp(48px, 13vw, 70px);
     }
 
-    .lesson-path::before {
-        display: none;
+    .learn-hero-copy > p {
+        font-size: 14px;
     }
 
-    .lesson-card {
-        grid-template-columns: 45px 1fr;
+    .learn-hero-actions {
+        flex-direction: column;
+    }
+
+    .learn-hero-actions .button {
+        width: 100%;
+    }
+
+    .learn-progress-card {
+        padding: 22px;
+    }
+
+    .learning-path,
+    .continue-section,
+    .practice,
+    .learning-tip {
+        padding-top: 85px;
+    }
+
+    .path-card {
+        grid-template-columns: 54px 1fr 40px;
         gap: 15px;
+        min-height: 145px;
         padding: 18px;
     }
 
-    .lesson-number {
-        width: 44px;
-        height: 44px;
+    .path-status {
+        width: 48px;
+        height: 48px;
     }
 
-    .lesson-action {
-        display: none;
+    .path-content h3 {
+        font-size: 19px;
     }
 
-    .lesson-content p {
-        font-size: .72rem;
+    .path-content > p {
+        font-size: 11px;
     }
 
-    .current-lesson {
-        margin-top: 60px;
+    .path-meta {
+        flex-wrap: wrap;
+        gap: 7px 12px;
+        font-size: 7px;
+    }
+
+    .path-action {
+        width: 38px;
+        height: 38px;
+    }
+
+    .continue-card {
+        padding: 28px 22px;
+    }
+
+    .continue-copy h2 {
+        font-size: 38px;
+    }
+
+    .exercise-preview {
+        min-height: 250px;
         padding: 22px;
+    }
+
+    .exercise-text {
+        margin-top: 40px;
+        font-size: 13px;
     }
 
     .practice-grid {
         grid-template-columns: 1fr;
     }
 
-    .practice-card p {
-        min-height: auto;
+    .practice-card {
+        min-height: 230px;
+    }
+
+    .tip-card {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 35px 0;
+    }
+
+    .tip-mark {
+        font-size: 70px;
+    }
+
+    .tip-card .text-link {
+        margin-top: 8px;
     }
 }
+
+@media (max-width: 480px) {
+    .learn-progress-card {
+        padding: 18px;
+    }
+
+    .progress-stats div {
+        padding-top: 15px;
+    }
+
+    .progress-stats div:not(:first-child) {
+        padding-left: 9px;
+    }
+
+    .progress-stats strong {
+        font-size: 17px;
+    }
+
+    .path-card {
+        grid-template-columns: 1fr 40px;
+    }
+
+    .path-status {
+        display: none;
+    }
+
+    .path-card::before {
+        top: 15px;
+        bottom: 15px;
+    }
+
+    .path-content h3 {
+        font-size: 18px;
+    }
+
+    .exercise-key-row {
+        margin-top: 25px;
+    }
+
+    .exercise-note {
+        font-size: 8px;
+    }
+       }
