@@ -184,16 +184,18 @@ button {
 .hero h1 {
     max-width: 700px;
     font-size: clamp(60px, 7.2vw, 104px);
-    line-height: .98;
+    line-height: .94;
     letter-spacing: -.075em;
     font-weight: 800;
 }
 
 .hero h1 em {
     display: block;
-    margin-top: 4px;
-    line-height: .98;
-    white-space: nowrap;
+    margin-top: 8px;
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    font-style: italic;
+    line-height: .96;
 }
 
 .section-heading h2 em,
@@ -976,9 +978,15 @@ button {
         width: min(calc(100% - 32px), var(--max-width));
         padding: 60px 0 80px;
     }
-
+    
     .hero h1 {
-        font-size: clamp(54px, 15vw, 80px);
+        font-size: clamp(52px, 14.5vw, 80px);
+        line-height: .9;
+    }
+
+    .hero h1 em {
+        margin-top: 8px;
+        line-height: .95;
     }
 
     .hero-description {
