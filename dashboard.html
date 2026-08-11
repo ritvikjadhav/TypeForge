@@ -3,322 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="View your TypeForge typing performance, WPM, accuracy, streaks and learning progress.">
-    <meta name="theme-color" content="#080a0f">
-    <title>Dashboard — TypeForge</title>
+    <meta name="description" content="Track your VelType typing speed, accuracy, tests and learning progress.">
+    <meta name="theme-color" content="#FAF7EE">
+    <title>Progress — VelType</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body class="dashboard-page">
+    <div class="site-shell">
 
-    <!-- NAVBAR -->
-    <header class="header">
-        <nav class="navbar container">
-            <a href="index.html" class="logo">
-                <span class="logo-mark">T</span>
-                <span>Type<span>Forge</span></span>
+        <!-- NAVBAR -->
+        <header class="navbar">
+            <a href="index.html" class="brand" aria-label="VelType home">
+                <span class="brand-mark">VT</span>
+                <span>VelType</span>
             </a>
-            <div class="nav-links">
+
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
                 <a href="index.html">Home</a>
                 <a href="test.html">Typing Test</a>
                 <a href="learn.html">Learn</a>
                 <a href="dashboard.html" class="active">Progress</a>
-            </div>
+            </nav>
+
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fa-solid fa-moon"></i>
+                    <span>◐</span>
                 </button>
-                <div class="user-menu">
-                    <button class="user-button" id="userMenuButton">
-                        <span class="user-avatar">R</span>
-                        <span class="user-name">Ritvik</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </button>
-                </div>
+                <a href="test.html" class="nav-cta">Start Test <span>↗</span></a>
             </div>
-            <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
-                <i class="fa-solid fa-bars"></i>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+                <span></span>
+                <span></span>
             </button>
-        </nav>
-    </header>
+        </header>
 
-    <main class="dashboard-main">
-        <div class="container">
+        <main class="dashboard-main">
+            <div class="dashboard-container">
 
-            <!-- DASHBOARD HEADER -->
-            <section class="dashboard-welcome">
-                <div>
-                    <span class="section-label">Your Dashboard</span>
-                    <h1>Keep getting better.</h1>
-                    <p>Here's a look at your typing performance and progress.</p>
-                </div>
-                <a href="test.html" class="btn btn-primary">
-                    New Test
-                    <i class="fa-solid fa-arrow-right"></i>
-                </a>
-            </section>
-
-            <!-- OVERVIEW STATS -->
-            <section class="overview-grid">
-                <div class="overview-card">
-                    <div class="overview-icon"><i class="fa-solid fa-gauge-high"></i></div>
-                    <span>Average WPM</span>
-                    <strong>78</strong>
-                    <small class="positive"><i class="fa-solid fa-arrow-up"></i> 12% this month</small>
-                </div>
-
-                <div class="overview-card">
-                    <div class="overview-icon"><i class="fa-solid fa-bullseye"></i></div>
-                    <span>Accuracy</span>
-                    <strong>96.4%</strong>
-                    <small class="positive"><i class="fa-solid fa-arrow-up"></i> 2.1% this month</small>
-                </div>
-
-                <div class="overview-card">
-                    <div class="overview-icon"><i class="fa-solid fa-fire"></i></div>
-                    <span>Current Streak</span>
-                    <strong>12</strong>
-                    <small>days</small>
-                </div>
-
-                <div class="overview-card">
-                    <div class="overview-icon"><i class="fa-solid fa-trophy"></i></div>
-                    <span>Personal Best</span>
-                    <strong>104</strong>
-                    <small>WPM</small>
-                </div>
-            </section>
-
-            <!-- PERFORMANCE CHART -->
-            <section class="dashboard-section performance-section">
-                <div class="dashboard-section-header">
+                <!-- HEADER -->
+                <section class="dashboard-welcome">
                     <div>
-                        <span class="section-label">Performance</span>
-                        <h2>Typing speed</h2>
+                        <span class="section-label">YOUR PROGRESS</span>
+                        <h1>Keep getting <em>better.</em></h1>
+                        <p>Track your typing performance, learning progress and recent practice in one place.</p>
                     </div>
-                    <select id="chartPeriod" aria-label="Select chart period">
-                        <option value="30">Last 30 days</option>
-                        <option value="7">Last 7 days</option>
-                        <option value="90">Last 90 days</option>
-                    </select>
-                </div>
-
-                <div class="performance-card">
-                    <div class="chart-summary">
-                        <div>
-                            <span>Average WPM</span>
-                            <strong>78 WPM</strong>
-                        </div>
-                        <div>
-                            <span>Best WPM</span>
-                            <strong>104 WPM</strong>
-                        </div>
-                        <div>
-                            <span>Tests</span>
-                            <strong>47</strong>
-                        </div>
-                    </div>
-
-                    <div class="dashboard-chart">
-                        <div class="chart-y-axis">
-                            <span>120</span>
-                            <span>90</span>
-                            <span>60</span>
-                            <span>30</span>
-                            <span>0</span>
-                        </div>
-
-                        <div class="chart-area">
-                            <div class="chart-grid-line"></div>
-                            <div class="chart-grid-line"></div>
-                            <div class="chart-grid-line"></div>
-                            <div class="chart-grid-line"></div>
-                            <svg viewBox="0 0 800 250" preserveAspectRatio="none">
-                                <defs>
-                                    <linearGradient id="performanceGradient" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="0%" stop-opacity=".25"></stop>
-                                        <stop offset="100%" stop-opacity="0"></stop>
-                                    </linearGradient>
-                                </defs>
-                                <path class="chart-fill" d="M0 205 C70 190 100 200 150 175 C210 145 240 165 290 130 C340 100 380 130 430 110 C480 85 520 100 570 70 C620 45 670 70 720 45 C750 30 775 35 800 20 L800 250 L0 250Z"></path>
-                                <path class="chart-line-path" d="M0 205 C70 190 100 200 150 175 C210 145 240 165 290 130 C340 100 380 130 430 110 C480 85 520 100 570 70 C620 45 670 70 720 45 C750 30 775 35 800 20"></path>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <div class="chart-labels">
-                        <span>Week 1</span>
-                        <span>Week 2</span>
-                        <span>Week 3</span>
-                        <span>Week 4</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- LOWER DASHBOARD -->
-            <div class="dashboard-grid">
-
-                <!-- RECENT TESTS -->
-                <section class="dashboard-section recent-section">
-                    <div class="dashboard-section-header">
-                        <div>
-                            <span class="section-label">History</span>
-                            <h2>Recent tests</h2>
-                        </div>
-                        <a href="test.html">New test <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-
-                    <div class="test-history">
-                        <div class="history-row history-head">
-                            <span>Test</span>
-                            <span>WPM</span>
-                            <span>Accuracy</span>
-                            <span>Date</span>
-                        </div>
-
-                        <div class="history-row">
-                            <span>30 seconds</span>
-                            <strong>87</strong>
-                            <span>98.2%</span>
-                            <time>Today</time>
-                        </div>
-
-                        <div class="history-row">
-                            <span>60 seconds</span>
-                            <strong>82</strong>
-                            <span>96.8%</span>
-                            <time>Yesterday</time>
-                        </div>
-
-                        <div class="history-row">
-                            <span>30 seconds</span>
-                            <strong>79</strong>
-                            <span>97.1%</span>
-                            <time>Aug 5</time>
-                        </div>
-
-                        <div class="history-row">
-                            <span>15 seconds</span>
-                            <strong>91</strong>
-                            <span>95.4%</span>
-                            <time>Aug 4</time>
-                        </div>
-
-                        <div class="history-row">
-                            <span>60 seconds</span>
-                            <strong>76</strong>
-                            <span>96.1%</span>
-                            <time>Aug 3</time>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- GOALS -->
-                <section class="dashboard-section goals-section">
-                    <div class="dashboard-section-header">
-                        <div>
-                            <span class="section-label">Goals</span>
-                            <h2>This week</h2>
-                        </div>
-                    </div>
-
-                    <div class="goal">
-                        <div class="goal-top">
-                            <span>Practice sessions</span>
-                            <strong>4 / 5</strong>
-                        </div>
-                        <div class="progress-bar"><span style="width:80%"></span></div>
-                    </div>
-
-                    <div class="goal">
-                        <div class="goal-top">
-                            <span>Typing time</span>
-                            <strong>42 / 60 min</strong>
-                        </div>
-                        <div class="progress-bar"><span style="width:70%"></span></div>
-                    </div>
-
-                    <div class="goal">
-                        <div class="goal-top">
-                            <span>Accuracy</span>
-                            <strong>96 / 98%</strong>
-                        </div>
-                        <div class="progress-bar"><span style="width:82%"></span></div>
-                    </div>
-
-                    <a href="learn.html" class="btn btn-outline goal-button">
-                        Practice Now
-                        <i class="fa-solid fa-arrow-right"></i>
+                    <a href="test.html" class="button button-primary">
+                        New Test <span>→</span>
                     </a>
                 </section>
+
+                <!-- OVERVIEW -->
+                <section class="overview-grid">
+                    <article class="overview-card">
+                        <div class="overview-icon">⌁</div>
+                        <span>Best WPM</span>
+                        <strong id="bestWpm">0</strong>
+                        <small>words per minute</small>
+                    </article>
+
+                    <article class="overview-card">
+                        <div class="overview-icon">◎</div>
+                        <span>Best Accuracy</span>
+                        <strong id="bestAccuracy">0%</strong>
+                        <small>typing accuracy</small>
+                    </article>
+
+                    <article class="overview-card">
+                        <div class="overview-icon">⌨</div>
+                        <span>Tests Completed</span>
+                        <strong id="testsCompleted">0</strong>
+                        <small>typing tests</small>
+                    </article>
+
+                    <article class="overview-card">
+                        <div class="overview-icon">01</div>
+                        <span>Lessons Completed</span>
+                        <strong id="lessonsCompleted">0</strong>
+                        <small>academy lessons</small>
+                    </article>
+                </section>
+
+                <!-- LEARNING PROGRESS -->
+                <section class="dashboard-section learning-progress">
+                    <div class="dashboard-section-header">
+                        <div>
+                            <span class="section-label">TYPING ACADEMY</span>
+                            <h2>Continue learning</h2>
+                        </div>
+                        <a href="learn.html">View lessons <span>→</span></a>
+                    </div>
+
+                    <div class="academy-progress">
+                        <div class="academy-circle">
+                            <span id="academyPercent">0%</span>
+                        </div>
+
+                        <div class="academy-info">
+                            <span class="academy-level">CURRENT LEVEL</span>
+                            <h3 id="academyLevel">Foundation</h3>
+                            <p id="academyProgressText">Start your first lesson to begin building your typing skills.</p>
+                            <div class="progress-bar">
+                                <span id="academyProgressBar" style="width:0%"></span>
+                            </div>
+                        </div>
+
+                        <a href="learn.html" class="button button-primary">
+                            Continue <span>→</span>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- CURRENT LESSON -->
+                <section class="dashboard-section current-lesson">
+                    <div class="dashboard-section-header">
+                        <div>
+                            <span class="section-label">NEXT UP</span>
+                            <h2>Your next lesson</h2>
+                        </div>
+                    </div>
+
+                    <div class="current-lesson-card">
+                        <div class="lesson-number">01</div>
+
+                        <div class="current-lesson-content">
+                            <span class="lesson-category">FOUNDATION</span>
+                            <h3 id="currentLessonTitle">Home Row Basics</h3>
+                            <p id="currentLessonDescription">Learn correct finger placement and build your touch typing foundation.</p>
+
+                            <div class="lesson-meta">
+                                <span>◷ 10 min</span>
+                                <span>⌨ Practice</span>
+                            </div>
+                        </div>
+
+                        <a href="lesson.html?level=1&lesson=1" class="button button-secondary" id="continueLessonButton">
+                            Start Lesson <span>→</span>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- LOWER GRID -->
+                <div class="dashboard-grid">
+
+                    <!-- RECENT TESTS -->
+                    <section class="dashboard-section recent-section">
+                        <div class="dashboard-section-header">
+                            <div>
+                                <span class="section-label">HISTORY</span>
+                                <h2>Recent tests</h2>
+                            </div>
+                            <a href="test.html">New test <span>→</span></a>
+                        </div>
+
+                        <div class="test-history" id="testHistory">
+                            <div class="history-empty">
+                                <div class="empty-icon">⌨</div>
+                                <h3>No tests yet</h3>
+                                <p>Complete your first typing test and your results will appear here.</p>
+                                <a href="test.html" class="button button-secondary">
+                                    Take a Test <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- WEEKLY PRACTICE -->
+                    <section class="dashboard-section goals-section">
+                        <div class="dashboard-section-header">
+                            <div>
+                                <span class="section-label">THIS WEEK</span>
+                                <h2>Practice</h2>
+                            </div>
+                        </div>
+
+                        <div class="goal">
+                            <div class="goal-top">
+                                <span>Tests completed</span>
+                                <strong id="weeklyTests">0 / 5</strong>
+                            </div>
+                            <div class="progress-bar">
+                                <span id="weeklyTestsBar" style="width:0%"></span>
+                            </div>
+                        </div>
+
+                        <div class="goal">
+                            <div class="goal-top">
+                                <span>Lessons completed</span>
+                                <strong id="weeklyLessons">0 / 3</strong>
+                            </div>
+                            <div class="progress-bar">
+                                <span id="weeklyLessonsBar" style="width:0%"></span>
+                            </div>
+                        </div>
+
+                        <div class="goal">
+                            <div class="goal-top">
+                                <span>Accuracy target</span>
+                                <strong id="weeklyAccuracy">0%</strong>
+                            </div>
+                            <div class="progress-bar">
+                                <span id="weeklyAccuracyBar" style="width:0%"></span>
+                            </div>
+                        </div>
+
+                        <a href="learn.html" class="button button-secondary goal-button">
+                            Practice Now <span>→</span>
+                        </a>
+                    </section>
+                </div>
+
+                <!-- PERFORMANCE -->
+                <section class="dashboard-section performance-section">
+                    <div class="dashboard-section-header">
+                        <div>
+                            <span class="section-label">PERFORMANCE</span>
+                            <h2>Your typing stats</h2>
+                        </div>
+                    </div>
+
+                    <div class="performance-card">
+                        <div class="chart-summary">
+                            <div>
+                                <span>Average WPM</span>
+                                <strong id="averageWpm">0</strong>
+                            </div>
+                            <div>
+                                <span>Average Accuracy</span>
+                                <strong id="averageAccuracy">0%</strong>
+                            </div>
+                            <div>
+                                <span>Total Tests</span>
+                                <strong id="totalTests">0</strong>
+                            </div>
+                        </div>
+
+                        <div class="performance-message" id="performanceMessage">
+                            <span>↗</span>
+                            <div>
+                                <h3>Your performance will appear here</h3>
+                                <p>Complete a few typing tests to start building your performance history.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RESET DATA -->
+                <section class="dashboard-section data-section">
+                    <div class="dashboard-section-header">
+                        <div>
+                            <span class="section-label">DATA MANAGEMENT</span>
+                            <h2>Reset progress</h2>
+                        </div>
+                    </div>
+
+                    <div class="data-management">
+                        <div class="data-info">
+                            <div class="data-icon">↻</div>
+                            <div>
+                                <h3>Start fresh</h3>
+                                <p>Reset your lesson progress or completely clear your saved VelType data so you can retest everything from the beginning.</p>
+                            </div>
+                        </div>
+
+                        <div class="data-actions">
+                            <button type="button" class="button button-secondary" id="resetExercises">
+                                ↻ Reset Exercises
+                            </button>
+                            <button type="button" class="button button-danger" id="resetProgress">
+                                × Reset All Progress
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
             </div>
+        </main>
 
-            <!-- LEARNING PROGRESS -->
-            <section class="dashboard-section learning-progress">
-                <div class="dashboard-section-header">
-                    <div>
-                        <span class="section-label">Learning</span>
-                        <h2>Typing Academy</h2>
-                    </div>
-                    <a href="learn.html">View lessons <i class="fa-solid fa-arrow-right"></i></a>
+        <!-- RESET MODAL -->
+        <div class="reset-modal" id="resetModal" hidden>
+            <div class="reset-modal-backdrop"></div>
+
+            <div class="reset-modal-content" role="dialog" aria-modal="true" aria-labelledby="resetModalTitle">
+                <div class="reset-modal-icon">!</div>
+                <h2 id="resetModalTitle">Reset your progress?</h2>
+                <p id="resetModalText">This will remove your saved lessons, tests and typing statistics. This action cannot be undone.</p>
+
+                <div class="reset-modal-actions">
+                    <button type="button" class="button button-secondary" id="cancelReset">Cancel</button>
+                    <button type="button" class="button button-danger" id="confirmReset">Reset</button>
                 </div>
-
-                <div class="academy-progress">
-                    <div class="academy-circle">
-                        <span>68%</span>
-                    </div>
-
-                    <div class="academy-info">
-                        <h3>Intermediate</h3>
-                        <p>17 of 25 lessons completed</p>
-                        <div class="progress-bar"><span style="width:68%"></span></div>
-                    </div>
-
-                    <a href="learn.html" class="btn btn-primary">
-                        Continue
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </section>
-
+            </div>
         </div>
-    </main>
 
-    <!-- USER MENU -->
-    <div class="user-dropdown" id="userDropdown" hidden>
-        <a href="#"><i class="fa-solid fa-user"></i> Profile</a>
-        <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
-        <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <a href="index.html" class="brand">
+                        <span class="brand-mark">VT</span>
+                        <span>VelType</span>
+                    </a>
+                    <p>Practice smarter. Type better.</p>
+                </div>
+
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="test.html">Typing Test</a>
+                    <a href="learn.html">Learn</a>
+                    <a href="dashboard.html">Progress</a>
+                </div>
+
+                <div class="footer-bottom">
+                    <span>© 2026 VelType</span>
+                    <span>Built with HTML, CSS & JavaScript</span>
+                </div>
+            </div>
+        </footer>
+
     </div>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container footer-container">
-            <div class="footer-brand">
-                <a href="index.html" class="logo">
-                    <span class="logo-mark">T</span>
-                    <span>Type<span>Forge</span></span>
-                </a>
-                <p>Practice smarter. Type better.</p>
-            </div>
-            <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="test.html">Typing Test</a>
-                <a href="learn.html">Learn</a>
-                <a href="dashboard.html">Progress</a>
-            </div>
-            <div class="footer-bottom">
-                <span>© 2026 TypeForge</span>
-                <span>Built with HTML, CSS, JavaScript & Python</span>
-            </div>
-        </div>
-    </footer>
 
     <script src="js/main.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
-</html>
+                    </html>
