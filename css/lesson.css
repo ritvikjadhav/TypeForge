@@ -5,6 +5,12 @@
 
 .lesson-page {
     min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Hide repeated global footer on lesson page */
+.lesson-page .footer {
+    display: none;
 }
 
 /* =========================================================
@@ -14,11 +20,12 @@
 .lesson-main {
     width: min(calc(100% - 48px), var(--max-width, 1180px));
     margin: 0 auto;
-    padding: 58px 0 100px;
+    padding: 58px 0 70px;
 }
 
 .lesson-container {
     width: 100%;
+    min-width: 0;
 }
 
 /* =========================================================
@@ -41,6 +48,7 @@
     color: var(--muted, #74736d);
     font-size: 13px;
     font-weight: 600;
+    text-decoration: none;
     transition:
         color .25s ease,
         transform .25s ease;
@@ -96,6 +104,7 @@
 .eyebrow-dot {
     width: 7px;
     height: 7px;
+    flex: 0 0 7px;
     border-radius: 50%;
     background: var(--ink, #191916);
 }
@@ -132,6 +141,7 @@
    ========================================================= */
 
 .lesson-progress-card {
+    width: 100%;
     padding: 22px;
     border: 1px solid var(--border, #dedbd1);
     border-radius: 18px;
@@ -197,7 +207,7 @@
 
 .workspace-header {
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 30px;
     margin-bottom: 20px;
@@ -249,8 +259,7 @@
     box-shadow: 0 25px 70px rgba(30, 29, 25, .055);
     transition:
         border-color .3s ease,
-        box-shadow .3s ease,
-        transform .3s ease;
+        box-shadow .3s ease;
 }
 
 .typing-panel::before {
@@ -290,6 +299,7 @@
 }
 
 .typing-stat {
+    min-width: 0;
     padding: 20px 24px;
     border-right: 1px solid var(--border, #dedbd1);
 }
@@ -335,7 +345,10 @@
 }
 
 .typing-passage {
-    min-height: 190px;
+    width: 100%;
+    min-height: 150px;
+    max-height: 300px;
+    overflow-y: auto;
     padding: 26px;
     outline: none;
     border: 1px solid var(--border, #dedbd1);
@@ -348,6 +361,8 @@
     letter-spacing: -.025em;
     cursor: text;
     user-select: none;
+    word-break: normal;
+    overflow-wrap: break-word;
     transition:
         border-color .25s ease,
         box-shadow .25s ease;
@@ -400,11 +415,11 @@
 }
 
 .typing-hint {
+    min-height: 18px;
     margin-top: 13px;
     color: var(--soft, #99968d);
     font-family: "DM Mono", monospace;
     font-size: 9px;
-    transition: color .25s ease;
 }
 
 .typing-panel.running .typing-hint {
@@ -436,11 +451,9 @@
 .indicator-dot {
     width: 6px;
     height: 6px;
+    flex: 0 0 6px;
     border-radius: 50%;
     background: #aaa69b;
-    transition:
-        background .25s ease,
-        box-shadow .25s ease;
 }
 
 .typing-panel.running .indicator-dot {
@@ -487,7 +500,7 @@
 }
 
 /* =========================================================
-   KEYBOARD
+   KEYBOARD GUIDE
    ========================================================= */
 
 .keyboard-section {
@@ -519,22 +532,25 @@
 }
 
 .virtual-keyboard {
+    width: min(100%, 720px);
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    max-width: 800px;
-    margin: auto;
+    gap: 7px;
 }
 
 .keyboard-row {
     display: flex;
     justify-content: center;
-    gap: 6px;
+    gap: 7px;
+    width: 100%;
 }
 
 .virtual-keyboard [data-key] {
-    width: 47px;
-    height: 42px;
+    width: clamp(28px, 5vw, 48px);
+    height: clamp(32px, 5vw, 44px);
+    flex: 1 1 0;
+    max-width: 48px;
     display: grid;
     place-items: center;
     border: 1px solid var(--border, #dedbd1);
@@ -542,7 +558,7 @@
     background: var(--bg, #faf7ee);
     color: var(--muted, #74736d);
     font-family: "DM Mono", monospace;
-    font-size: 10px;
+    font-size: clamp(8px, 1.1vw, 10px);
     transition:
         transform .15s ease,
         background .15s ease,
@@ -555,7 +571,7 @@
     border-color: var(--ink, #191916);
     background: var(--ink, #191916);
     color: var(--bg, #faf7ee);
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     box-shadow: 0 7px 15px rgba(25, 25, 22, .13);
 }
 
@@ -656,7 +672,8 @@
     background: #d3d0c7;
     transition:
         transform .25s ease,
-        background .25s ease;
+        background .25s ease,
+        width .25s ease;
 }
 
 .exercise-dots .active {
@@ -704,7 +721,6 @@
     background: rgba(79, 128, 99, .1);
     color: #4f8063;
     font-size: 20px;
-    animation: completePop .55s cubic-bezier(.22, 1.4, .36, 1);
 }
 
 .lesson-complete .section-label {
@@ -740,18 +756,6 @@
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-@keyframes completePop {
-    from {
-        opacity: 0;
-        transform: scale(.65);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
     }
 }
 
@@ -839,9 +843,12 @@ body.dark .lesson-complete {
         padding: 17px;
     }
 
+    .virtual-keyboard {
+        width: 100%;
+    }
+
     .virtual-keyboard [data-key] {
-        width: 40px;
-        height: 38px;
+        max-width: none;
     }
 }
 
@@ -852,64 +859,78 @@ body.dark .lesson-complete {
 @media (max-width: 650px) {
 
     .lesson-main {
-        width: calc(100% - 32px);
-        padding: 32px 0 70px;
+        width: calc(100% - 28px);
+        padding: 25px 0 45px;
     }
 
     .lesson-topbar {
-        padding-bottom: 18px;
+        padding-bottom: 16px;
+    }
+
+    .back-link {
+        font-size: 11px;
     }
 
     .lesson-stage {
+        padding: 6px 9px;
         font-size: 8px;
     }
 
     .lesson-header {
-        padding: 42px 0 38px;
-        gap: 30px;
+        padding: 38px 0 34px;
+        gap: 28px;
     }
 
     .eyebrow {
-        margin-bottom: 18px;
-        font-size: 9px;
+        margin-bottom: 17px;
+        font-size: 8px;
     }
 
     .lesson-header h1 {
-        font-size: clamp(3rem, 15vw, 4.5rem);
-        line-height: .92;
+        font-size: clamp(2.8rem, 14vw, 4.2rem);
+        line-height: .93;
     }
 
     .lesson-header > div:first-child > p {
-        margin-top: 20px;
-        font-size: 13px;
+        margin-top: 19px;
+        font-size: 12px;
         line-height: 1.75;
     }
 
     .lesson-progress-card {
         width: 100%;
-        padding: 18px;
+        max-width: none;
+        padding: 17px;
     }
 
     .lesson-workspace {
-        padding-top: 40px;
+        padding-top: 35px;
     }
 
     .workspace-header {
         align-items: flex-start;
         flex-direction: column;
-        gap: 13px;
+        gap: 12px;
     }
 
     .workspace-header h2 {
-        font-size: 1.65rem;
+        font-size: 1.55rem;
     }
+
+    .exercise-meta {
+        font-size: 8px;
+    }
+
+    /* -------------------------
+       STATS
+       ------------------------- */
 
     .typing-stats {
         grid-template-columns: repeat(2, 1fr);
     }
 
     .typing-stat {
-        padding: 16px;
+        padding: 14px 15px;
     }
 
     .typing-stat:nth-child(2) {
@@ -921,44 +942,255 @@ body.dark .lesson-complete {
     }
 
     .typing-stat strong {
-        font-size: 20px;
+        font-size: 19px;
     }
+
+    /* -------------------------
+       PASSAGE
+       ------------------------- */
 
     .passage-area {
-        padding: 20px;
+        padding: 17px;
     }
 
-    .typing-passage {
-        min-height: 220px;
-        padding: 19px;
-        font-size: 14px;
-        line-height: 2;
+    .passage-label {
+        margin-bottom: 13px;
+        font-size: 8px;
     }
+   
+    .typing-passage {
+        min-height: 170px;
+        max-height: 280px;
+        padding: 17px;
+        border-radius: 13px;
+        font-size: 13px;
+        line-height: 1.9;
+    }
+
+    .typing-hint {
+        margin-top: 11px;
+        font-size: 8px;
+    }
+
+    /* -------------------------
+       FOOTER
+       ------------------------- */
 
     .typing-footer {
-        align-items: flex-start;
+        align-items: stretch;
         flex-direction: column;
-        padding: 15px 20px;
+        gap: 13px;
+        padding: 14px 17px;
     }
 
+    .reset-button {
+        width: fit-content;
+    }
+
+    /* -------------------------
+       KEYBOARD
+       ------------------------- */
+
     .keyboard-section {
-        padding: 18px 10px;
+        margin-top: 18px;
+        padding: 17px 12px 19px;
+        border-radius: 16px;
+        overflow: hidden;
     }
 
     .keyboard-heading {
         align-items: flex-start;
         flex-direction: column;
-        gap: 6px;
-        padding: 0 8px;
+        gap: 5px;
+        margin-bottom: 17px;
+        padding: 0 3px;
+    }
+
+    .keyboard-heading > span {
+        font-size: 8px;
+    }
+
+    .keyboard-heading small {
+        font-size: 9px;
     }
 
     .virtual-keyboard {
-        min-width: 470px;
-        transform: scale(.68);
-        transform-origin: top left;
-        margin-right: -150px;
-        margin-bottom: -100px;
+        width: 100%;
+        max-width: 100%;
+        gap: 5px;
+    }
+
+    .keyboard-row {
+        width: 100%;
+        gap: 4px;
+    }
+
+    .virtual-keyboard [data-key] {
+        width: auto;
+        height: 36px;
+        min-width: 0;
+        max-width: none;
+        flex: 1 1 0;
+        border-radius: 6px;
+        font-size: 8px;
+    }
+
+    /* Center the shorter keyboard rows */
+    .keyboard-row-middle {
+        padding: 0 4.5%;
+    }
+
+    .keyboard-row-bottom {
+        padding: 0 13%;
+    }
+
+    /* -------------------------
+       NAVIGATION
+       ------------------------- */
+
+    .lesson-navigation {
+        margin-top: 19px;
     }
 
     .exercise-navigation {
-        grid-template-columns:
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding-top: 18px;
+    }
+
+    .exercise-dots {
+        display: none;
+    }
+
+    .lesson-nav-button {
+        width: 100%;
+        min-height: 46px;
+        padding: 0 13px;
+        font-size: 10px;
+    }
+
+    .lesson-nav-button:first-child,
+    .lesson-nav-button:last-child {
+        justify-self: stretch;
+    }
+
+    /* -------------------------
+       COMPLETION
+       ------------------------- */
+
+    .lesson-complete {
+        margin-top: 25px;
+        padding: 40px 18px;
+        border-radius: 18px;
+    }
+
+    .completion-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .completion-stats > div {
+        padding: 13px 7px;
+    }
+
+    .completion-stats span {
+        font-size: 7px;
+    }
+
+    .completion-stats strong {
+        font-size: 18px;
+    }
+
+    .completion-actions {
+        flex-direction: column;
+    }
+
+    .completion-actions .button {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .lesson-main {
+        width: calc(100% - 22px);
+    }
+
+    .lesson-stage {
+        display: none;
+    }
+
+    .lesson-header h1 {
+        font-size: 2.7rem;
+    }
+
+    .typing-stat {
+        padding: 13px;
+    }
+
+    .typing-stat span {
+        font-size: 8px;
+    }
+
+    .typing-stat strong {
+        font-size: 18px;
+    }
+
+    .passage-area {
+        padding: 14px;
+    }
+
+    .typing-passage {
+        min-height: 160px;
+        padding: 14px;
+        font-size: 12px;
+    }
+
+    .keyboard-section {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .keyboard-row {
+        gap: 3px;
+    }
+
+    .virtual-keyboard [data-key] {
+        height: 32px;
+        border-radius: 5px;
+        font-size: 7px;
+    }
+
+    .keyboard-row-middle {
+        padding: 0 4%;
+    }
+
+    .keyboard-row-bottom {
+        padding: 0 12%;
+    }
+
+    .lesson-nav-button {
+        min-height: 43px;
+        font-size: 9px;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .lesson-page *,
+    .lesson-page *::before,
+    .lesson-page *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+       
