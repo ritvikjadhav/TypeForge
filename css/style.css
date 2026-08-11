@@ -182,14 +182,20 @@ button {
 }
 
 .hero h1 {
-    max-width: 650px;
+    max-width: 700px;
     font-size: clamp(60px, 7.2vw, 104px);
-    line-height: .88;
+    line-height: .98;
     letter-spacing: -.075em;
     font-weight: 800;
 }
 
-.hero h1 em,
+.hero h1 em {
+    display: block;
+    margin-top: 4px;
+    line-height: .98;
+    white-space: nowrap;
+}
+
 .section-heading h2 em,
 .cta h2 em {
     font-family: "Playfair Display", serif;
