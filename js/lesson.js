@@ -1,9 +1,8 @@
 /* ========================================
-   VELTYPE — LESSON SYSTEM
+   VELTYPE — LESSON ENGINE
    ======================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (!document.querySelector(".lesson-main")) return;
     initLesson();
 });
 
@@ -11,116 +10,167 @@ document.addEventListener("DOMContentLoaded", () => {
    LESSON DATA
    ======================================== */
 
-const VELTYPE_LESSONS = {
+const LESSONS = {
     1: {
-        title: "Home Row Fundamentals",
-        subtitle: "Build your typing foundation.",
-        description: "Learn proper finger placement and develop accuracy with the keys your fingers naturally rest on.",
-        level: "Beginner",
+        stage: "LEVEL 01",
+        title: "Home Row",
+        emphasis: "Fundamentals.",
+        description:
+            "Build accurate finger placement and control with focused home-row practice.",
+        category: "TYPING ACADEMY",
         exercises: [
             {
-                title: "Home Row Warmup",
+                title: "Home Row Warm-up",
+                level: "BEGINNER",
+                time: "2 MIN",
                 text: "asdf jkl; asdf jkl; fjdk slaj"
             },
             {
-                title: "Finger Control",
-                text: "a sad lad asks dad; fall flask; all ask"
+                title: "Left Hand Control",
+                level: "BEGINNER",
+                time: "2 MIN",
+                text: "asdf fdsa asdf fdsa sad fad dad"
             },
             {
-                title: "Home Row Words",
-                text: "fall ask flask salad glad hall all"
+                title: "Right Hand Control",
+                level: "BEGINNER",
+                time: "2 MIN",
+                text: "jkl; lkj; jkl; jkl; kill like"
             },
             {
-                title: "Home Row Flow",
-                text: "a fall lad asks all dads; salad falls"
+                title: "Home Row Rhythm",
+                level: "BEGINNER",
+                time: "2 MIN",
+                text: "asdf jkl; sad lad ask fall flask"
             },
             {
-                title: "Foundation Challenge",
-                text: "all flags fall as a glad lad asks for salad"
+                title: "Home Row Challenge",
+                level: "BEGINNER",
+                time: "2 MIN",
+                text: "a sad lad asks a skilled jkl; flasks"
             }
         ]
     },
+
     2: {
-        title: "Letter Control",
-        subtitle: "Control every keystroke.",
-        description: "Move beyond the home row and improve accuracy across the upper and lower keyboard rows.",
-        level: "Beginner",
+        stage: "LEVEL 02",
+        title: "Letter",
+        emphasis: "Control.",
+        description:
+            "Improve accuracy by reaching different keys while maintaining consistent finger control.",
+        category: "TYPING ACADEMY",
         exercises: [
             {
-                title: "Top Row Practice",
-                text: "qwerty uiop qwerty uiop"
+                title: "Top Row Introduction",
+                level: "BEGINNER",
+                time: "2 MIN",
+                text: "qwer uiop qwer uiop"
             },
             {
-                title: "Upper Row Words",
-                text: "type write quiet power tower water"
-            },
-            {
-                title: "Lower Row Practice",
-                text: "zxcv bnm zxcv bnm"
+                title: "Top Row Control",
+                level: "BEGINNER",
+                time: "2 MIN",
+                text: "we were quiet we were quick"
             },
             {
                 title: "Mixed Letters",
-                text: "quick brown fox jumps over lazy dog"
+                level: "INTERMEDIATE",
+                time: "2 MIN",
+                text: "fast work requires quiet focus"
             },
             {
-                title: "Control Challenge",
-                text: "every letter deserves a clean and accurate keystroke"
+                title: "Letter Combinations",
+                level: "INTERMEDIATE",
+                time: "2 MIN",
+                text: "type write quiet power quality"
+            },
+            {
+                title: "Letter Control Challenge",
+                level: "INTERMEDIATE",
+                time: "2 MIN",
+                text: "quick typing requires accurate finger control"
             }
         ]
     },
+
     3: {
-        title: "Word Flow",
-        subtitle: "Turn letters into rhythm.",
-        description: "Connect letters and words naturally while building a smoother, more consistent typing rhythm.",
-        level: "Intermediate",
+        stage: "LEVEL 03",
+        title: "Word",
+        emphasis: "Flow.",
+        description:
+            "Connect letters naturally and develop a smoother, more consistent typing rhythm.",
+        category: "TYPING ACADEMY",
         exercises: [
             {
-                title: "Simple Flow",
-                text: "the quick brown fox jumps over the lazy dog"
+                title: "Simple Words",
+                level: "INTERMEDIATE",
+                time: "2 MIN",
+                text: "time type word work fast slow"
             },
             {
-                title: "Word Rhythm",
-                text: "typing becomes easier when every movement feels natural"
+                title: "Short Sentences",
+                level: "INTERMEDIATE",
+                time: "2 MIN",
+                text: "typing becomes easier with steady practice"
             },
             {
-                title: "Smooth Transitions",
-                text: "practice makes your fingers move with less hesitation"
+                title: "Rhythm Practice",
+                level: "INTERMEDIATE",
+                time: "2 MIN",
+                text: "keep your fingers relaxed and maintain a steady rhythm"
             },
             {
-                title: "Sentence Flow",
-                text: "a steady rhythm helps you type faster without losing control"
+                title: "Flow Builder",
+                level: "INTERMEDIATE",
+                time: "2 MIN",
+                text: "smooth typing comes from accuracy before speed"
             },
             {
-                title: "Flow Challenge",
-                text: "focus on smooth movement rather than rushing through every word"
+                title: "Word Flow Challenge",
+                level: "INTERMEDIATE",
+                time: "2 MIN",
+                text: "practice every day and your typing will become smoother"
             }
         ]
     },
+
     4: {
-        title: "Speed Training",
-        subtitle: "Push your velocity.",
-        description: "Increase your typing speed while protecting the accuracy and consistency you've already built.",
-        level: "Advanced",
+        stage: "LEVEL 04",
+        title: "Speed",
+        emphasis: "Training.",
+        description:
+            "Increase your typing speed while keeping accuracy high and your rhythm consistent.",
+        category: "TYPING ACADEMY",
         exercises: [
             {
-                title: "Speed Warmup",
-                text: "speed comes from control consistency and efficient movement"
+                title: "Speed Warm-up",
+                level: "ADVANCED",
+                time: "2 MIN",
+                text: "speed comes naturally when accuracy becomes consistent"
             },
             {
                 title: "Quick Words",
-                text: "fast typing starts with accurate movements repeated naturally"
+                level: "ADVANCED",
+                time: "2 MIN",
+                text: "quick brown fox jumps over the lazy dog"
             },
             {
                 title: "Speed Rhythm",
-                text: "keep your hands relaxed and let your fingers follow the rhythm"
+                level: "ADVANCED",
+                time: "2 MIN",
+                text: "keep moving forward without rushing every keystroke"
             },
             {
-                title: "Velocity Test",
-                text: "do not chase speed chase clean keystrokes and speed will follow"
+                title: "Accuracy Sprint",
+                level: "ADVANCED",
+                time: "2 MIN",
+                text: "fast typing is useful only when every word remains accurate"
             },
             {
-                title: "Final Challenge",
-                text: "the fastest typists stay accurate calm consistent and focused"
+                title: "Final Speed Challenge",
+                level: "ADVANCED",
+                time: "2 MIN",
+                text: "build speed slowly maintain accuracy stay relaxed and keep typing"
             }
         ]
     }
@@ -130,369 +180,240 @@ const VELTYPE_LESSONS = {
    STATE
    ======================================== */
 
-let currentLevel = 1;
+let currentLesson = 1;
 let currentExercise = 0;
-let currentText = "";
-let currentIndex = 0;
+
+let started = false;
+let finished = false;
 let startTime = null;
 let timerInterval = null;
+
+let typedCharacters = 0;
 let correctCharacters = 0;
-let incorrectCharacters = 0;
-let totalCharacters = 0;
-let isTyping = false;
-let completed = false;
+let errors = 0;
+
+let exerciseResults = [];
 
 /* ========================================
-   INITIALIZE
+   INIT
    ======================================== */
 
 function initLesson() {
-    currentLevel = getLevelFromURL();
-    currentExercise = getExerciseFromURL();
+    const params = new URLSearchParams(window.location.search);
 
-    if (!VELTYPE_LESSONS[currentLevel]) {
-        currentLevel = 1;
+    currentLesson = Number(params.get("level")) || 1;
+
+    if (!LESSONS[currentLesson]) {
+        currentLesson = 1;
     }
 
-    const lesson = VELTYPE_LESSONS[currentLevel];
-
-    if (
-        currentExercise < 0 ||
-        currentExercise >= lesson.exercises.length
-    ) {
-        currentExercise = 0;
-    }
-
-    renderLesson();
-    createLessonSteps();
-    bindLessonEvents();
-    updateNavigation();
+    buildExerciseDots();
+    loadExercise(0);
+    initControls();
+    initKeyboard();
 }
 
 /* ========================================
-   URL
+   DOM HELPERS
    ======================================== */
 
-function getLevelFromURL() {
-    const params = new URLSearchParams(window.location.search);
-
-    const level =
-        Number(params.get("level")) ||
-        Number(params.get("lesson")) ||
-        1;
-
-    return Math.min(Math.max(level, 1), 4);
-}
-
-function getExerciseFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    const exercise = Number(params.get("exercise"));
-
-    return Number.isFinite(exercise) && exercise > 0
-        ? exercise - 1
-        : 0;
-}
-
-function updateURL() {
-    const params = new URLSearchParams();
-
-    params.set("level", currentLevel);
-    params.set("exercise", currentExercise + 1);
-
-    window.history.replaceState(
-        {},
-        "",
-        `${window.location.pathname}?${params.toString()}`
-    );
-}
+const $ = id => document.getElementById(id);
 
 /* ========================================
-   RENDER LESSON
+   LOAD EXERCISE
    ======================================== */
 
-function renderLesson() {
-    const lesson = VELTYPE_LESSONS[currentLevel];
-    const exercise = lesson.exercises[currentExercise];
+function loadExercise(index) {
+    const lesson = LESSONS[currentLesson];
 
-    document.title =
-        `${lesson.title} — VelType`;
+    if (!lesson || !lesson.exercises[index]) return;
 
-    setText("[data-lesson-title]", lesson.title);
-    setText("[data-lesson-subtitle]", lesson.subtitle);
-    setText("[data-lesson-description]", lesson.description);
-    setText("[data-lesson-level]", lesson.level);
+    stopTimer();
 
-    setText(
-        "[data-exercise-number]",
-        `Exercise ${currentExercise + 1}`
-    );
+    currentExercise = index;
+    started = false;
+    finished = false;
 
-    setText(
-        "[data-exercise-title]",
-        exercise.title
-    );
-
-    const passage =
-        document.querySelector("[data-typing-passage]");
-
-    if (!passage) return;
-
-    currentText = exercise.text;
-    currentIndex = 0;
+    typedCharacters = 0;
     correctCharacters = 0;
-    incorrectCharacters = 0;
-    totalCharacters = 0;
+    errors = 0;
     startTime = null;
-    isTyping = false;
-    completed = false;
 
-    clearInterval(timerInterval);
+    const exercise = lesson.exercises[index];
+
+    $("lessonStage").textContent = lesson.stage;
+    $("lessonCategory").textContent = lesson.category;
+
+    $("lessonTitle").innerHTML =
+        `${lesson.title} <em>${lesson.emphasis}</em>`;
+
+    $("lessonDescription").textContent =
+        lesson.description;
+
+    $("exerciseTitle").textContent =
+        exercise.title;
+
+    $("exerciseLevel").textContent =
+        exercise.level;
+
+    $("exerciseTime").textContent =
+        exercise.time;
+
+    $("exerciseCount").textContent =
+        `Exercise ${index + 1} of ${lesson.exercises.length}`;
+
+    $("exerciseStatus").textContent = "Ready";
+
+    $("wpm").textContent = "0";
+    $("accuracy").textContent = "100%";
+    $("errors").textContent = "0";
+    $("timer").textContent = "00:00";
+
+    $("passageProgress").textContent =
+        `0 / ${exercise.text.length}`;
+
+    $("typingHint").textContent =
+        "Start typing to begin the exercise";
+
+    $("liveStatus").textContent =
+        "Waiting for input";
+
+    renderPassage(exercise.text);
+    updateProgress();
+    updateDots();
+
+    $("previousExercise").disabled =
+        index === 0;
+
+    $("nextExercise").disabled = false;
+
+    $("lessonComplete").hidden = true;
+
+    focusTypingArea();
+}
+
+/* ========================================
+   PASSAGE
+   ======================================== */
+
+function renderPassage(text) {
+    const passage = $("typingPassage");
 
     passage.innerHTML = "";
 
-    [...currentText].forEach((character, index) => {
+    [...text].forEach((character, index) => {
         const span = document.createElement("span");
 
-        span.textContent =
-            character === " "
-                ? "\u00A0"
-                : character;
-
+        span.textContent = character;
         span.dataset.index = index;
-
-        if (index === 0) {
-            span.classList.add("current");
-        }
 
         passage.appendChild(span);
     });
 
-    resetStats();
-    updateLessonProgress();
-    updateExerciseUI();
+    highlightCurrent();
 }
 
 /* ========================================
-   TEXT HELPERS
-   ======================================== */
-
-function setText(selector, value) {
-    const element =
-        document.querySelector(selector);
-
-    if (element) {
-        element.textContent = value;
-    }
-}
-
-/* ========================================
-   CREATE STEP NAVIGATION
-   ======================================== */
-
-function createLessonSteps() {
-    const container =
-        document.querySelector("[data-lesson-steps]");
-
-    if (!container) return;
-
-    const lesson =
-        VELTYPE_LESSONS[currentLevel];
-
-    container.innerHTML = "";
-
-    lesson.exercises.forEach((exercise, index) => {
-        const button =
-            document.createElement("button");
-
-        button.type = "button";
-        button.className = "lesson-step";
-
-        if (index === currentExercise) {
-            button.classList.add("active");
-        }
-
-        if (isExerciseComplete(currentLevel, index)) {
-            button.classList.add("completed");
-        }
-
-        button.dataset.exercise = index;
-
-        button.innerHTML = `
-            <span class="step-number">
-                ${isExerciseComplete(currentLevel, index) ? "✓" : String(index + 1).padStart(2, "0")}
-            </span>
-            <span class="step-text">
-                <strong>${exercise.title}</strong>
-                <small>Exercise ${index + 1}</small>
-            </span>
-        `;
-
-        button.addEventListener("click", () => {
-            loadExercise(index);
-        });
-
-        container.appendChild(button);
-    });
-}
-
-/* ========================================
-   EVENTS
-   ======================================== */
-
-function bindLessonEvents() {
-    const typingArea =
-        document.querySelector("[data-typing-area]");
-
-    if (typingArea) {
-        typingArea.addEventListener("click", focusTyping);
-    }
-
-    document.addEventListener("keydown", handleTyping);
-
-    const restartButton =
-        document.querySelector("[data-restart-lesson]");
-
-    if (restartButton) {
-        restartButton.addEventListener(
-            "click",
-            restartExercise
-        );
-    }
-
-    const nextButton =
-        document.querySelector("[data-next-exercise]");
-
-    if (nextButton) {
-        nextButton.addEventListener(
-            "click",
-            nextExercise
-        );
-    }
-
-    const previousButton =
-        document.querySelector("[data-previous-exercise]");
-
-    if (previousButton) {
-        previousButton.addEventListener(
-            "click",
-            previousExercise
-        );
-    }
-
-    const continueButton =
-        document.querySelector("[data-continue-lesson]");
-
-    if (continueButton) {
-        continueButton.addEventListener(
-            "click",
-            nextExercise
-        );
-    }
-}
-
-/* ========================================
-   KEYBOARD INPUT
+   TYPING
    ======================================== */
 
 function handleTyping(event) {
-    if (completed) return;
+    if (finished) return;
 
+    /*
+       Ignore navigation/function keys.
+    */
     if (
         event.ctrlKey ||
+        event.altKey ||
         event.metaKey ||
-        event.altKey
+        event.key.length !== 1
     ) {
-        return;
-    }
-
-    if (
-        event.key === "Shift" ||
-        event.key === "CapsLock" ||
-        event.key === "Tab" ||
-        event.key === "Escape"
-    ) {
-        return;
-    }
-
-    if (event.key.length !== 1) {
         return;
     }
 
     event.preventDefault();
 
-    if (!isTyping) {
-        startTyping();
+    const lesson = LESSONS[currentLesson];
+    const text = lesson.exercises[currentExercise].text;
+
+    const index = typedCharacters;
+
+    if (index >= text.length) return;
+
+    if (!started) {
+        startExercise();
     }
 
-    const expected =
-        currentText[currentIndex];
+    const expected = text[index];
+    const actual = event.key;
 
-    const typed =
-        event.key;
+    const character =
+        $("typingPassage").children[index];
 
-    const currentSpan =
-        document.querySelector(
-            `[data-typing-passage] span[data-index="${currentIndex}"]`
-        );
-
-    if (!currentSpan) return;
-
-    totalCharacters++;
-
-    if (typed === expected) {
-        currentSpan.classList.remove("current");
-        currentSpan.classList.add("correct");
-
+    if (actual === expected) {
+        character.classList.add("correct");
         correctCharacters++;
-        currentIndex++;
-
-        playKeyFeedback(true);
     } else {
-        currentSpan.classList.add("incorrect");
-
-        incorrectCharacters++;
-        playKeyFeedback(false);
-
-        updateStats();
-        return;
+        character.classList.add("incorrect");
+        errors++;
     }
 
-    if (currentIndex < currentText.length) {
-        const nextSpan =
-            document.querySelector(
-                `[data-typing-passage] span[data-index="${currentIndex}"]`
-            );
+    typedCharacters++;
 
-        if (nextSpan) {
-            nextSpan.classList.add("current");
-        }
-    }
+    $("passageProgress").textContent =
+        `${typedCharacters} / ${text.length}`;
 
     updateStats();
-    updateKeyboard(typed);
+    highlightCurrent();
 
-    if (currentIndex >= currentText.length) {
+    if (typedCharacters >= text.length) {
         finishExercise();
     }
 }
 
 /* ========================================
-   START TIMER
+   START
    ======================================== */
 
-function startTyping() {
-    isTyping = true;
+function startExercise() {
+    started = true;
     startTime = Date.now();
 
-    const card =
-        document.querySelector(".exercise-card");
+    $("exerciseStatus").textContent =
+        "In progress";
 
-    if (card) {
-        card.classList.add("running");
-    }
+    $("liveStatus").textContent =
+        "Typing...";
 
-    timerInterval =
-        setInterval(updateStats, 500);
+    $("typingHint").textContent =
+        "Keep your rhythm steady";
+
+    $("typingPanel")?.classList.add("running");
+
+    timerInterval = setInterval(updateTimer, 1000);
+}
+
+/* ========================================
+   TIMER
+   ======================================== */
+
+function updateTimer() {
+    if (!startTime) return;
+
+    const seconds =
+        Math.floor((Date.now() - startTime) / 1000);
+
+    const minutes =
+        Math.floor(seconds / 60);
+
+    const remaining =
+        seconds % 60;
+
+    $("timer").textContent =
+        `${String(minutes).padStart(2, "0")}:${String(remaining).padStart(2, "0")}`;
+
+    updateStats();
 }
 
 /* ========================================
@@ -502,70 +423,32 @@ function startTyping() {
 function updateStats() {
     const elapsed =
         startTime
-            ? (Date.now() - startTime) / 1000
-            : 0;
+            ? Math.max(1, (Date.now() - startTime) / 1000)
+            : 1;
 
     const minutes =
-        elapsed > 0
-            ? elapsed / 60
-            : 0;
+        elapsed / 60;
 
     const wpm =
-        minutes > 0
-            ? Math.round(
-                (correctCharacters / 5) /
-                minutes
-            )
-            : 0;
+        Math.round(
+            (correctCharacters / 5) / minutes
+        );
 
     const accuracy =
-        totalCharacters > 0
+        typedCharacters
             ? Math.round(
-                (correctCharacters /
-                    totalCharacters) *
-                100
+                (correctCharacters / typedCharacters) * 100
             )
             : 100;
 
-    setText(
-        "[data-stat-wpm]",
-        wpm
-    );
+    $("wpm").textContent =
+        Number.isFinite(wpm) ? wpm : 0;
 
-    setText(
-        "[data-stat-accuracy]",
-        `${accuracy}%`
-    );
+    $("accuracy").textContent =
+        `${accuracy}%`;
 
-    setText(
-        "[data-stat-errors]",
-        incorrectCharacters
-    );
-
-    setText(
-        "[data-stat-time]",
-        formatTime(elapsed)
-    );
-}
-
-function resetStats() {
-    setText("[data-stat-wpm]", "0");
-    setText("[data-stat-accuracy]", "100%");
-    setText("[data-stat-errors]", "0");
-    setText("[data-stat-time]", "0:00");
-}
-
-function formatTime(seconds) {
-    const totalSeconds =
-        Math.floor(seconds);
-
-    const minutes =
-        Math.floor(totalSeconds / 60);
-
-    const remaining =
-        totalSeconds % 60;
-
-    return `${minutes}:${String(remaining).padStart(2, "0")}`;
+    $("errors").textContent =
+        errors;
 }
 
 /* ========================================
@@ -573,443 +456,391 @@ function formatTime(seconds) {
    ======================================== */
 
 function finishExercise() {
-    completed = true;
-    isTyping = false;
+    finished = true;
 
-    clearInterval(timerInterval);
-
-    const card =
-        document.querySelector(".exercise-card");
-
-    if (card) {
-        card.classList.remove("running");
-    }
-
-    const elapsed =
-        startTime
-            ? (Date.now() - startTime) / 1000
-            : 0;
-
-    const minutes =
-        elapsed > 0
-            ? elapsed / 60
-            : 1;
-
-    const wpm =
-        Math.round(
-            (correctCharacters / 5) /
-            minutes
-        );
-
-    const accuracy =
-        totalCharacters > 0
-            ? Math.round(
-                (correctCharacters /
-                    totalCharacters) *
-                100
-            )
-            : 100;
-
-    saveExerciseProgress(
-        currentLevel,
-        currentExercise,
-        wpm,
-        accuracy
-    );
-
+    stopTimer();
     updateStats();
-    updateLessonProgress();
-    showCompletion(wpm, accuracy);
-    createLessonSteps();
-    updateNavigation();
-}
 
-/* ========================================
-   COMPLETION
-   ======================================== */
+    $("exerciseStatus").textContent =
+        "Complete";
 
-function showCompletion(wpm, accuracy) {
-    const completion =
-        document.querySelector(
-            "[data-lesson-complete]"
-        );
+    $("liveStatus").textContent =
+        "Exercise complete";
 
-    if (!completion) return;
+    $("typingHint").textContent =
+        "Great work — continue to the next exercise";
 
-    completion.classList.add("visible");
+    $("nextExercise").disabled = false;
 
-    setText(
-        "[data-complete-wpm]",
-        `${wpm} WPM`
-    );
+    const result = {
+        wpm: Number($("wpm").textContent) || 0,
+        accuracy:
+            Number(
+                $("accuracy").textContent.replace("%", "")
+            ) || 0
+    };
 
-    setText(
-        "[data-complete-accuracy]",
-        `${accuracy}% accuracy`
-    );
+    exerciseResults[currentExercise] = result;
 
-    const nextButton =
-        document.querySelector(
-            "[data-next-exercise]"
-        );
+    saveExerciseResult(result);
 
-    if (nextButton) {
-        nextButton.disabled = false;
-    }
-}
-
-/* ========================================
-   LOAD EXERCISE
-   ======================================== */
-
-function loadExercise(index) {
-    const lesson =
-        VELTYPE_LESSONS[currentLevel];
+    updateProgress();
+    updateDots();
 
     if (
-        index < 0 ||
-        index >= lesson.exercises.length
+        currentExercise ===
+        LESSONS[currentLesson].exercises.length - 1
     ) {
-        return;
+        completeLesson();
     }
-
-    currentExercise = index;
-
-    updateURL();
-    renderLesson();
-    createLessonSteps();
-    updateNavigation();
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
 }
 
 /* ========================================
-   NEXT / PREVIOUS
+   NEXT
    ======================================== */
 
 function nextExercise() {
-    const lesson =
-        VELTYPE_LESSONS[currentLevel];
+    const total =
+        LESSONS[currentLesson].exercises.length;
 
-    if (!completed) return;
-
-    if (
-        currentExercise <
-        lesson.exercises.length - 1
-    ) {
-        loadExercise(
-            currentExercise + 1
-        );
+    if (currentExercise < total - 1) {
+        loadExercise(currentExercise + 1);
         return;
     }
 
     completeLesson();
 }
 
+/* ========================================
+   PREVIOUS
+   ======================================== */
+
 function previousExercise() {
     if (currentExercise > 0) {
-        loadExercise(
-            currentExercise - 1
-        );
+        loadExercise(currentExercise - 1);
     }
 }
 
 /* ========================================
-   RESTART
+   RESET
    ======================================== */
 
-function restartExercise() {
-    renderLesson();
-    createLessonSteps();
-    updateNavigation();
-    focusTyping();
+function resetExercise() {
+    loadExercise(currentExercise);
+}
+
+/* ========================================
+   PROGRESS
+   ======================================== */
+
+function updateProgress() {
+    const total =
+        LESSONS[currentLesson].exercises.length;
+
+    const completed =
+        exerciseResults.filter(Boolean).length;
+
+    const percentage =
+        Math.round((completed / total) * 100);
+
+    $("lessonProgress").textContent =
+        `${percentage}%`;
+
+    $("lessonProgressBar").style.width =
+        `${percentage}%`;
+}
+
+/* ========================================
+   DOTS
+   ======================================== */
+
+function buildExerciseDots() {
+    const container =
+        $("exerciseDots");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const total =
+        LESSONS[currentLesson].exercises.length;
+
+    for (let i = 0; i < total; i++) {
+        const dot =
+            document.createElement("button");
+
+        dot.type = "button";
+        dot.className = "exercise-dot";
+        dot.dataset.index = i;
+        dot.setAttribute(
+            "aria-label",
+            `Exercise ${i + 1}`
+        );
+
+        dot.addEventListener("click", () => {
+            loadExercise(i);
+        });
+
+        container.appendChild(dot);
+    }
+}
+
+function updateDots() {
+    document
+        .querySelectorAll(".exercise-dot")
+        .forEach((dot, index) => {
+            dot.classList.toggle(
+                "active",
+                index === currentExercise
+            );
+
+            dot.classList.toggle(
+                "completed",
+                Boolean(exerciseResults[index])
+            );
+        });
+}
+
+/* ========================================
+   KEYBOARD
+   ======================================== */
+
+function initKeyboard() {
+    document.addEventListener("keydown", event => {
+
+        /*
+           Let browser shortcuts work.
+        */
+        if (
+            event.ctrlKey ||
+            event.altKey ||
+            event.metaKey
+        ) {
+            return;
+        }
+
+        const key =
+            event.key.toLowerCase();
+
+        const virtualKey =
+            document.querySelector(
+                `[data-key="${CSS.escape(key)}"]`
+            );
+
+        if (virtualKey) {
+            virtualKey.classList.add("active");
+
+            setTimeout(() => {
+                virtualKey.classList.remove("active");
+            }, 120);
+        }
+
+        if (event.key.length === 1) {
+            handleTyping(event);
+        }
+    });
+
+    $("typingPassage").addEventListener(
+        "click",
+        focusTypingArea
+    );
 }
 
 /* ========================================
    FOCUS
    ======================================== */
 
-function focusTyping() {
-    const input =
-        document.querySelector(
-            ".typing-input"
-        );
-
-    if (input) {
-        input.focus();
-    }
+function focusTypingArea() {
+    $("typingPassage")?.focus();
 }
 
 /* ========================================
-   KEYBOARD VISUAL
+   CURRENT CHARACTER
    ======================================== */
 
-function updateKeyboard(key) {
+function highlightCurrent() {
     document
-        .querySelectorAll(".key.active")
-        .forEach(element =>
-            element.classList.remove("active")
+        .querySelectorAll(
+            "#typingPassage span"
+        )
+        .forEach(span =>
+            span.classList.remove("current")
         );
 
-    const keyboardKey =
-        document.querySelector(
-            `.key[data-key="${key.toLowerCase()}"]`
-        );
+    const current =
+        $("typingPassage").children[
+            typedCharacters
+        ];
 
-    if (!keyboardKey) return;
-
-    keyboardKey.classList.add("active");
-
-    setTimeout(() => {
-        keyboardKey.classList.remove("active");
-    }, 180);
+    if (current) {
+        current.classList.add("current");
+    }
 }
 
-function playKeyFeedback(correct) {
-    document.body.classList.remove(
-        "key-correct",
-        "key-error"
-    );
+/* ========================================
+   TIMER STOP
+   ======================================== */
 
-    void document.body.offsetWidth;
+function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
 
-    document.body.classList.add(
-        correct
-            ? "key-correct"
-            : "key-error"
+/* ========================================
+   SAVE
+   ======================================== */
+
+function saveExerciseResult(result) {
+    const key =
+        `veltype-lesson-${currentLesson}`;
+
+    let saved = {};
+
+    try {
+        saved =
+            JSON.parse(
+                localStorage.getItem(key)
+            ) || {};
+    } catch {
+        saved = {};
+    }
+
+    saved[currentExercise] = {
+        ...result,
+        completedAt: new Date().toISOString()
+    };
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(saved)
     );
 }
 
 /* ========================================
-   PROGRESS STORAGE
+   COMPLETE LESSON
    ======================================== */
 
-function getProgress() {
-    try {
-        return JSON.parse(
-            localStorage.getItem(
-                "veltype-learning-progress"
-            )
-        ) || {};
-    } catch {
-        return {};
-    }
+function completeLesson() {
+    const total =
+        LESSONS[currentLesson].exercises.length;
+
+    const results =
+        exerciseResults.filter(Boolean);
+
+    if (!results.length) return;
+
+    const averageWpm =
+        Math.round(
+            results.reduce(
+                (sum, result) => sum + result.wpm,
+                0
+            ) / results.length
+        );
+
+    const averageAccuracy =
+        Math.round(
+            results.reduce(
+                (sum, result) => sum + result.accuracy,
+                0
+            ) / results.length
+        );
+
+    $("finalWpm").textContent =
+        averageWpm;
+
+    $("finalAccuracy").textContent =
+        `${averageAccuracy}%`;
+
+    $("finalExercises").textContent =
+        `${results.length}/${total}`;
+
+    $("completionMessage").textContent =
+        "Excellent work. Your exercise results have been saved.";
+
+    $("lessonComplete").hidden = false;
+    $("lessonComplete").classList.add("visible");
+
+    $("lessonComplete").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+    saveLessonCompletion(
+        averageWpm,
+        averageAccuracy
+    );
 }
 
-function saveProgress(progress) {
+/* ========================================
+   SAVE LESSON COMPLETION
+   ======================================== */
+
+function saveLessonCompletion(wpm, accuracy) {
+    let progress = {};
+
+    try {
+        progress =
+            JSON.parse(
+                localStorage.getItem(
+                    "veltype-learning-progress"
+                )
+            ) || {};
+    } catch {
+        progress = {};
+    }
+
+    progress[currentLesson] = {
+        completed: true,
+        wpm,
+        accuracy,
+        completedAt: new Date().toISOString()
+    };
+
     localStorage.setItem(
         "veltype-learning-progress",
         JSON.stringify(progress)
     );
 }
 
-function getExerciseKey(level, exercise) {
-    return `level-${level}-exercise-${exercise}`;
-}
+/* ========================================
+   CONTROLS
+   ======================================== */
 
-function saveExerciseProgress(
-    level,
-    exercise,
-    wpm,
-    accuracy
-) {
-    const progress =
-        getProgress();
+function initControls() {
 
-    const key =
-        getExerciseKey(
-            level,
-            exercise
+    $("nextExercise")
+        ?.addEventListener(
+            "click",
+            nextExercise
         );
 
-    progress[key] = {
-        completed: true,
-        wpm,
-        accuracy,
-        completedAt:
-            new Date().toISOString()
-    };
-
-    saveProgress(progress);
-}
-
-function isExerciseComplete(
-    level,
-    exercise
-) {
-    const progress =
-        getProgress();
-
-    const key =
-        getExerciseKey(
-            level,
-            exercise
+    $("previousExercise")
+        ?.addEventListener(
+            "click",
+            previousExercise
         );
 
-    return Boolean(
-        progress[key]?.completed
-    );
+    $("resetExercise")
+        ?.addEventListener(
+            "click",
+            resetExercise
+        );
+
+    $("retryLesson")
+        ?.addEventListener(
+            "click",
+            () => {
+                exerciseResults = [];
+                loadExercise(0);
+            }
+        );
 }
 
 /* ========================================
-   LESSON COMPLETION
+   CLEANUP
    ======================================== */
 
-function completeLesson() {
-    const lesson =
-        VELTYPE_LESSONS[currentLevel];
-
-    const allCompleted =
-        lesson.exercises.every(
-            (_, index) =>
-                isExerciseComplete(
-                    currentLevel,
-                    index
-                )
-        );
-
-    if (!allCompleted) {
-        return;
-    }
-
-    const progress =
-        getProgress();
-
-    progress[`level-${currentLevel}`] = {
-        completed: true,
-        completedAt:
-            new Date().toISOString()
-    };
-
-    saveProgress(progress);
-
-    showLevelComplete();
-}
-
-function showLevelComplete() {
-    const completion =
-        document.querySelector(
-            "[data-level-complete]"
-        );
-
-    if (completion) {
-        completion.classList.add("visible");
-    }
-
-    const nextLevel =
-        document.querySelector(
-            "[data-next-level]"
-        );
-
-    if (
-        nextLevel &&
-        currentLevel < 4
-    ) {
-        nextLevel.href =
-            `lesson.html?level=${currentLevel + 1}`;
-    }
-}
-
-/* ========================================
-   PROGRESS BAR
-   ======================================== */
-
-function updateLessonProgress() {
-    const lesson =
-        VELTYPE_LESSONS[currentLevel];
-
-    const completedExercises =
-        lesson.exercises.filter(
-            (_, index) =>
-                isExerciseComplete(
-                    currentLevel,
-                    index
-                )
-        ).length;
-
-    const percentage =
-        Math.round(
-            (completedExercises /
-                lesson.exercises.length) *
-            100
-        );
-
-    document
-        .querySelectorAll(
-            "[data-lesson-progress]"
-        )
-        .forEach(element => {
-            element.textContent =
-                `${percentage}%`;
-        });
-
-    document
-        .querySelectorAll(
-            ".lesson-progress-bar span"
-        )
-        .forEach(bar => {
-            bar.style.width =
-                `${Math.max(percentage, 5)}%`;
-        });
-}
-
-/* ========================================
-   NAVIGATION STATE
-   ======================================== */
-
-function updateNavigation() {
-    const previous =
-        document.querySelector(
-            "[data-previous-exercise]"
-        );
-
-    const next =
-        document.querySelector(
-            "[data-next-exercise]"
-        );
-
-    if (previous) {
-        previous.disabled =
-            currentExercise === 0;
-    }
-
-    if (next) {
-        next.disabled =
-            !completed;
-
-        next.innerHTML =
-            currentExercise ===
-            VELTYPE_LESSONS[currentLevel]
-                .exercises.length - 1
-                ? "Complete lesson →"
-                : "Next exercise →";
-    }
-
-    const current =
-        document.querySelector(
-            "[data-current-exercise]"
-        );
-
-    if (current) {
-        current.textContent =
-            `${currentExercise + 1} / ${
-                VELTYPE_LESSONS[currentLevel]
-                    .exercises.length
-            }`;
-    }
-}
-
-/* ========================================
-   PUBLIC API
-   ======================================== */
-
-window.VelTypeLesson = {
-    lessons: VELTYPE_LESSONS,
-    getProgress,
-    isExerciseComplete,
-    loadExercise,
-    restartExercise
-};
+window.addEventListener(
+    "beforeunload",
+    stopTimer
+);
