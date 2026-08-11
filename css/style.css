@@ -1098,9 +1098,22 @@ button {
         padding: 30px 0;
     }
 
-    .footer-links {
-        order: 2;
-    }
+.footer-socials {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-socials a {
+    color: var(--muted); 
+    transition: color .25s var(--ease), transform .25s var(--ease);
+}
+
+.footer-socials a:hover {
+    color: var(--ink); 
+    transform: translateY(-2px);
+}
 
     .footer-copy {
         justify-self: start;
