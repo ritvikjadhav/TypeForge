@@ -634,17 +634,6 @@ button{
     background:var(--surface);
     color:var(--muted);
     font:500 10px "DM Mono",monospace;
-    transition:
-        background .2s,
-        color .2s,
-        border-color .2s,
-        transform .2s;
-}
-
-.keyboard-preview span:hover{
-    color:var(--ink);
-    border-color:var(--soft);
-    transform:translateY(-1px);
 }
 
 .keyboard-preview .key-caps{
