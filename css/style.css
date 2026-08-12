@@ -524,7 +524,6 @@ button{
 }
 
 /* ===== FEATURE CARDS ===== */
-
 .feature-grid{
     display:grid;
     grid-template-columns:1.35fr 1fr 1fr;
@@ -546,7 +545,7 @@ button{
     min-height:652px;
     display:flex;
     flex-direction:column;
-    justify-content:space-between;
+    justify-content:flex-start;
 }
 
 .feature-wide{
@@ -582,7 +581,12 @@ button{
     line-height:1.7;
 }
 
+.feature-content{
+    margin-top:75px;
+}
+
 .mini-type-demo{
+    margin-top:auto;
     padding:20px 0 0;
     border-top:1px solid var(--border);
     color:var(--soft);
@@ -600,7 +604,7 @@ button{
 
 .mini-type-demo i{
     font-style:normal;
-}
+   }
 
 /* ===== PRACTICE KEYBOARD — UI ONLY ===== */
 
@@ -1171,11 +1175,23 @@ button{
     }
 
     .feature-card.feature-large,
-    .feature-wide{
-        grid-column:auto;
-        min-height:360px;
-    }
+.feature-wide{
+    grid-column:auto;
+    min-height:320px;
+}
 
+.feature-card.feature-large{
+    justify-content:flex-start;
+}
+
+.feature-content{
+    margin-top:45px;
+}
+
+.mini-type-demo{
+    margin-top:auto;
+   }
+}
     .feature-wide{
         display:block;
     }
@@ -1279,57 +1295,3 @@ button{
         order:3;
     }
 }
-
-/* ===== SMALL PHONES ===== */
-
-@media(max-width:400px){
-
-    .hero{
-        padding-top:45px;
-    }
-
-    .hero h1{
-        font-size:50px;
-    }
-
-    .typing-window{
-        padding-left:14px;
-        padding-right:14px;
-    }
-
-    .window-stats strong{
-        font-size:17px;
-    }
-
-    .demo-passage{
-        font-size:13px;
-    }
-
-    .keyboard-preview{
-        gap:3px;
-    }
-
-    .keyboard-row{
-        gap:3px;
-    }
-
-    .keyboard-preview span{
-        height:29px;
-        font-size:7px;
-        border-radius:5px;
-    }
-
-    .feature-card,
-    .feature-card.feature-large,
-    .feature-wide{
-        padding:21px;
-    }
-
-    .workflow-card h3{
-        font-size:27px;
-    }
-
-    .cta h2{
-        font-size:46px;
-    }
-       }
