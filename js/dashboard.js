@@ -1,371 +1,506 @@
 /* ========================================
-   VELTYPE — DASHBOARD
+   VELTYPE — DASHBOARD V1
    ======================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (!document.querySelector(".dashboard-main")) return;
-    initDashboard();
-});
+(() => {
+    "use strict";
 
-/* ========================================
-   INITIALIZE
-   ======================================== */
-
-function initDashboard() {
-    const history = getHistory();
-    const stats = getStats(history);
-
-    updateStats(stats, history);
-    renderRecentTests(history);
-    renderPerformanceChart(history);
-    updateGoals(history);
-    updateLearningProgress();
-}
-
-/* ========================================
-   STORAGE
-   ======================================== */
-
-function getHistory() {
-    try {
-        const data = JSON.parse(localStorage.getItem("veltype-history"));
-        if (Array.isArray(data)) return data;
-
-        // Fallback for older TypeForge data
-        const oldData = JSON.parse(localStorage.getItem("typeforge-history"));
-        return Array.isArray(oldData) ? oldData : [];
-    } catch {
-        return [];
-    }
-}
-
-function getStats(history) {
-    try {
-        const stored =
-            JSON.parse(localStorage.getItem("veltype-stats")) ||
-            JSON.parse(localStorage.getItem("typeforge-stats"));
-
-        if (stored) return stored;
-    } catch {}
-
-    const tests = history.length;
-
-    const totalWpm = history.reduce(
-        (sum, result) => sum + Number(result.wpm || 0),
-        0
-    );
-
-    const bestWpm = history.length
-        ? Math.max(...history.map(result => Number(result.wpm || 0)))
-        : 0;
-
-    const averageWpm = tests
-        ? Math.round(totalWpm / tests)
-        : 0;
-
-    const averageAccuracy = tests
-        ? Math.round(
-            history.reduce(
-                (sum, result) => sum + Number(result.accuracy || 0),
-                0
-            ) / tests
-        )
-        : 0;
-
-    return {
-        tests,
-        bestWpm,
-        averageWpm,
-        averageAccuracy
+    const STORAGE_KEYS = {
+        tests: "veltypeTests",
+        lessons: "veltypeLessons",
+        progress: "veltypeProgress",
+        exercises: "veltypeExercises"
     };
-}
 
-/* ========================================
-   OVERVIEW STATS
-   ======================================== */
+    const $ = (selector) => document.querySelector(selector);
 
-function updateStats(stats, history) {
-    const averageAccuracy = history.length
-        ? Math.round(
-            history.reduce(
-                (sum, result) => sum + Number(result.accuracy || 0),
-                0
-            ) / history.length
-        )
-        : 0;
+    const getData = (key, fallback = []) => {
+        try {
+            const value = localStorage.getItem(key);
+            return value ? JSON.parse(value) : fallback;
+        } catch {
+            return fallback;
+        }
+    };
 
-    setValue("[data-dashboard='average-wpm']", stats.averageWpm || 0);
-    setValue("[data-dashboard='best-wpm']", stats.bestWpm || 0);
-    setValue("[data-dashboard='tests']", stats.tests || history.length);
-    setValue("[data-dashboard='accuracy']", `${averageAccuracy}%`);
+    const setData = (key, value) => {
+        localStorage.setItem(key, JSON.stringify(value));
+    };
 
-    const date = document.querySelector("[data-dashboard-date]");
+    const tests = () => getData(STORAGE_KEYS.tests);
+    const lessons = () => getData(STORAGE_KEYS.lessons);
 
-    if (date) {
-        date.textContent = new Date().toLocaleDateString(undefined, {
-            weekday: "long",
-            month: "long",
-            day: "numeric"
-        });
+    /* ========================================
+       TEST STATISTICS
+       ======================================== */
+
+    function getTestStats() {
+        const data = tests();
+
+        if (!data.length) {
+            return {
+                count: 0,
+                bestWpm: 0,
+                bestAccuracy: 0,
+                averageWpm: 0,
+                averageAccuracy: 0
+            };
+        }
+
+        const wpm = data.map(test => Number(test.wpm) || 0);
+        const accuracy = data.map(test => Number(test.accuracy) || 0);
+
+        return {
+            count: data.length,
+            bestWpm: Math.max(...wpm),
+            bestAccuracy: Math.max(...accuracy),
+            averageWpm: Math.round(
+                wpm.reduce((sum, value) => sum + value, 0) / wpm.length
+            ),
+            averageAccuracy: Math.round(
+                accuracy.reduce((sum, value) => sum + value, 0) / accuracy.length
+            )
+        };
     }
-}
 
-/* ========================================
-   RECENT TESTS
-   ======================================== */
+    /* ========================================
+       OVERVIEW
+       ======================================== */
 
-function renderRecentTests(history) {
-    const container = document.querySelector("[data-recent-tests]");
+    function updateOverview() {
+        const stats = getTestStats();
+        const completedLessons = getCompletedLessons();
 
-    if (!container) return;
-
-    if (!history.length) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <i class="fa-regular fa-keyboard"></i>
-                <p>No typing tests yet.</p>
-                <a href="test.html">Take your first test →</a>
-            </div>
-        `;
-        return;
+        setText("#bestWpm", stats.bestWpm);
+        setText("#bestAccuracy", `${stats.bestAccuracy}%`);
+        setText("#testsCompleted", stats.count);
+        setText("#lessonsCompleted", completedLessons);
     }
 
-    container.innerHTML = history
-        .slice(0, 5)
-        .map(result => {
-            const date = formatDate(result.date);
+    /* ========================================
+       PERFORMANCE
+       ======================================== */
 
-            return `
-                <div class="test-history-row">
-                    <div class="test-history-info">
-                        <div class="test-history-icon">
-                            <i class="fa-solid fa-keyboard"></i>
-                        </div>
-                        <div>
-                            <strong>${escapeHTML(formatMode(result.mode))}</strong>
-                            <span>${date}</span>
-                        </div>
-                    </div>
-                    <div class="test-history-speed">
-                        ${Number(result.wpm || 0)}
-                        <small>WPM</small>
-                    </div>
-                    <div class="test-history-accuracy">
-                        ${Number(result.accuracy || 0)}%
-                    </div>
+    function updatePerformance() {
+        const stats = getTestStats();
+
+        setText("#averageWpm", stats.averageWpm);
+        setText("#averageAccuracy", `${stats.averageAccuracy}%`);
+        setText("#totalTests", stats.count);
+
+        const message = $("#performanceMessage");
+
+        if (!message) return;
+
+        if (!stats.count) {
+            message.innerHTML = `
+                <span>↗</span>
+                <div>
+                    <h3>Your performance will appear here.</h3>
+                    <p>Complete a few tests to start building your typing history.</p>
                 </div>
             `;
-        })
-        .join("");
-}
+            return;
+        }
 
-/* ========================================
-   PERFORMANCE CHART
-   ======================================== */
-
-function renderPerformanceChart(history) {
-    const svg = document.querySelector("[data-speed-chart]");
-
-    if (!svg) return;
-
-    const results = history
-        .slice(0, 10)
-        .reverse();
-
-    if (!results.length) {
-        svg.innerHTML = "";
-        return;
+        message.innerHTML = `
+            <span>↗</span>
+            <div>
+                <h3>You're building your typing history.</h3>
+                <p>
+                    Your average is ${stats.averageWpm} WPM with
+                    ${stats.averageAccuracy}% accuracy.
+                </p>
+            </div>
+        `;
     }
 
-    const values = results.map(
-        result => Number(result.wpm || 0)
-    );
+    /* ========================================
+       RECENT TESTS
+       ======================================== */
 
-    const width = 600;
-    const height = 230;
-    const padding = 15;
+    function updateTestHistory() {
+        const container = $("#testHistory");
 
-    const max = Math.max(...values, 40);
-    const min = 0;
-    const range = Math.max(max - min, 1);
+        if (!container) return;
 
-    const points = values.map((value, index) => {
-        const x = values.length === 1
-            ? width / 2
-            : padding +
-              (index / (values.length - 1)) *
-              (width - padding * 2);
+        const data = tests();
 
-        const y =
-            height -
-            padding -
-            ((value - min) / range) *
-            (height - padding * 2);
+        if (!data.length) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-mark">⌨</div>
+                    <h3>No tests yet</h3>
+                    <p>
+                        Complete your first typing test and your results will appear here.
+                    </p>
+                    <a href="test.html" class="dashboard-button button-secondary">
+                        Take a Test <span>→</span>
+                    </a>
+                </div>
+            `;
+            return;
+        }
 
-        return { x, y };
-    });
+        const recent = [...data]
+            .sort((a, b) => getTimestamp(b) - getTimestamp(a))
+            .slice(0, 6);
 
-    const polyline = points
-        .map(point => `${point.x},${point.y}`)
-        .join(" ");
+        container.innerHTML = `
+            <div class="history-list">
+                ${recent.map(test => `
+                    <div class="history-item">
+                        <div>
+                            <strong>${escapeHTML(test.wpm ?? 0)} WPM</strong>
+                            <span>${escapeHTML(test.accuracy ?? 0)}% accuracy</span>
+                        </div>
 
-    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+                        <time datetime="${escapeHTML(test.date ?? "")}">
+                            ${formatDate(test.date)}
+                        </time>
+                    </div>
+                `).join("")}
+            </div>
+        `;
+    }
 
-    svg.innerHTML = `
-        <polyline points="${polyline}"></polyline>
-        ${points.map(point => `
-            <circle
-                cx="${point.x}"
-                cy="${point.y}"
-                r="5"
-            ></circle>
-        `).join("")}
-    `;
-}
+    /* ========================================
+       ACADEMY PROGRESS
+       ======================================== */
 
-/* ========================================
-   GOALS
-   ======================================== */
+    function updateAcademy() {
+        const completed = getCompletedLessons();
+        const total = getTotalLessons();
+        const percent = total
+            ? Math.min(100, Math.round((completed / total) * 100))
+            : 0;
 
-function updateGoals(history) {
-    const weeklyTests = getWeeklyTests(history);
-    const weeklyGoal = 10;
+        setText("#academyPercent", `${percent}%`);
+        setText("#academyLevel", getAcademyLevel(percent));
 
-    const percentage = Math.min(
-        100,
-        Math.round((weeklyTests / weeklyGoal) * 100)
-    );
+        setText(
+            "#academyProgressText",
+            completed
+                ? `${completed} of ${total} lessons completed. Keep building your typing skills.`
+                : "Start your first lesson to build your typing foundation."
+        );
 
-    setValue("[data-weekly-current]", weeklyTests);
-    setValue("[data-weekly-goal]", weeklyGoal);
-    setValue("[data-weekly-percent]", `${percentage}%`);
+        const bar = $("#academyProgressBar");
 
-    document
-        .querySelectorAll(".goal-progress-bar span")
-        .forEach(bar => {
-            bar.style.width = `${percentage}%`;
-        });
+        if (bar) {
+            bar.style.width = `${percent}%`;
+        }
 
-    document
-        .querySelectorAll(".goal-ring")
-        .forEach(ring => {
+        const ring = $(".academy-ring");
+
+        if (ring) {
             ring.style.background = `
                 conic-gradient(
-                    var(--accent) 0 ${percentage}%,
-                    var(--surface-light) ${percentage}% 100%
+                    var(--ink) 0 ${percent}%,
+                    var(--surface-alt) ${percent}% 100%
                 )
             `;
+        }
+    }
+
+    function getAcademyLevel(percent) {
+        if (percent >= 90) return "Advanced";
+        if (percent >= 60) return "Intermediate";
+        if (percent >= 30) return "Developing";
+        return "Foundation";
+    }
+
+    /* ========================================
+       NEXT LESSON
+       ======================================== */
+
+    function updateCurrentLesson() {
+        const completed = getCompletedLessons();
+        const next = Math.min(completed + 1, getTotalLessons());
+
+        const lessonData = getLessonData(next);
+
+        if (!lessonData) return;
+
+        setText("#currentLessonTitle", lessonData.title);
+        setText("#currentLessonDescription", lessonData.description);
+
+        const button = $("#continueLessonButton");
+
+        if (button) {
+            button.href = `lesson.html?level=${lessonData.level}&lesson=${lessonData.lesson}`;
+            button.innerHTML = completed >= getTotalLessons()
+                ? `Review Lesson <span>→</span>`
+                : `Start Lesson <span>→</span>`;
+        }
+    }
+
+    function getLessonData(number) {
+        const lessons = [
+            {
+                level: 1,
+                lesson: 1,
+                title: "Home Row Basics",
+                description: "Learn correct finger placement and build your touch typing foundation."
+            },
+            {
+                level: 1,
+                lesson: 2,
+                title: "Top Row Basics",
+                description: "Build confidence reaching the top row while maintaining proper finger placement."
+            },
+            {
+                level: 1,
+                lesson: 3,
+                title: "Bottom Row Basics",
+                description: "Practice the bottom row and improve accuracy across the keyboard."
+            },
+            {
+                level: 2,
+                lesson: 1,
+                title: "Common Words",
+                description: "Use common word patterns to improve speed without sacrificing accuracy."
+            }
+        ];
+
+        return lessons[number - 1] || null;
+    }
+
+    /* ========================================
+       WEEKLY GOALS
+       ======================================== */
+
+    function updateWeeklyGoals() {
+        const weekTests = getTestsThisWeek();
+        const weekLessons = getLessonsThisWeek();
+        const stats = getTestStats();
+
+        const testTarget = 5;
+        const lessonTarget = 3;
+
+        const testPercent = Math.min(
+            100,
+            Math.round((weekTests / testTarget) * 100)
+        );
+
+        const lessonPercent = Math.min(
+            100,
+            Math.round((weekLessons / lessonTarget) * 100)
+        );
+
+        const accuracyPercent = Math.min(
+            100,
+            stats.averageAccuracy
+        );
+
+        setText("#weeklyTests", `${weekTests} / ${testTarget}`);
+        setText("#weeklyLessons", `${weekLessons} / ${lessonTarget}`);
+        setText("#weeklyAccuracy", `${stats.averageAccuracy}%`);
+
+        setWidth("#weeklyTestsBar", testPercent);
+        setWidth("#weeklyLessonsBar", lessonPercent);
+        setWidth("#weeklyAccuracyBar", accuracyPercent);
+    }
+
+    function getTestsThisWeek() {
+        const start = getStartOfWeek();
+
+        return tests().filter(test => {
+            const date = getTimestamp(test);
+            return date >= start;
+        }).length;
+    }
+
+    function getLessonsThisWeek() {
+        const start = getStartOfWeek();
+
+        return lessons().filter(lesson => {
+            const date = getTimestamp(lesson);
+            return date >= start && isLessonCompleted(lesson);
+        }).length;
+    }
+
+    function getStartOfWeek() {
+        const date = new Date();
+        const day = date.getDay();
+        const difference = day === 0 ? 6 : day - 1;
+
+        date.setHours(0, 0, 0, 0);
+        date.setDate(date.getDate() - difference);
+
+        return date.getTime();
+    }
+
+    /* ========================================
+       LESSON DATA
+       ======================================== */
+
+    function getCompletedLessons() {
+        return lessons().filter(isLessonCompleted).length;
+    }
+
+    function getTotalLessons() {
+        return 4;
+    }
+
+    function isLessonCompleted(lesson) {
+        return (
+            lesson?.completed === true ||
+            lesson?.status === "completed"
+        );
+    }
+
+    /* ========================================
+       RESET
+       ======================================== */
+
+    let resetType = null;
+
+    function setupResetActions() {
+        const resetExercises = $("#resetExercises");
+        const resetProgress = $("#resetProgress");
+        const cancelReset = $("#cancelReset");
+        const confirmReset = $("#confirmReset");
+        const modal = $("#resetModal");
+
+        resetExercises?.addEventListener("click", () => {
+            resetType = "exercises";
+            openResetModal(
+                "Reset exercises?",
+                "Your saved exercise progress will be removed. Your test history will remain."
+            );
         });
-}
 
-function getWeeklyTests(history) {
-    const now = new Date();
-
-    const startOfWeek = new Date(now);
-    const day = startOfWeek.getDay();
-    const difference = day === 0 ? 6 : day - 1;
-
-    startOfWeek.setDate(
-        startOfWeek.getDate() - difference
-    );
-
-    startOfWeek.setHours(0, 0, 0, 0);
-
-    return history.filter(result => {
-        const date = new Date(result.date);
-        return date >= startOfWeek;
-    }).length;
-}
-
-/* ========================================
-   LEARNING PROGRESS
-   ======================================== */
-
-function updateLearningProgress() {
-    const progress = Number(
-        localStorage.getItem("veltype-learning-progress") || 0
-    );
-
-    setValue(
-        "[data-learning-progress]",
-        `${progress}%`
-    );
-
-    document
-        .querySelectorAll("[data-learning-bar]")
-        .forEach(bar => {
-            bar.style.width = `${progress}%`;
+        resetProgress?.addEventListener("click", () => {
+            resetType = "progress";
+            openResetModal(
+                "Reset your progress?",
+                "This will remove your saved lessons, tests and typing statistics. This action cannot be undone."
+            );
         });
-}
 
-/* ========================================
-   DATE
-   ======================================== */
+        cancelReset?.addEventListener("click", closeResetModal);
 
-function formatDate(date) {
-    if (!date) return "Recently";
+        confirmReset?.addEventListener("click", () => {
+            if (resetType === "exercises") {
+                localStorage.removeItem(STORAGE_KEYS.exercises);
+            }
 
-    const parsed = new Date(date);
+            if (resetType === "progress") {
+                localStorage.removeItem(STORAGE_KEYS.tests);
+                localStorage.removeItem(STORAGE_KEYS.lessons);
+                localStorage.removeItem(STORAGE_KEYS.progress);
+                localStorage.removeItem(STORAGE_KEYS.exercises);
+            }
 
-    if (Number.isNaN(parsed.getTime())) {
-        return "Recently";
+            closeResetModal();
+            render();
+        });
+
+        modal?.querySelector(".reset-modal-backdrop")
+            ?.addEventListener("click", closeResetModal);
     }
 
-    const today = new Date();
+    function openResetModal(title, message) {
+        const modal = $("#resetModal");
 
-    const isToday =
-        parsed.toDateString() === today.toDateString();
+        if (!modal) return;
 
-    if (isToday) return "Today";
+        setText("#resetModalTitle", title);
+        setText("#resetModalText", message);
 
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    if (parsed.toDateString() === yesterday.toDateString()) {
-        return "Yesterday";
+        modal.hidden = false;
+        document.body.style.overflow = "hidden";
     }
 
-    return parsed.toLocaleDateString(undefined, {
-        month: "short",
-        day: "numeric"
-    });
-}
+    function closeResetModal() {
+        const modal = $("#resetModal");
 
-/* ========================================
-   TEST MODE
-   ======================================== */
+        if (!modal) return;
 
-function formatMode(mode) {
-    if (mode === "words") {
-        return "25 Words";
+        modal.hidden = true;
+        document.body.style.overflow = "";
+        resetType = null;
     }
 
-    const seconds = Number(mode);
+    /* ========================================
+       HELPERS
+       ======================================== */
 
-    if (Number.isFinite(seconds)) {
-        return `${seconds} Seconds`;
-    }
+    function setText(selector, value) {
+        const element = $(selector);
 
-    return "Typing Test";
-}
-
-/* ========================================
-   HELPERS
-   ======================================== */
-
-function setValue(selector, value) {
-    document
-        .querySelectorAll(selector)
-        .forEach(element => {
+        if (element) {
             element.textContent = value;
-        });
-}
-
-function escapeHTML(value) {
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        }
     }
+
+    function setWidth(selector, percent) {
+        const element = $(selector);
+
+        if (element) {
+            element.style.width = `${percent}%`;
+        }
+    }
+
+    function getTimestamp(item) {
+        if (!item) return 0;
+
+        const value = item.timestamp || item.date || item.createdAt;
+
+        if (!value) return 0;
+
+        const timestamp = new Date(value).getTime();
+
+        return Number.isNaN(timestamp)
+            ? Number(value) || 0
+            : timestamp;
+    }
+
+    function formatDate(value) {
+        if (!value) return "Recently";
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+            return "Recently";
+        }
+
+        return new Intl.DateTimeFormat("en", {
+            day: "numeric",
+            month: "short"
+        }).format(date);
+    }
+
+    function escapeHTML(value) {
+        return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+    /* ========================================
+       RENDER
+       ======================================== */
+
+    function render() {
+        updateOverview();
+        updatePerformance();
+        updateTestHistory();
+        updateAcademy();
+        updateCurrentLesson();
+        updateWeeklyGoals();
+    }
+
+    /* ========================================
+       INIT
+       ======================================== */
+
+    document.addEventListener("DOMContentLoaded", () => {
+        setupResetActions();
+        render();
+    });
+
+})();
