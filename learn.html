@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description" content="Learn touch typing from the basics to advanced real-world typing with VelType Academy.">
+    <meta name="description" content="Follow the VelType typing learning path from keyboard basics to advanced speed training.">
     <meta name="theme-color" content="#FAF7EE">
-
     <title>Learn — VelType</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
@@ -22,7 +19,7 @@
 
 <div class="site-shell">
 
-    <!-- NAVIGATION -->
+    <!-- NAVBAR -->
     <header class="navbar">
         <a href="index.html" class="brand" aria-label="VelType home">
             <span class="brand-mark">VT</span>
@@ -37,7 +34,7 @@
         </nav>
 
         <div class="nav-actions">
-            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                 <span>◐</span>
             </button>
 
@@ -46,13 +43,7 @@
             </a>
         </div>
 
-        <button
-            class="menu-toggle"
-            id="menuToggle"
-            type="button"
-            aria-label="Open menu"
-            aria-expanded="false"
-        >
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
             <span></span>
             <span></span>
         </button>
@@ -62,231 +53,69 @@
 
         <!-- HERO -->
         <section class="learn-hero">
-            <div class="learn-hero-copy">
-                <span class="eyebrow">
-                    <span class="eyebrow-dot"></span>
-                    VELTYPE ACADEMY
-                </span>
+            <div class="learn-container">
+                <span class="section-label">LEARNING PATH</span>
 
                 <h1>
-                    Learn to type
-                    <em>with intention.</em>
+                    From first keypress to
+                    <em>real speed.</em>
                 </h1>
 
                 <p>
-                    Start from the keyboard basics, build proper touch-typing
-                    technique, then turn accuracy into real-world speed.
+                    Build your typing skills step by step — from keyboard
+                    fundamentals to real-world speed, accuracy and endurance.
                 </p>
 
-                <div class="learn-hero-actions">
-                    <a href="#learning-path" class="button button-primary">
-                        Start Learning <span>→</span>
-                    </a>
-
-                    <a href="test.html" class="button button-secondary">
-                        Test Your Speed
-                    </a>
+                <div class="learn-hero-meta">
+                    <span>24 LESSONS</span>
+                    <span>6 LEVELS</span>
+                    <span>BEGINNER → ADVANCED</span>
                 </div>
-            </div>
-
-            <div class="learn-progress-card">
-                <div class="progress-card-top">
-                    <span>YOUR PROGRESS</span>
-                    <strong id="heroProgress">0%</strong>
-                </div>
-
-                <div class="progress-ring" id="heroRing">
-                    <div>
-                        <strong id="heroCompleted">0</strong>
-                        <span>lessons</span>
-                    </div>
-                </div>
-
-                <div class="progress-card-bottom">
-                    <div>
-                        <span>LEVEL</span>
-                        <strong id="heroLevel">Foundation</strong>
-                    </div>
-
-                    <div>
-                        <span>NEXT</span>
-                        <strong id="heroNext">Keyboard Basics</strong>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- QUICK STATS -->
-        <section class="learn-stats" aria-label="Learning statistics">
-            <div class="learn-stat">
-                <span>LESSONS</span>
-                <strong id="statLessons">0 / 24</strong>
-            </div>
-
-            <div class="learn-stat">
-                <span>COMPLETED</span>
-                <strong id="statCompleted">0%</strong>
-            </div>
-
-            <div class="learn-stat">
-                <span>LEVEL</span>
-                <strong id="statLevel">Foundation</strong>
-            </div>
-
-            <div class="learn-stat">
-                <span>EST. TIME</span>
-                <strong>~4 hrs</strong>
             </div>
         </section>
 
         <!-- LEARNING PATH -->
-        <section class="learning-section" id="learning-path">
+        <section class="learning-path">
+            <div class="learn-container">
 
-            <div class="section-heading">
-                <div>
-                    <span class="section-label">LEARNING PATH</span>
-                    <h2>From first keypress to <em>real speed.</em></h2>
-                </div>
-
-                <p>
-                    Follow the path in order or revisit any lesson whenever
-                    you need to strengthen a specific skill.
-                </p>
-            </div>
-
-            <div class="learning-path" id="learningPath"></div>
-
-        </section>
-
-        <!-- DAILY PRACTICE -->
-        <section class="practice-section">
-
-            <div class="practice-copy">
-                <span class="section-label">PUT IT TO WORK</span>
-
-                <h2>
-                    Learn it.
-                    <em>Then type it.</em>
-                </h2>
-
-                <p>
-                    Lessons teach the technique. Typing tests turn that
-                    technique into speed, accuracy and consistency.
-                </p>
-
-                <a href="test.html" class="text-link">
-                    Take a typing test <span>→</span>
-                </a>
-            </div>
-
-            <div class="practice-preview">
-
-                <div class="practice-preview-top">
-                    <span>LIVE PRACTICE</span>
-                    <span>60 SEC</span>
-                </div>
-
-                <div class="practice-metrics">
+                <div class="path-header">
                     <div>
-                        <span>WPM</span>
-                        <strong>64</strong>
+                        <span class="section-label">YOUR PATH</span>
+                        <h2>Learn at your pace.</h2>
                     </div>
 
-                    <div>
-                        <span>ACC</span>
-                        <strong>97%</strong>
-                    </div>
-
-                    <div>
-                        <span>ERRORS</span>
-                        <strong>3</strong>
-                    </div>
-                </div>
-
-                <div class="practice-text">
-                    <span>
-                        The goal isn't simply to type faster.
-                        The goal is to make every keystroke feel natural.
+                    <span class="path-note">
+                        One level at a time
                     </span>
                 </div>
 
-                <div class="practice-progress">
-                    <span></span>
-                </div>
+                <div class="level-list" id="levelList"></div>
 
             </div>
-
         </section>
 
-        <!-- LEARNING PRINCIPLES -->
-        <section class="principles-section">
+        <!-- CTA -->
+        <section class="learn-cta">
+            <div class="learn-container">
+                <div>
+                    <span class="section-label">PUT IT TO WORK</span>
+                    <h2>Ready to build<br><em>real speed?</em></h2>
+                </div>
 
-            <div class="section-heading centered">
-                <span class="section-label">THE METHOD</span>
-
-                <h2>
-                    Speed comes after
-                    <em>control.</em>
-                </h2>
-
-                <p>
-                    VelType focuses on the fundamentals that actually
-                    transfer to everyday typing.
-                </p>
+                <a href="test.html" class="button button-primary">
+                    Take a Typing Test <span>→</span>
+                </a>
             </div>
-
-            <div class="principles-grid">
-
-                <article class="principle">
-                    <span>01</span>
-                    <h3>Position</h3>
-                    <p>
-                        Learn where your fingers belong before trying
-                        to increase your speed.
-                    </p>
-                </article>
-
-                <article class="principle">
-                    <span>02</span>
-                    <h3>Accuracy</h3>
-                    <p>
-                        Build reliable muscle memory by reducing mistakes
-                        instead of racing through exercises.
-                    </p>
-                </article>
-
-                <article class="principle">
-                    <span>03</span>
-                    <h3>Consistency</h3>
-                    <p>
-                        Turn short practice sessions into a typing skill
-                        you can rely on every day.
-                    </p>
-                </article>
-
-                <article class="principle">
-                    <span>04</span>
-                    <h3>Speed</h3>
-                    <p>
-                        Once your technique is stable, speed naturally
-                        becomes easier to build.
-                    </p>
-                </article>
-
-            </div>
-
         </section>
 
     </main>
 
     <!-- FOOTER -->
     <footer class="footer">
-
         <div class="footer-container">
 
             <div class="footer-brand">
                 <a href="index.html" class="brand">
-                    <span class="brand-mark">VT</span>
                     <span>VelType</span>
                 </a>
 
@@ -306,7 +135,6 @@
             </div>
 
         </div>
-
     </footer>
 
 </div>
