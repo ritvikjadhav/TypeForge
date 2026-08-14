@@ -1,70 +1,72 @@
-/* ========================================
-   TYPEFORGE — TYPING TEST ENGINE
-   ======================================== */
+// VelType V1 — typing test engine
 
 document.addEventListener("DOMContentLoaded", () => {
-    const typingTest = document.querySelector("#typingTest");
-    if (!typingTest) return;
-    new TypingTest();
+    const test = document.querySelector("#typingTest");
+    if (test) new TypingTest();
 });
 
 class TypingTest {
     constructor() {
         this.passage = document.querySelector("#passage");
         this.input = document.querySelector("#typingInput");
-        this.timerDisplay = document.querySelector("#timer");
-        this.wpmDisplay = document.querySelector("#wpm");
-        this.accuracyDisplay = document.querySelector("#accuracy");
-        this.errorsDisplay = document.querySelector("#errors");
+        this.timer = document.querySelector("#timer");
+        this.wpm = document.querySelector("#wpm");
+        this.accuracy = document.querySelector("#accuracy");
+        this.errors = document.querySelector("#errors");
         this.progressBar = document.querySelector("#progressBar");
-        this.restartButton = document.querySelector("#restartTest");
-        this.modeButtons = document.querySelectorAll("[data-time]");
+        this.progressPercent = document.querySelector("#progressPercent");
+        this.message = document.querySelector("#testMessage");
+        this.modeLabel = document.querySelector("#testModeLabel");
 
+        this.result = document.querySelector("#testResult");
+        this.resultWpm = document.querySelector("#resultWpm");
+        this.resultAccuracy = document.querySelector("#resultAccuracy");
+        this.resultErrors = document.querySelector("#resultErrors");
+        this.resultRawWpm = document.querySelector("#resultRawWpm");
+
+        this.restartButton = document.querySelector("#restartTest");
+        this.resultRestart = document.querySelector("#resultRestart");
+        this.modeButtons = document.querySelectorAll(".mode-button");
+
+        this.passages = [
+            "Success in typing comes from accuracy, rhythm, consistency, and regular practice. Focus on every letter and allow your speed to improve naturally.",
+            "Technology changes every day, but clear communication remains important. Good typing skills help you work faster, write better, and stay focused on your ideas.",
+            "Fast typing is not about pressing the keys harder. It is about rhythm, accuracy, and allowing your fingers to move naturally across the keyboard.",
+            "Learning to type properly is a small investment that can save hundreds of hours over time. Practice regularly, stay relaxed, and focus on accuracy before speed.",
+            "Every great skill begins with repetition. Your typing speed improves when you practice consistently and learn from mistakes instead of chasing speed."
+        ];
+
+        this.timeLimit = 30;
+        this.timeLeft = 30;
         this.text = "";
         this.started = false;
         this.finished = false;
         this.startTime = null;
-        this.timer = null;
-        this.timeLimit = 30;
-        this.timeLeft = 30;
-        this.errors = 0;
-        this.correct = 0;
+        this.timerId = null;
         this.typed = 0;
-
-        this.passages = [
-            "Success in typing does not come from rushing. It comes from accuracy, rhythm, consistency, and regular practice. Focus on every letter and let your speed improve naturally.",
-            "Technology changes every day, but the ability to communicate clearly remains important. Good typing skills help you work faster, write better, and stay focused on your ideas.",
-            "The fastest typists are not always the people who press the keys hardest. They understand rhythm and accuracy, allowing their fingers to move naturally across the keyboard.",
-            "Learning to type properly is a small investment that can save hundreds of hours over time. Practice regularly, keep your hands relaxed, and concentrate on accuracy before speed.",
-            "Every great skill begins with repetition. Your typing speed will improve when you practice consistently and learn from your mistakes instead of trying to become fast immediately."
-        ];
+        this.correct = 0;
+        this.errorsCount = 0;
 
         this.init();
     }
 
-    /* ========================================
-       INITIALIZATION
-       ======================================== */
-
+    // Initialize the typing test.
     init() {
-        this.generatePassage();
-        this.setupEvents();
-        this.updateStats();
-        this.updateTimer();
+        this.createPassage();
+        this.bindEvents();
+        this.updateDisplay();
+        this.updateProgress();
         this.focusInput();
     }
 
-    /* ========================================
-       GENERATE PASSAGE
-       ======================================== */
-
-    generatePassage() {
+    // Create a fresh random passage.
+    createPassage() {
         this.text =
             this.passages[
                 Math.floor(Math.random() * this.passages.length)
             ];
 
-        this.passage.innerHTML = "";
+        this.passage.textContent = "";
 
         [...this.text].forEach((character, index) => {
             const span = document.createElement("span");
@@ -78,18 +80,24 @@ class TypingTest {
 
             this.passage.appendChild(span);
         });
+
+        this.updateModeLabel();
     }
 
-    /* ========================================
-       EVENTS
-       ======================================== */
-
-    setupEvents() {
+    // Connect all test controls.
+    bindEvents() {
         this.input.addEventListener("input", () => {
-            this.handleTyping();
+            this.handleInput();
         });
 
         this.input.addEventListener("keydown", event => {
+            if (
+                event.key === "Backspace" ||
+                event.key === "Delete"
+            ) {
+                event.preventDefault();
+            }
+
             if (event.key === "Tab") {
                 event.preventDefault();
             }
@@ -103,6 +111,10 @@ class TypingTest {
             this.restart();
         });
 
+        this.resultRestart?.addEventListener("click", () => {
+            this.restart();
+        });
+
         this.modeButtons.forEach(button => {
             button.addEventListener("click", () => {
                 this.modeButtons.forEach(item => {
@@ -110,9 +122,7 @@ class TypingTest {
                 });
 
                 button.classList.add("active");
-
-                this.timeLimit =
-                    Number(button.dataset.time);
+                this.timeLimit = Number(button.dataset.time);
 
                 this.restart();
             });
@@ -121,7 +131,6 @@ class TypingTest {
         document.addEventListener("keydown", event => {
             if (
                 event.key.length === 1 ||
-                event.key === "Backspace" ||
                 event.key === " "
             ) {
                 this.focusInput();
@@ -129,75 +138,61 @@ class TypingTest {
         });
     }
 
-    /* ========================================
-       TYPING
-       ======================================== */
-
-    handleTyping() {
+    // Process every typed character.
+    handleInput() {
         if (this.finished) return;
 
-        const typedText = this.input.value;
+        const value = this.input.value;
 
-        if (!this.started && typedText.length > 0) {
+        if (!this.started && value.length) {
             this.start();
         }
 
-        this.typed = typedText.length;
+        this.typed = value.length;
         this.correct = 0;
-        this.errors = 0;
+        this.errorsCount = 0;
 
-        const characters =
-            this.passage.querySelectorAll("span");
+        const characters = this.passage.querySelectorAll("span");
 
         characters.forEach((character, index) => {
-            character.classList.remove(
-                "correct",
-                "wrong",
-                "current"
-            );
+            character.classList.remove("correct", "wrong", "current");
 
-            if (index < typedText.length) {
-                if (
-                    typedText[index] ===
-                    this.text[index]
-                ) {
+            if (index < this.typed) {
+                if (value[index] === this.text[index]) {
                     character.classList.add("correct");
                     this.correct++;
                 } else {
                     character.classList.add("wrong");
-                    this.errors++;
+                    this.errorsCount++;
                 }
             }
 
-            if (index === typedText.length) {
+            if (index === this.typed && !this.finished) {
                 character.classList.add("current");
             }
         });
 
-        this.updateStats();
+        this.updateDisplay();
         this.updateProgress();
 
-        if (
-            typedText.length >=
-            this.text.length
-        ) {
+        if (this.typed >= this.text.length) {
             this.finish();
         }
     }
 
-    /* ========================================
-       TIMER
-       ======================================== */
-
+    // Start the countdown.
     start() {
+        if (this.started) return;
+
         this.started = true;
         this.startTime = Date.now();
 
-        this.timer = setInterval(() => {
+        this.message.textContent = "Keep your rhythm. Accuracy comes first.";
+
+        this.timerId = setInterval(() => {
             this.timeLeft--;
 
-            this.updateTimer();
-            this.updateStats();
+            this.updateDisplay();
 
             if (this.timeLeft <= 0) {
                 this.finish();
@@ -205,211 +200,185 @@ class TypingTest {
         }, 1000);
     }
 
-    updateTimer() {
-        if (!this.timerDisplay) return;
+    // Update live test statistics.
+    updateDisplay() {
+        this.timer.textContent = `${this.timeLeft}s`;
 
-        this.timerDisplay.textContent =
-            `${this.timeLeft}s`;
-    }
-
-    /* ========================================
-       STATISTICS
-       ======================================== */
-
-    updateStats() {
-        if (!this.started) {
-            this.wpmDisplay.textContent = "0";
-            this.accuracyDisplay.textContent = "100%";
-            this.errorsDisplay.textContent = "0";
+        if (!this.started || !this.startTime) {
+            this.wpm.textContent = "0";
+            this.accuracy.textContent = "100%";
+            this.errors.textContent = "0";
             return;
         }
 
-        const elapsed =
-            Math.max(
-                (Date.now() - this.startTime) / 1000,
-                1
-            );
+        const elapsed = Math.max(
+            (Date.now() - this.startTime) / 1000,
+            1
+        );
 
         const minutes = elapsed / 60;
+        const wpm = Math.round((this.correct / 5) / minutes);
 
-        const wpm =
-            Math.round(
-                (this.correct / 5) /
-                minutes
-            );
+        const accuracy = this.typed
+            ? Math.round((this.correct / this.typed) * 100)
+            : 100;
 
-        const accuracy =
-            this.typed > 0
-                ? Math.round(
-                    (this.correct /
-                        this.typed) *
-                    100
-                )
-                : 100;
-
-        this.wpmDisplay.textContent =
-            Math.max(wpm, 0);
-
-        this.accuracyDisplay.textContent =
-            `${Math.max(
-                0,
-                Math.min(100, accuracy)
-            )}%`;
-
-        this.errorsDisplay.textContent =
-            this.errors;
+        this.wpm.textContent = Math.max(wpm, 0);
+        this.accuracy.textContent = `${Math.min(accuracy, 100)}%`;
+        this.errors.textContent = this.errorsCount;
     }
 
-    /* ========================================
-       PROGRESS
-       ======================================== */
-
+    // Update passage completion progress.
     updateProgress() {
-        if (!this.progressBar) return;
+        const progress = this.text.length
+            ? (this.typed / this.text.length) * 100
+            : 0;
 
-        const progress =
-            (this.typed /
-                this.text.length) *
-            100;
+        const value = Math.min(progress, 100);
 
-        this.progressBar.style.width =
-            `${Math.min(progress, 100)}%`;
+        this.progressBar.style.width = `${value}%`;
+        this.progressPercent.textContent = `${Math.round(value)}%`;
     }
 
-    /* ========================================
-       FINISH
-       ======================================== */
+    // Update the selected test duration label.
+    updateModeLabel() {
+        if (this.modeLabel) {
+            this.modeLabel.textContent = `${this.timeLimit} SEC`;
+        }
+    }
 
+    // Finish the current test.
     finish() {
         if (this.finished) return;
 
         this.finished = true;
         this.started = false;
 
-        clearInterval(this.timer);
+        clearInterval(this.timerId);
 
         this.input.blur();
 
+        this.showResult();
         this.saveResult();
     }
 
-    /* ========================================
-       SAVE RESULT
-       ======================================== */
+    // Calculate and display the final result.
+    showResult() {
+        const elapsed = this.getElapsedTime();
+        const minutes = Math.max(elapsed / 60, 1 / 60);
 
+        const finalWpm = Math.round(
+            (this.correct / 5) / minutes
+        );
+
+        const rawWpm = Math.round(
+            (this.typed / 5) / minutes
+        );
+
+        const finalAccuracy = this.typed
+            ? Math.round((this.correct / this.typed) * 100)
+            : 100;
+
+        this.resultWpm.textContent = Math.max(finalWpm, 0);
+        this.resultAccuracy.textContent = `${finalAccuracy}%`;
+        this.resultErrors.textContent = this.errorsCount;
+        this.resultRawWpm.textContent = Math.max(rawWpm, 0);
+
+        this.result.hidden = false;
+
+        this.message.textContent = "Test complete — great work!";
+
+        this.result.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    // Save the completed test for the dashboard.
     saveResult() {
-        const history =
-            JSON.parse(
-                localStorage.getItem(
-                    "typeforge-history"
-                ) || "[]"
-            );
+        const history = JSON.parse(
+            localStorage.getItem("veltype-history") || "[]"
+        );
 
-        const elapsed =
-            this.startTime
-                ? Math.round(
-                    (Date.now() -
-                        this.startTime) /
-                    1000
-                )
-                : 0;
+        const elapsed = this.getElapsedTime();
+        const minutes = Math.max(elapsed / 60, 1 / 60);
 
-        const minutes =
-            Math.max(elapsed / 60, 1 / 60);
+        const wpm = Math.round(
+            (this.correct / 5) / minutes
+        );
 
-        const wpm =
-            Math.round(
-                (this.correct / 5) /
-                minutes
-            );
+        const rawWpm = Math.round(
+            (this.typed / 5) / minutes
+        );
 
-        const accuracy =
-            this.typed > 0
-                ? Math.round(
-                    (this.correct /
-                        this.typed) *
-                    100
-                )
-                : 100;
+        const accuracy = this.typed
+            ? Math.round((this.correct / this.typed) * 100)
+            : 100;
 
         history.unshift({
             wpm: Math.max(wpm, 0),
+            rawWpm: Math.max(rawWpm, 0),
             accuracy,
-            errors: this.errors,
+            errors: this.errorsCount,
             characters: this.typed,
             correctCharacters: this.correct,
             duration: elapsed,
+            testDuration: this.timeLimit,
             date: new Date().toISOString()
         });
 
         localStorage.setItem(
-            "typeforge-history",
-            JSON.stringify(
-                history.slice(0, 50)
-            )
+            "veltype-history",
+            JSON.stringify(history.slice(0, 50))
         );
-
-        this.showFinishedMessage();
     }
 
-    /* ========================================
-       FINISHED MESSAGE
-       ======================================== */
+    // Return elapsed test time.
+    getElapsedTime() {
+        if (!this.startTime) return 0;
 
-    showFinishedMessage() {
-        const message =
-            document.querySelector(
-                "#testMessage"
-            );
-
-        if (message) {
-            message.textContent =
-                "Test complete — great work!";
-        }
+        return Math.max(
+            Math.round((Date.now() - this.startTime) / 1000),
+            1
+        );
     }
 
-    /* ========================================
-       RESTART
-       ======================================== */
-
+    // Reset the test without reloading the page.
     restart() {
-        clearInterval(this.timer);
+        clearInterval(this.timerId);
 
         this.started = false;
         this.finished = false;
         this.startTime = null;
-        this.errors = 0;
-        this.correct = 0;
-        this.typed = 0;
+        this.timerId = null;
+
         this.timeLeft = this.timeLimit;
+        this.typed = 0;
+        this.correct = 0;
+        this.errorsCount = 0;
 
         this.input.value = "";
+        this.result.hidden = true;
 
-        this.generatePassage();
-        this.updateTimer();
-        this.updateStats();
+        this.createPassage();
+        this.updateDisplay();
         this.updateProgress();
 
-        const message =
-            document.querySelector(
-                "#testMessage"
-            );
+        this.message.textContent =
+            "Click the passage and start typing";
 
-        if (message) {
-            message.textContent =
-                "Click the passage and start typing";
-        }
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
         this.focusInput();
     }
 
-    /* ========================================
-       FOCUS
-       ======================================== */
-
+    // Keep the hidden input ready for typing.
     focusInput() {
         if (!this.finished) {
             this.input.focus();
         }
     }
-}
+           }
