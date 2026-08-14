@@ -1,4 +1,5 @@
 /* TYPEFORGE TEST PAGE */
+
 .test-page {
     width: min(calc(100% - 48px), var(--max-width));
     margin: 0 auto;
@@ -10,12 +11,25 @@
 .test-page h2,
 .test-page h3,
 .test-page p,
-.test-page span,
+.test-page button,
 .test-page strong,
-.test-page small,
-.test-page button {
-    font-family: inherit;
+.test-page small {
+    font-family: "Manrope", sans-serif;
 }
+
+.test-page strong {
+    font-weight: 700;
+}
+
+.test-page p {
+    font-weight: 500;
+}
+
+.test-page em {
+    font-family: "Playfair Display", Georgia, serif;
+}
+
+/* Header */
 
 .test-header {
     display: grid;
@@ -29,18 +43,16 @@
 .test-header h1 {
     margin: 16px 0 0;
     color: var(--ink);
-    font-family: "Manrope", sans-serif !important;
     font-size: clamp(52px, 6vw, 82px);
-    font-weight: 800 !important;
+    font-weight: 800;
     line-height: .92;
     letter-spacing: -.07em;
 }
 
 .test-header h1 em {
     color: var(--ink);
-    font-family: "Playfair Display", Georgia, serif !important;
     font-size: 1em;
-    font-weight: 600 !important;
+    font-weight: 600;
     font-style: italic;
     letter-spacing: -.05em;
 }
@@ -49,21 +61,23 @@
     max-width: 300px;
     margin: 0 0 4px;
     color: var(--muted);
-    font-family: "Manrope", sans-serif !important;
     font-size: 13px;
     font-weight: 500;
     line-height: 1.8;
 }
+
+/* Controls */
 
 .section-label,
 .control-label,
 .typing-box-header span,
 .test-progress > div:first-child span,
 .metric > span,
-.result-card > span {
-    font-family: "DM Mono", monospace !important;
+.result-card > span,
+.test-guidance article > span {
+    font-family: "DM Mono", monospace;
     font-size: 8px;
-    font-weight: 400 !important;
+    font-weight: 400;
     letter-spacing: .1em;
 }
 
@@ -97,9 +111,9 @@
     border-radius: 7px;
     background: transparent;
     color: var(--muted);
-    font-family: "Manrope", sans-serif !important;
+    font-family: "Manrope", sans-serif;
     font-size: 11px;
-    font-weight: 700 !important;
+    font-weight: 700;
     cursor: pointer;
     transition: color .2s ease, background .2s ease, border-color .2s ease, transform .15s ease, box-shadow .2s ease;
 }
@@ -135,7 +149,7 @@
 }
 
 .restart-button span {
-    font-family: "Manrope", sans-serif !important;
+    font-family: "Manrope", sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 1;
@@ -145,6 +159,8 @@
 .restart-button:hover span {
     transform: rotate(-90deg);
 }
+
+/* Typing Area */
 
 .typing-stage {
     position: relative;
@@ -181,9 +197,8 @@
 
 .metric strong {
     color: var(--ink);
-    font-family: "Manrope", sans-serif !important;
     font-size: 24px;
-    font-weight: 700 !important;
+    font-weight: 700;
     line-height: 1;
     letter-spacing: -.05em;
 }
@@ -192,9 +207,9 @@
     align-self: flex-end;
     margin-bottom: 2px;
     color: var(--soft);
-    font-family: "DM Mono", monospace !important;
+    font-family: "DM Mono", monospace;
     font-size: 8px;
-    font-weight: 400 !important;
+    font-weight: 400;
 }
 
 .typing-box {
@@ -229,14 +244,16 @@
     color: var(--muted);
 }
 
+/* Passage */
+
 .typing-passage {
     position: relative;
     z-index: 1;
     padding: 42px 0 20px;
     color: var(--soft);
-    font-family: "DM Mono", monospace !important;
+    font-family: "DM Mono", monospace;
     font-size: clamp(16px, 1.8vw, 20px);
-    font-weight: 400 !important;
+    font-weight: 400;
     line-height: 1.95;
     letter-spacing: -.025em;
     cursor: text;
@@ -246,8 +263,9 @@
 .typing-passage span {
     position: relative;
     color: inherit;
-    font-family: "DM Mono", monospace !important;
-    font-weight: 400 !important;
+    font-family: "DM Mono", monospace;
+    font-size: inherit;
+    font-weight: 400;
     border-radius: 2px;
     transition: color .08s ease, background-color .08s ease;
 }
@@ -257,7 +275,7 @@
 }
 
 .typing-passage span.wrong {
-    color: var(--danger, #b42318);
+    color: var(--danger);
 }
 
 .typing-passage span.current::before {
@@ -272,6 +290,8 @@
     animation: typingCursor .9s ease-in-out infinite;
 }
 
+/* Hidden Input */
+
 .typing-input {
     position: absolute;
     top: 0;
@@ -282,15 +302,17 @@
     pointer-events: none;
 }
 
+/* Typing Hint */
+
 .typing-hint {
     display: flex;
     align-items: center;
     gap: 9px;
     margin-top: 18px;
     color: var(--soft);
-    font-family: "DM Mono", monospace !important;
+    font-family: "DM Mono", monospace;
     font-size: 8px;
-    font-weight: 400 !important;
+    font-weight: 400;
 }
 
 .hint-key {
@@ -298,10 +320,12 @@
     border: 1px solid var(--border);
     border-radius: 4px;
     color: var(--muted);
-    font-family: "DM Mono", monospace !important;
+    font-family: "DM Mono", monospace;
     font-size: 7px;
-    font-weight: 400 !important;
+    font-weight: 400;
 }
+
+/* Progress */
 
 .test-progress {
     margin-top: 16px;
@@ -339,12 +363,14 @@
     min-height: 16px;
     margin: 18px 0 0;
     color: var(--soft);
-    font-family: "DM Mono", monospace !important;
+    font-family: "DM Mono", monospace;
     font-size: 9px;
-    font-weight: 400 !important;
+    font-weight: 400;
     text-align: center;
     transition: color .2s ease;
 }
+
+/* Results */
 
 .test-result {
     padding-top: 105px;
@@ -359,16 +385,14 @@
 .result-header h2 {
     margin: 16px 0;
     color: var(--ink);
-    font-family: "Manrope", sans-serif !important;
     font-size: clamp(42px, 5vw, 65px);
-    font-weight: 800 !important;
+    font-weight: 800;
     line-height: .95;
     letter-spacing: -.065em;
 }
 
 .result-header h2 em {
-    font-family: "Playfair Display", Georgia, serif !important;
-    font-weight: 600 !important;
+    font-weight: 600;
     font-style: italic;
 }
 
@@ -376,7 +400,6 @@
     max-width: 390px;
     margin: 0;
     color: var(--muted);
-    font-family: "Manrope", sans-serif !important;
     font-size: 13px;
     font-weight: 500;
     line-height: 1.8;
@@ -412,17 +435,16 @@
 
 .result-card strong {
     color: var(--ink);
-    font-family: "Manrope", sans-serif !important;
     font-size: 32px;
-    font-weight: 700 !important;
+    font-weight: 700;
     letter-spacing: -.06em;
 }
 
 .result-card small {
     color: var(--soft);
-    font-family: "DM Mono", monospace !important;
+    font-family: "DM Mono", monospace;
     font-size: 8px;
-    font-weight: 400 !important;
+    font-weight: 400;
 }
 
 .result-primary {
@@ -441,6 +463,8 @@
     gap: 10px;
     margin-top: 20px;
 }
+
+/* Guidance */
 
 .test-guidance {
     display: grid;
@@ -470,35 +494,33 @@
 
 .test-guidance article > span {
     color: var(--soft);
-    font-family: "DM Mono", monospace !important;
-    font-size: 9px;
-    font-weight: 400 !important;
 }
 
 .test-guidance strong {
     display: block;
     margin-bottom: 8px;
     color: var(--ink);
-    font-family: "Manrope", sans-serif !important;
     font-size: 12px;
-    font-weight: 700 !important;
+    font-weight: 700;
 }
 
 .test-guidance p {
     max-width: 260px;
     margin: 0;
     color: var(--muted);
-    font-family: "Manrope", sans-serif !important;
     font-size: 11px;
     font-weight: 500;
     line-height: 1.7;
 }
+
+/* Animations */
 
 @keyframes testReveal {
     from {
         opacity: 0;
         transform: translateY(18px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -506,10 +528,13 @@
 }
 
 @keyframes typingCursor {
-    0%, 45% {
+    0%,
+    45% {
         opacity: 1;
     }
-    46%, 100% {
+
+    46%,
+    100% {
         opacity: 0;
     }
 }
@@ -519,11 +544,14 @@
         opacity: 0;
         transform: translateY(18px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
+
+/* Tablet */
 
 @media (max-width: 900px) {
     .test-header {
@@ -532,8 +560,7 @@
     }
 
     .typing-box {
-        padding-right: 30px;
-        padding-left: 30px;
+        padding-inline: 30px;
     }
 
     .result-grid {
@@ -544,6 +571,8 @@
         grid-column: span 2;
     }
 }
+
+/* Mobile */
 
 @media (max-width: 700px) {
     .test-page {
@@ -666,7 +695,6 @@
         grid-template-columns: 1fr;
         margin-top: 75px;
     }
-
     .test-guidance article,
     .test-guidance article:first-child,
     .test-guidance article:last-child {
@@ -674,11 +702,12 @@
         border-right: 0;
         border-bottom: 1px solid var(--border);
     }
-
     .test-guidance article:last-child {
         border-bottom: 0;
     }
 }
+
+/* Small Mobile */
 
 @media (max-width: 420px) {
     .session-controls {
@@ -686,32 +715,27 @@
         flex-direction: column;
         gap: 9px;
     }
-
     .mode-buttons {
         width: 100%;
     }
-
     .mode-button {
         flex: 1;
     }
-
     .typing-box {
         min-height: 400px;
-        padding-right: 16px;
-        padding-left: 16px;
+        padding-inline: 16px;
     }
-
     .typing-passage {
         font-size: 15px;
         line-height: 1.85;
     }
-
     .typing-hint {
         align-items: flex-start;
         flex-direction: column;
     }
 }
 
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
     .test-header,
     .test-controls,
