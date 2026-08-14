@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="description" content="Track your typing speed, accuracy, practice and learning progress with VelType.">
     <meta name="theme-color" content="#FAF7EE">
 
     <title>Progress — VelType</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet" >
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
@@ -20,7 +17,6 @@
 
 <body class="dashboard-page">
     <div class="site-shell">
-
         <!-- NAVIGATION -->
         <header class="navbar">
             <a href="index.html" class="brand" aria-label="VelType home">
@@ -36,7 +32,13 @@
             </nav>
 
             <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+
+                <button
+                    class="theme-toggle"
+                    id="themeToggle"
+                    type="button"
+                    aria-label="Toggle theme"
+                >
                     <span>◐</span>
                 </button>
 
@@ -45,302 +47,308 @@
                 </a>
             </div>
 
-            <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false">
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+            >
                 <span></span>
                 <span></span>
             </button>
-        </header>
 
+        </header>
         <!-- MAIN -->
         <main class="dashboard-main">
+
             <div class="dashboard-container">
 
                 <!-- HEADER -->
                 <section class="dashboard-header">
+
                     <div>
-                        <span class="section-label">YOUR PROGRESS</span>
-                        <h1>Keep getting <em>better.</em></h1>
+
+                        <span class="section-label">
+                            YOUR PROGRESS
+                        </span>
+
+                        <h1>
+                            Keep getting <em>better.</em>
+                        </h1>
+
                         <p>
                             See how your typing is improving and pick up where you left off.
                         </p>
+
                     </div>
 
-                    <a href="test.html" class="dashboard-button button-primary">
+                    <a
+                        href="test.html"
+                        class="dashboard-button button-primary"
+                    >
                         New Test <span>→</span>
                     </a>
-                </section>
-
-                <!-- STATS -->
-                <section class="stats-grid" aria-label="Typing statistics">
-
-                    <article class="stat-card">
-                        <span class="stat-label">BEST WPM</span>
-                        <strong id="bestWpm">0</strong>
-                        <small>words per minute</small>
-                    </article>
-
-                    <article class="stat-card">
-                        <span class="stat-label">ACCURACY</span>
-                        <strong id="bestAccuracy">0%</strong>
-                        <small>best recorded accuracy</small>
-                    </article>
-
-                    <article class="stat-card">
-                        <span class="stat-label">TESTS</span>
-                        <strong id="testsCompleted">0</strong>
-                        <small>tests completed</small>
-                    </article>
-
-                    <article class="stat-card">
-                        <span class="stat-label">LESSONS</span>
-                        <strong id="lessonsCompleted">0</strong>
-                        <small>lessons completed</small>
-                    </article>
 
                 </section>
+
+
+                <!-- OVERVIEW STATS -->
+                <section
+                    class="stats-grid"
+                    aria-label="Typing statistics"
+                >
+
+                    <article class="stat-card">
+
+                        <span class="stat-label">
+                            BEST WPM
+                        </span>
+
+                        <strong id="bestWpm">
+                            0
+                        </strong>
+
+                        <small>
+                            words per minute
+                        </small>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <span class="stat-label">
+                            ACCURACY
+                        </span>
+
+                        <strong id="bestAccuracy">
+                            0%
+                        </strong>
+
+                        <small>
+                            best recorded accuracy
+                        </small>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <span class="stat-label">
+                            TESTS
+                        </span>
+
+                        <strong id="testsCompleted">
+                            0
+                        </strong>
+
+                        <small>
+                            tests completed
+                        </small>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <span class="stat-label">
+                            LESSONS
+                        </span>
+
+                        <strong id="lessonsCompleted">
+                            0
+                        </strong>
+
+                        <small>
+                            lessons completed
+                        </small>
+
+                    </article>
+
+                </section>
+
 
                 <!-- CONTINUE LEARNING -->
                 <section class="dashboard-card learning-card">
 
                     <div class="card-header">
+
                         <div>
-                            <span class="section-label">TYPING ACADEMY</span>
-                            <h2>Continue learning</h2>
+
+                            <span class="section-label">
+                                TYPING ACADEMY
+                            </span>
+
+                            <h2>
+                                Continue learning
+                            </h2>
+
                         </div>
 
-                        <a href="learn.html" class="card-link">
+                        <a
+                            href="learn.html"
+                            class="card-link"
+                        >
                             All lessons →
                         </a>
+
                     </div>
+
 
                     <div class="learning-content">
 
                         <div class="academy-progress">
+
                             <div class="academy-ring">
-                                <span id="academyPercent">0%</span>
+                                <span id="academyPercent">
+                                    0%
+                                </span>
                             </div>
+
                         </div>
 
-                        <div class="learning-copy">
-                            <span class="eyebrow-small">CURRENT LEVEL</span>
 
-                            <h3 id="academyLevel">Foundation</h3>
+                        <div class="learning-copy">
+
+                            <span class="eyebrow-small">
+                                CURRENT LEVEL
+                            </span>
+
+                            <h3 id="academyLevel">
+                                Foundation
+                            </h3>
 
                             <p id="academyProgressText">
                                 Start your first lesson to build your typing foundation.
                             </p>
 
                             <div class="progress-track">
+
                                 <span id="academyProgressBar"></span>
+
                             </div>
+
                         </div>
 
-                        <a href="learn.html" class="dashboard-button button-primary">
+
+                        <a
+                            href="learn.html"
+                            class="dashboard-button button-primary"
+                        >
                             Continue <span>→</span>
                         </a>
 
                     </div>
+
                 </section>
 
-                <!-- NEXT LESSON -->
-                <section class="dashboard-card lesson-card">
+
+                <!-- RECENT TESTS -->
+                <section class="dashboard-card recent-card">
 
                     <div class="card-header">
+
                         <div>
-                            <span class="section-label">NEXT UP</span>
-                            <h2>Your next lesson</h2>
-                        </div>
-                    </div>
 
-                    <div class="lesson-content">
+                            <span class="section-label">
+                                HISTORY
+                            </span>
 
-                        <div class="lesson-number">01</div>
+                            <h2>
+                                Recent tests
+                            </h2>
 
-                        <div class="lesson-info">
-                            <span class="eyebrow-small">FOUNDATION</span>
-
-                            <h3 id="currentLessonTitle">
-                                Home Row Basics
-                            </h3>
-
-                            <p id="currentLessonDescription">
-                                Learn correct finger placement and build your touch typing foundation.
-                            </p>
-
-                            <div class="lesson-details">
-                                <span>◷ 10 min</span>
-                                <span>⌨ Practice</span>
-                            </div>
                         </div>
 
                         <a
-                            href="lesson.html?level=1&lesson=1"
-                            id="continueLessonButton"
-                            class="dashboard-button button-secondary"
+                            href="test.html"
+                            class="card-link"
                         >
-                            Start Lesson <span>→</span>
+                            New test →
                         </a>
 
                     </div>
-                </section>
 
-                <!-- TWO COLUMN AREA -->
-                <div class="dashboard-columns">
 
-                    <!-- RECENT TESTS -->
-                    <section class="dashboard-card recent-card">
+                    <div
+                        class="test-history"
+                        id="testHistory"
+                    >
 
-                        <div class="card-header">
-                            <div>
-                                <span class="section-label">HISTORY</span>
-                                <h2>Recent tests</h2>
+                        <div class="empty-state">
+
+                            <div class="empty-mark">
+                                ⌨
                             </div>
 
-                            <a href="test.html" class="card-link">
-                                New test →
-                            </a>
-                        </div>
+                            <h3>
+                                No tests yet
+                            </h3>
 
-                        <div class="test-history" id="testHistory">
-
-                            <div class="empty-state">
-                                <div class="empty-mark">⌨</div>
-
-                                <h3>No tests yet</h3>
-
-                                <p>
-                                    Complete your first typing test and your results will appear here.
-                                </p>
-
-                                <a href="test.html" class="dashboard-button button-secondary">
-                                    Take a Test <span>→</span>
-                                </a>
-                            </div>
-
-                        </div>
-                    </section>
-
-                    <!-- WEEKLY GOALS -->
-                    <section class="dashboard-card goals-card">
-
-                        <div class="card-header">
-                            <div>
-                                <span class="section-label">THIS WEEK</span>
-                                <h2>Practice goals</h2>
-                            </div>
-                        </div>
-
-                        <div class="goal-list">
-
-                            <div class="goal">
-                                <div class="goal-header">
-                                    <span>Tests completed</span>
-                                    <strong id="weeklyTests">0 / 5</strong>
-                                </div>
-
-                                <div class="progress-track">
-                                    <span id="weeklyTestsBar"></span>
-                                </div>
-                            </div>
-
-                            <div class="goal">
-                                <div class="goal-header">
-                                    <span>Lessons completed</span>
-                                    <strong id="weeklyLessons">0 / 3</strong>
-                                </div>
-
-                                <div class="progress-track">
-                                    <span id="weeklyLessonsBar"></span>
-                                </div>
-                            </div>
-
-                            <div class="goal">
-                                <div class="goal-header">
-                                    <span>Accuracy target</span>
-                                    <strong id="weeklyAccuracy">0%</strong>
-                                </div>
-
-                                <div class="progress-track">
-                                    <span id="weeklyAccuracyBar"></span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <a href="test.html" class="dashboard-button button-secondary full-button">
-                            Practice Now <span>→</span>
-                        </a>
-
-                    </section>
-
-                </div>
-
-                <!-- PERFORMANCE -->
-                <section class="dashboard-card performance-card">
-
-                    <div class="card-header">
-                        <div>
-                            <span class="section-label">PERFORMANCE</span>
-                            <h2>Your typing stats</h2>
-                        </div>
-                    </div>
-
-                    <div class="performance-summary">
-
-                        <div>
-                            <span>AVERAGE WPM</span>
-                            <strong id="averageWpm">0</strong>
-                        </div>
-
-                        <div>
-                            <span>AVERAGE ACCURACY</span>
-                            <strong id="averageAccuracy">0%</strong>
-                        </div>
-
-                        <div>
-                            <span>TOTAL TESTS</span>
-                            <strong id="totalTests">0</strong>
-                        </div>
-
-                    </div>
-
-                    <div class="performance-message" id="performanceMessage">
-                        <span>↗</span>
-
-                        <div>
-                            <h3>Your performance will appear here.</h3>
                             <p>
-                                Complete a few tests to start building your typing history.
+                                Complete your first typing test and your results will appear here.
                             </p>
+
+                            <a
+                                href="test.html"
+                                class="dashboard-button button-secondary"
+                            >
+                                Take a Test <span>→</span>
+                            </a>
+
                         </div>
+
                     </div>
 
                 </section>
 
-                <!-- DATA -->
+
+                <!-- PROGRESS DATA -->
                 <section class="dashboard-card data-card">
 
                     <div class="card-header">
+
                         <div>
-                            <span class="section-label">DATA</span>
-                            <h2>Your progress data</h2>
+
+                            <span class="section-label">
+                                DATA
+                            </span>
+
+                            <h2>
+                                Your progress data
+                            </h2>
+
                         </div>
+
                     </div>
+
 
                     <div class="data-content">
 
                         <div>
-                            <span class="data-symbol">↻</span>
+
+                            <span class="data-symbol">
+                                ↻
+                            </span>
 
                             <div>
-                                <h3>Start fresh</h3>
+
+                                <h3>
+                                    Start fresh
+                                </h3>
+
                                 <p>
                                     Reset your saved exercises or clear all VelType progress.
                                 </p>
+
                             </div>
+
                         </div>
 
+
                         <div class="data-actions">
+
                             <button
                                 type="button"
                                 class="dashboard-button button-secondary"
@@ -356,16 +364,25 @@
                             >
                                 Reset All
                             </button>
+
                         </div>
 
                     </div>
+
                 </section>
 
             </div>
+
         </main>
 
+
         <!-- RESET MODAL -->
-        <div class="reset-modal" id="resetModal" hidden>
+        <div
+            class="reset-modal"
+            id="resetModal"
+            hidden
+        >
+
             <div class="reset-modal-backdrop"></div>
 
             <div
@@ -374,9 +391,14 @@
                 aria-modal="true"
                 aria-labelledby="resetModalTitle"
             >
-                <span class="reset-modal-icon">!</span>
 
-                <h2 id="resetModalTitle">Reset your progress?</h2>
+                <span class="reset-modal-icon">
+                    !
+                </span>
+
+                <h2 id="resetModalTitle">
+                    Reset your progress?
+                </h2>
 
                 <p id="resetModalText">
                     This will remove your saved lessons, tests and typing statistics.
@@ -384,42 +406,112 @@
                 </p>
 
                 <div class="reset-modal-actions">
-                    <button type="button" class="dashboard-button button-secondary" id="cancelReset">
+
+                    <button
+                        type="button"
+                        class="dashboard-button button-secondary"
+                        id="cancelReset"
+                    >
                         Cancel
                     </button>
 
-                    <button type="button" class="dashboard-button button-danger" id="confirmReset">
+                    <button
+                        type="button"
+                        class="dashboard-button button-danger"
+                        id="confirmReset"
+                    >
                         Reset
                     </button>
+
                 </div>
+
             </div>
+
         </div>
 
+
+        <!-- FOOTER -->
         <footer class="footer">
-        <div class="footer-brand">
-            <p>Flow Into Speed</p>
-        </div>
-        <div class="footer-socials">
-            <a href="https://www.instagram.com/veltype/" target="_blank" rel="noopener noreferrer" aria-label="VelType on Instagram">
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/>
-                    <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/>
-                    <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
-                </svg>
-            </a>
-            <a href="https://www.facebook.com/veltype/" target="_blank" rel="noopener noreferrer" aria-label="VelType on Facebook">
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.6 1.7-1.6h1.8V3.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.5v3h2.8v8h3.2z"/>
-                </svg>
-            </a>
-        </div>
-        <div class="footer-copy">
-            © 2026 All rights reserved.
-        </div>
-    </footer>
+
+            <div class="footer-brand">
+                <p>
+                    Flow Into Speed
+                </p>
+            </div>
+
+
+            <div class="footer-socials">
+
+                <a
+                    href="https://www.instagram.com/veltype/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="VelType on Instagram"
+                >
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                    >
+                        <rect
+                            x="3"
+                            y="3"
+                            width="18"
+                            height="18"
+                            rx="5"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        />
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="4.2"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        />
+                        <circle
+                            cx="17.5"
+                            cy="6.5"
+                            r="1.1"
+                            fill="currentColor"
+                        />
+                    </svg>
+                </a>
+
+
+                <a
+                    href="https://www.facebook.com/veltype/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="VelType on Facebook"
+                >
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                    >
+                        <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.6 1.7-1.6h1.8V3.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.5v3h2.8v8h3.2z"/>
+                    </svg>
+                </a>
+
+            </div>
+
+
+            <div class="footer-copy">
+                © 2026 All rights reserved.
+            </div>
+
+        </footer>
 
     </div>
+
+
     <script src="js/main.js"></script>
     <script src="js/dashboard.js"></script>
+
 </body>
                     </html>
