@@ -1,6 +1,4 @@
-/* ========================================
-   VELTYPE — DASHBOARD V1
-   ======================================== */
+/* VelType Dashboard V1 */
 
 .dashboard-page {
     background: var(--bg);
@@ -15,8 +13,7 @@
     margin: 0 auto;
 }
 
-/* ===== HEADER ===== */
-
+/* Header */
 .dashboard-header {
     display: flex;
     align-items: flex-end;
@@ -44,8 +41,7 @@
     line-height: 1.7;
 }
 
-/* ===== BUTTONS ===== */
-
+/* Buttons */
 .dashboard-button {
     min-height: 44px;
     display: inline-flex;
@@ -58,7 +54,15 @@
     font-weight: 700;
     text-decoration: none;
     white-space: nowrap;
-    transition: background .2s ease, border-color .2s ease;
+    transition:
+        transform .25s var(--ease),
+        background .2s ease,
+        border-color .2s ease,
+        color .2s ease;
+}
+
+.dashboard-button:hover {
+    transform: translateY(-2px);
 }
 
 .button-primary {
@@ -78,6 +82,7 @@
 
 .button-secondary:hover {
     background: var(--surface-alt);
+    border-color: var(--soft);
 }
 
 .button-danger {
@@ -91,14 +96,13 @@
     color: #fff;
 }
 
-/* ===== STATS ===== */
-
+/* Stats */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 14px;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    margin-bottom: 14px;
 }
 
 .stat-card {
@@ -134,8 +138,7 @@
     font-size: 10px;
 }
 
-/* ===== CARD ===== */
-
+/* Cards */
 .dashboard-card {
     margin-bottom: 14px;
     overflow: hidden;
@@ -164,20 +167,25 @@
     color: var(--muted);
     font-size: 10px;
     font-weight: 700;
+    transition: color .2s ease;
 }
 
 .card-link:hover {
     color: var(--ink);
 }
 
-/* ===== LEARNING ===== */
-
+/* Learning */
 .learning-content {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 28px;
     padding: 30px 28px;
+}
+
+.academy-progress {
+    display: grid;
+    place-items: center;
 }
 
 .academy-ring {
@@ -217,8 +225,7 @@
     line-height: 1.6;
 }
 
-/* ===== PROGRESS ===== */
-
+/* Progress */
 .progress-track {
     width: 100%;
     height: 5px;
@@ -236,55 +243,10 @@
     transition: width .4s ease;
 }
 
-/* ===== LESSON ===== */
-
-.lesson-content {
-    display: grid;
-    grid-template-columns: 60px 1fr auto;
-    align-items: center;
-    gap: 25px;
-    padding: 30px 28px;
+/* Recent Tests */
+.recent-card {
+    margin-bottom: 14px;
 }
-
-.lesson-number {
-    color: var(--soft);
-    font: 12px "DM Mono", monospace;
-}
-
-.lesson-info h3 {
-    margin: 7px 0 6px;
-    font-size: 20px;
-    letter-spacing: -.04em;
-}
-
-.lesson-info p {
-    max-width: 600px;
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.6;
-}
-
-.lesson-details {
-    display: flex;
-    gap: 18px;
-    margin-top: 14px;
-    color: var(--soft);
-    font: 9px "DM Mono", monospace;
-}
-
-/* ===== COLUMNS ===== */
-
-.dashboard-columns {
-    display: grid;
-    grid-template-columns: 1.35fr .65fr;
-    gap: 14px;
-}
-
-.dashboard-columns .dashboard-card {
-    margin-bottom: 0;
-}
-
-/* ===== RECENT TESTS ===== */
 
 .test-history {
     min-height: 250px;
@@ -324,91 +286,7 @@
     line-height: 1.6;
 }
 
-/* ===== GOALS ===== */
-
-.goal-list {
-    padding: 24px 28px 8px;
-}
-
-.goal {
-    margin-bottom: 23px;
-}
-
-.goal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 9px;
-    color: var(--muted);
-    font-size: 10px;
-}
-
-.goal-header strong {
-    color: var(--ink);
-    font: 10px "DM Mono", monospace;
-}
-
-.full-button {
-    width: calc(100% - 56px);
-    margin: 4px 28px 28px;
-}
-
-/* ===== PERFORMANCE ===== */
-
-.performance-summary {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    padding: 25px 28px;
-}
-
-.performance-summary > div {
-    padding: 20px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--surface-alt);
-}
-
-.performance-summary span {
-    display: block;
-    color: var(--soft);
-    font: 8px "DM Mono", monospace;
-    letter-spacing: .08em;
-}
-
-.performance-summary strong {
-    display: block;
-    margin-top: 9px;
-    font-size: 24px;
-    letter-spacing: -.04em;
-}
-
-.performance-message {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 0 28px 28px;
-    padding: 20px;
-    border-top: 1px solid var(--border);
-}
-
-.performance-message > span {
-    font-size: 20px;
-}
-
-.performance-message h3 {
-    font-size: 13px;
-}
-
-.performance-message p {
-    margin-top: 4px;
-    color: var(--muted);
-    font-size: 10px;
-}
-
-/* ===== DATA ===== */
-
+/* Progress Data */
 .data-content {
     display: flex;
     align-items: center;
@@ -427,6 +305,7 @@
     width: 38px;
     height: 38px;
     display: grid;
+    flex-shrink: 0;
     place-items: center;
     border: 1px solid var(--border);
     border-radius: 50%;
@@ -447,11 +326,11 @@
 
 .data-actions {
     display: flex;
+    flex-shrink: 0;
     gap: 8px;
 }
 
-/* ===== MODAL ===== */
-
+/* Modal */
 .reset-modal[hidden] {
     display: none;
 }
@@ -510,8 +389,7 @@
     gap: 8px;
 }
 
-/* ===== RESPONSIVE ===== */
-
+/* Responsive */
 @media (max-width: 900px) {
     .dashboard-main {
         padding: 60px 0 80px;
@@ -540,14 +418,6 @@
         border-top: 1px solid var(--border);
     }
 
-    .dashboard-columns {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-columns .dashboard-card {
-        margin-bottom: 14px;
-    }
-
     .learning-content {
         grid-template-columns: auto 1fr;
     }
@@ -560,6 +430,10 @@
     .data-content {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    .data-actions {
+        width: 100%;
     }
 }
 
@@ -624,44 +498,25 @@
         margin-left: auto;
     }
 
-    .lesson-content {
-        grid-template-columns: 1fr;
-        gap: 14px;
-        padding: 25px 20px;
-    }
-
-    .lesson-number {
-        display: none;
-    }
-
-    .lesson-content .dashboard-button {
+    .learning-content .dashboard-button {
         width: 100%;
     }
 
-    .performance-summary {
-        grid-template-columns: 1fr;
-        padding: 20px;
+    .test-history,
+    .empty-state {
+        min-height: 230px;
     }
 
-    .performance-summary > div {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 16px;
-    }
-
-    .performance-summary strong {
-        margin: 0;
-        font-size: 20px;
-    }
-
-    .performance-message {
-        margin: 0 20px 20px;
-        padding: 18px 0;
+    .empty-state {
+        padding: 25px 20px;
     }
 
     .data-content {
         padding: 22px 20px;
+    }
+
+    .data-content > div:first-child {
+        align-items: flex-start;
     }
 
     .data-actions {
@@ -699,4 +554,4 @@
     .stat-card:last-child {
         border-bottom: 0;
     }
-   }
+       }
