@@ -3,40 +3,49 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeToggle = document.querySelector("#themeToggle");
     const menuToggle = document.querySelector("#menuToggle");
     const navLinks = document.querySelector(".nav-links");
-    const year = document.querySelector("#year");
 
-    if (year) {
-        year.textContent = new Date().getFullYear();
-    }
-
-    const savedTheme = localStorage.getItem("typeforge-theme");
+    // Theme
+    const savedTheme = localStorage.getItem("veltype-theme");
 
     if (savedTheme === "dark") {
         body.classList.add("dark");
     }
 
     themeToggle?.addEventListener("click", () => {
-        body.classList.toggle("dark");
+        const isDark = body.classList.toggle("dark");
 
         localStorage.setItem(
-            "typeforge-theme",
-            body.classList.contains("dark") ? "dark" : "light"
+            "veltype-theme",
+            isDark ? "dark" : "light"
         );
     });
 
+    // Mobile navigation
     menuToggle?.addEventListener("click", () => {
-        const open = navLinks.classList.toggle("mobile-open");
+        const isOpen = navLinks?.classList.toggle("mobile-open");
 
         menuToggle.setAttribute(
             "aria-expanded",
-            open
+            String(isOpen)
         );
     });
 
+    // Close mobile menu after navigation
     navLinks?.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", () => {
             navLinks.classList.remove("mobile-open");
             menuToggle?.setAttribute("aria-expanded", "false");
         });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener("click", event => {
+        if (
+            !navLinks?.contains(event.target) &&
+            !menuToggle?.contains(event.target)
+        ) {
+            navLinks?.classList.remove("mobile-open");
+            menuToggle?.setAttribute("aria-expanded", "false");
+        }
     });
 });
