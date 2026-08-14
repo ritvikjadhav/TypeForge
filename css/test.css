@@ -1,9 +1,20 @@
-/* V1 typing test page styles */
-
+/* TYPEFORGE TEST PAGE */
 .test-page {
     width: min(calc(100% - 48px), var(--max-width));
     margin: 0 auto;
     padding: 88px 0 110px;
+    font-family: "Manrope", sans-serif;
+}
+
+.test-page h1,
+.test-page h2,
+.test-page h3,
+.test-page p,
+.test-page span,
+.test-page strong,
+.test-page small,
+.test-page button {
+    font-family: inherit;
 }
 
 .test-header {
@@ -12,30 +23,48 @@
     gap: 60px;
     align-items: end;
     margin-bottom: 52px;
+    animation: testReveal .7s ease both;
 }
 
 .test-header h1 {
     margin: 16px 0 0;
-    font-family: "Manrope", sans-serif;
+    color: var(--ink);
+    font-family: "Manrope", sans-serif !important;
     font-size: clamp(52px, 6vw, 82px);
-    font-weight: 800;
+    font-weight: 800 !important;
     line-height: .92;
     letter-spacing: -.07em;
 }
 
 .test-header h1 em {
-    font-family: "Playfair Display", Georgia, serif;
-    font-weight: 600;
+    color: var(--ink);
+    font-family: "Playfair Display", Georgia, serif !important;
+    font-size: 1em;
+    font-weight: 600 !important;
     font-style: italic;
+    letter-spacing: -.05em;
 }
 
 .test-header > p {
     max-width: 300px;
     margin: 0 0 4px;
     color: var(--muted);
-    font-family: "Manrope", sans-serif;
+    font-family: "Manrope", sans-serif !important;
     font-size: 13px;
+    font-weight: 500;
     line-height: 1.8;
+}
+
+.section-label,
+.control-label,
+.typing-box-header span,
+.test-progress > div:first-child span,
+.metric > span,
+.result-card > span {
+    font-family: "DM Mono", monospace !important;
+    font-size: 8px;
+    font-weight: 400 !important;
+    letter-spacing: .1em;
 }
 
 .test-controls {
@@ -44,22 +73,13 @@
     justify-content: space-between;
     gap: 20px;
     margin-bottom: 12px;
+    animation: testReveal .7s .08s ease both;
 }
 
 .session-controls {
     display: flex;
     align-items: center;
     gap: 16px;
-}
-
-.control-label,
-.typing-box-header span,
-.test-progress > div:first-child span,
-.typing-metric > span,
-.result-card > span {
-    font-family: "DM Mono", monospace;
-    font-size: 8px;
-    letter-spacing: .1em;
 }
 
 .control-label {
@@ -77,15 +97,11 @@
     border-radius: 7px;
     background: transparent;
     color: var(--muted);
-    font-family: "Manrope", sans-serif;
+    font-family: "Manrope", sans-serif !important;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 700 !important;
     cursor: pointer;
-    transition:
-        color .2s ease,
-        background .2s ease,
-        border-color .2s ease,
-        transform .15s ease;
+    transition: color .2s ease, background .2s ease, border-color .2s ease, transform .15s ease, box-shadow .2s ease;
 }
 
 .mode-button {
@@ -96,12 +112,14 @@
 .restart-button:hover {
     border-color: var(--soft);
     color: var(--ink);
+    transform: translateY(-1px);
 }
 
 .mode-button.active {
     border-color: var(--ink);
     background: var(--ink);
     color: var(--bg);
+    box-shadow: 0 5px 16px rgb(0 0 0 / 8%);
 }
 
 .mode-button:active,
@@ -117,7 +135,9 @@
 }
 
 .restart-button span {
+    font-family: "Manrope", sans-serif !important;
     font-size: 16px;
+    font-weight: 500;
     line-height: 1;
     transition: transform .35s ease;
 }
@@ -128,6 +148,7 @@
 
 .typing-stage {
     position: relative;
+    animation: testReveal .7s .16s ease both;
 }
 
 .typing-metrics {
@@ -148,7 +169,6 @@
     gap: 8px;
     padding: 18px;
     border-right: 1px solid var(--border);
-    font-family: "Manrope", sans-serif;
 }
 
 .metric:last-child {
@@ -161,9 +181,9 @@
 
 .metric strong {
     color: var(--ink);
-    font-family: "Manrope", sans-serif;
+    font-family: "Manrope", sans-serif !important;
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 700 !important;
     line-height: 1;
     letter-spacing: -.05em;
 }
@@ -172,8 +192,9 @@
     align-self: flex-end;
     margin-bottom: 2px;
     color: var(--soft);
-    font-family: "DM Mono", monospace;
+    font-family: "DM Mono", monospace !important;
     font-size: 8px;
+    font-weight: 400 !important;
 }
 
 .typing-box {
@@ -184,6 +205,12 @@
     border: 1px solid var(--border);
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     background: var(--surface);
+    transition: border-color .25s ease, box-shadow .25s ease;
+}
+
+.typing-box:focus-within {
+    border-color: color-mix(in srgb, var(--ink) 25%, var(--border));
+    box-shadow: 0 14px 40px rgb(0 0 0 / 4%);
 }
 
 .typing-box-header {
@@ -207,9 +234,9 @@
     z-index: 1;
     padding: 42px 0 20px;
     color: var(--soft);
-    font-family: "DM Mono", monospace;
+    font-family: "DM Mono", monospace !important;
     font-size: clamp(16px, 1.8vw, 20px);
-    font-weight: 400;
+    font-weight: 400 !important;
     line-height: 1.95;
     letter-spacing: -.025em;
     cursor: text;
@@ -218,8 +245,11 @@
 
 .typing-passage span {
     position: relative;
+    color: inherit;
+    font-family: "DM Mono", monospace !important;
+    font-weight: 400 !important;
     border-radius: 2px;
-    transition: color .08s ease;
+    transition: color .08s ease, background-color .08s ease;
 }
 
 .typing-passage span.correct {
@@ -242,24 +272,12 @@
     animation: typingCursor .9s ease-in-out infinite;
 }
 
-@keyframes typingCursor {
-    0%,
-    45% {
-        opacity: 1;
-    }
-
-    46%,
-    100% {
-        opacity: 0;
-    }
-}
-
 .typing-input {
     position: absolute;
-    width: 1px;
-    height: 1px;
     top: 0;
     left: 0;
+    width: 1px;
+    height: 1px;
     opacity: 0;
     pointer-events: none;
 }
@@ -270,8 +288,9 @@
     gap: 9px;
     margin-top: 18px;
     color: var(--soft);
-    font-family: "DM Mono", monospace;
+    font-family: "DM Mono", monospace !important;
     font-size: 8px;
+    font-weight: 400 !important;
 }
 
 .hint-key {
@@ -279,7 +298,9 @@
     border: 1px solid var(--border);
     border-radius: 4px;
     color: var(--muted);
+    font-family: "DM Mono", monospace !important;
     font-size: 7px;
+    font-weight: 400 !important;
 }
 
 .test-progress {
@@ -317,28 +338,17 @@
 .test-message {
     min-height: 16px;
     margin: 18px 0 0;
-    text-align: center;
     color: var(--soft);
-    font-family: "DM Mono", monospace;
+    font-family: "DM Mono", monospace !important;
     font-size: 9px;
+    font-weight: 400 !important;
+    text-align: center;
     transition: color .2s ease;
 }
 
 .test-result {
     padding-top: 105px;
     animation: resultReveal .55s ease both;
-}
-
-@keyframes resultReveal {
-    from {
-        opacity: 0;
-        transform: translateY(18px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .result-header {
@@ -348,16 +358,17 @@
 
 .result-header h2 {
     margin: 16px 0;
-    font-family: "Manrope", sans-serif;
+    color: var(--ink);
+    font-family: "Manrope", sans-serif !important;
     font-size: clamp(42px, 5vw, 65px);
-    font-weight: 800;
+    font-weight: 800 !important;
     line-height: .95;
     letter-spacing: -.065em;
 }
 
 .result-header h2 em {
-    font-family: "Playfair Display", Georgia, serif;
-    font-weight: 600;
+    font-family: "Playfair Display", Georgia, serif !important;
+    font-weight: 600 !important;
     font-style: italic;
 }
 
@@ -365,8 +376,9 @@
     max-width: 390px;
     margin: 0;
     color: var(--muted);
-    font-family: "Manrope", sans-serif;
+    font-family: "Manrope", sans-serif !important;
     font-size: 13px;
+    font-weight: 500;
     line-height: 1.8;
 }
 
@@ -385,6 +397,13 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     background: var(--surface);
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--soft);
+    box-shadow: 0 12px 30px rgb(0 0 0 / 5%);
 }
 
 .result-card > span {
@@ -393,16 +412,17 @@
 
 .result-card strong {
     color: var(--ink);
-    font-family: "Manrope", sans-serif;
+    font-family: "Manrope", sans-serif !important;
     font-size: 32px;
-    font-weight: 700;
+    font-weight: 700 !important;
     letter-spacing: -.06em;
 }
 
 .result-card small {
     color: var(--soft);
-    font-family: "DM Mono", monospace;
+    font-family: "DM Mono", monospace !important;
     font-size: 8px;
+    font-weight: 400 !important;
 }
 
 .result-primary {
@@ -428,6 +448,7 @@
     margin-top: 110px;
     padding-top: 30px;
     border-top: 1px solid var(--border);
+    animation: testReveal .7s .25s ease both;
 }
 
 .test-guidance article {
@@ -449,25 +470,59 @@
 
 .test-guidance article > span {
     color: var(--soft);
-    font-family: "DM Mono", monospace;
+    font-family: "DM Mono", monospace !important;
     font-size: 9px;
+    font-weight: 400 !important;
 }
 
 .test-guidance strong {
     display: block;
     margin-bottom: 8px;
     color: var(--ink);
-    font-family: "Manrope", sans-serif;
+    font-family: "Manrope", sans-serif !important;
     font-size: 12px;
+    font-weight: 700 !important;
 }
 
 .test-guidance p {
     max-width: 260px;
     margin: 0;
     color: var(--muted);
-    font-family: "Manrope", sans-serif;
+    font-family: "Manrope", sans-serif !important;
     font-size: 11px;
+    font-weight: 500;
     line-height: 1.7;
+}
+
+@keyframes testReveal {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes typingCursor {
+    0%, 45% {
+        opacity: 1;
+    }
+    46%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes resultReveal {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 900px) {
@@ -504,6 +559,7 @@
     .test-header h1 {
         margin-top: 14px;
         font-size: clamp(48px, 15vw, 68px);
+        line-height: .9;
     }
 
     .test-header > p {
@@ -657,15 +713,27 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .test-header,
+    .test-controls,
+    .typing-stage,
+    .test-guidance,
+    .test-result {
+        animation: none;
+    }
+
     .typing-passage span,
     .progress-track span,
     .restart-button span,
-    .test-message {
+    .test-message,
+    .mode-button,
+    .restart-button,
+    .result-card,
+    .typing-box {
         transition: none;
     }
 
-    .typing-passage span.current::before,
-    .test-result {
+    .typing-passage span.current::before {
         animation: none;
+        opacity: 1;
     }
     }
