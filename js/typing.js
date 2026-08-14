@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    if (document.querySelector("#typingTest")) {
-        new TypingTest();
-    }
+    const test = document.querySelector("#typingTest");
+    if (test) new TypingTest();
 });
 
 class TypingTest {
@@ -20,9 +19,18 @@ class TypingTest {
         this.resultRestart = document.querySelector("#resultRestart");
         this.modeButtons = document.querySelectorAll("[data-time]");
         this.result = document.querySelector("#testResult");
+        this.resultWpm = document.querySelector("#resultWpm");
+        this.resultAccuracy = document.querySelector("#resultAccuracy");
+        this.resultErrors = document.querySelector("#resultErrors");
+        this.resultRawWpm = document.querySelector("#resultRawWpm");
 
-        this.text =
-            "Success in typing does not come from rushing. It comes from accuracy, rhythm, consistency, and regular practice. Focus on every letter and let your speed improve naturally.";
+        this.passages = [
+            "Success in typing does not come from rushing. It comes from accuracy, rhythm, consistency, and regular practice. Focus on every letter and let your speed improve naturally.",
+            "Technology changes every day, but the ability to communicate clearly remains important. Good typing skills help you work faster, write better, and stay focused on your ideas.",
+            "The fastest typists are not always the people who press the keys hardest. They understand rhythm and accuracy, allowing their fingers to move naturally across the keyboard.",
+            "Learning to type properly is a small investment that can save hundreds of hours over time. Practice regularly, keep your hands relaxed, and concentrate on accuracy before speed.",
+            "Every great skill begins with repetition. Your typing speed will improve when you practice consistently and learn from your mistakes instead of trying to become fast immediately."
+        ];
 
         this.timeLimit = 30;
         this.timeLeft = 30;
@@ -30,28 +38,30 @@ class TypingTest {
         this.finished = false;
         this.startTime = null;
         this.timer = null;
+        this.text = "";
         this.typed = 0;
         this.correct = 0;
         this.errors = 0;
-        this.lastInputLength = 0;
 
         this.init();
     }
 
     init() {
-        this.renderPassage();
+        this.generatePassage();
         this.bindEvents();
-        this.resetStats();
-        this.updateTimer();
-        this.updateModeLabel();
+        this.reset();
+        this.focusInput();
     }
 
-    renderPassage() {
+    generatePassage() {
+        this.text = this.passages[
+            Math.floor(Math.random() * this.passages.length)
+        ];
+
         this.passage.innerHTML = "";
 
         [...this.text].forEach((character, index) => {
             const span = document.createElement("span");
-
             span.textContent = character;
             span.dataset.index = index;
 
@@ -64,14 +74,11 @@ class TypingTest {
     }
 
     bindEvents() {
-        this.input.addEventListener("input", () => {
-            this.handleInput();
-        });
+        this.input.addEventListener("input", () => this.handleInput());
 
         this.input.addEventListener("keydown", event => {
             if (
-                event.key === "Backspace" ||
-                event.key === "Delete" ||
+                event.key === "Tab" ||
                 event.key === "ArrowLeft" ||
                 event.key === "ArrowRight" ||
                 event.key === "ArrowUp" ||
@@ -79,23 +86,13 @@ class TypingTest {
             ) {
                 event.preventDefault();
             }
-
-            if (event.key === "Tab") {
-                event.preventDefault();
-            }
         });
 
-        this.passage.addEventListener("click", () => {
-            this.focusInput();
-        });
+        this.passage.addEventListener("click", () => this.focusInput());
 
-        this.restartButton?.addEventListener("click", () => {
-            this.restart();
-        });
+        this.restartButton?.addEventListener("click", () => this.restart());
 
-        this.resultRestart?.addEventListener("click", () => {
-            this.restart();
-        });
+        this.resultRestart?.addEventListener("click", () => this.restart());
 
         this.modeButtons.forEach(button => {
             button.addEventListener("click", () => {
@@ -105,52 +102,46 @@ class TypingTest {
 
                 button.classList.add("active");
                 this.timeLimit = Number(button.dataset.time);
-
                 this.restart();
             });
+        });
+
+        document.addEventListener("keydown", event => {
+            if (
+                event.key.length === 1 ||
+                event.key === "Backspace" ||
+                event.key === " "
+            ) {
+                this.focusInput();
+            }
         });
     }
 
     handleInput() {
         if (this.finished) return;
 
-        let typedText = this.input.value;
+        let value = this.input.value;
 
-        if (typedText.length < this.lastInputLength) {
-            this.input.value = this.input.value.slice(
-                0,
-                this.lastInputLength
-            );
-
-            typedText = this.input.value;
+        if (value.length > this.text.length) {
+            value = value.slice(0, this.text.length);
+            this.input.value = value;
         }
 
-        if (typedText.length > this.text.length) {
-            typedText = typedText.slice(0, this.text.length);
-            this.input.value = typedText;
-        }
-
-        this.lastInputLength = typedText.length;
-
-        if (!this.started && typedText.length > 0) {
+        if (!this.started && value.length > 0) {
             this.start();
         }
 
-        this.typed = typedText.length;
+        this.typed = value.length;
         this.correct = 0;
         this.errors = 0;
 
         const characters = this.passage.querySelectorAll("span");
 
         characters.forEach((character, index) => {
-            character.classList.remove(
-                "correct",
-                "wrong",
-                "current"
-            );
+            character.classList.remove("correct", "wrong", "current");
 
-            if (index < typedText.length) {
-                if (typedText[index] === this.text[index]) {
+            if (index < value.length) {
+                if (value[index] === this.text[index]) {
                     character.classList.add("correct");
                     this.correct++;
                 } else {
@@ -159,7 +150,7 @@ class TypingTest {
                 }
             }
 
-            if (index === typedText.length) {
+            if (index === value.length) {
                 character.classList.add("current");
             }
         });
@@ -167,18 +158,21 @@ class TypingTest {
         this.updateStats();
         this.updateProgress();
 
-        if (typedText.length === this.text.length) {
+        if (value.length === this.text.length) {
             this.finish();
         }
     }
 
     start() {
+        if (this.started || this.finished) return;
+
         this.started = true;
         this.startTime = Date.now();
 
+        this.testMessage.textContent = "Keep your rhythm...";
+
         this.timer = setInterval(() => {
             this.timeLeft--;
-
             this.updateTimer();
             this.updateStats();
 
@@ -186,51 +180,49 @@ class TypingTest {
                 this.finish();
             }
         }, 1000);
+    }
 
-        this.testMessage.textContent = "Keep your rhythm...";
+    finish() {
+        if (this.finished) return;
+
+        this.finished = true;
+        clearInterval(this.timer);
+
+        this.updateStats();
+        this.saveResult();
+        this.showResult();
+
+        this.testMessage.textContent = "Test complete — great work!";
+        this.input.blur();
     }
 
     updateTimer() {
-        this.timerDisplay.textContent = `${this.timeLeft}s`;
-    }
+        if (this.timerDisplay) {
+            this.timerDisplay.textContent = `${this.timeLeft}s`;
+        }
 
-    updateModeLabel() {
         if (this.testModeLabel) {
-            this.testModeLabel.textContent =
-                `${this.timeLimit} SEC`;
+            this.testModeLabel.textContent = `${this.timeLimit} SEC`;
         }
     }
 
     updateStats() {
-        if (!this.started) {
+        if (!this.started && !this.finished) {
             this.wpmDisplay.textContent = "0";
             this.accuracyDisplay.textContent = "100%";
             this.errorsDisplay.textContent = "0";
             return;
         }
 
-        const elapsed = Math.max(
-            (Date.now() - this.startTime) / 1000,
-            1
-        );
-
-        const minutes = elapsed / 60;
-
-        const wpm = Math.round(
-            (this.correct / 5) / minutes
-        );
-
+        const elapsed = this.getElapsedTime();
+        const minutes = Math.max(elapsed / 60, 1 / 60);
+        const wpm = Math.round((this.correct / 5) / minutes);
         const accuracy = this.typed
-            ? Math.round(
-                (this.correct / this.typed) * 100
-            )
+            ? Math.round((this.correct / this.typed) * 100)
             : 100;
 
         this.wpmDisplay.textContent = Math.max(wpm, 0);
-
-        this.accuracyDisplay.textContent =
-            `${Math.min(100, Math.max(0, accuracy))}%`;
-
+        this.accuracyDisplay.textContent = `${Math.min(100, accuracy)}%`;
         this.errorsDisplay.textContent = this.errors;
     }
 
@@ -241,75 +233,57 @@ class TypingTest {
 
         const value = Math.min(progress, 100);
 
-        this.progressBar.style.width = `${value}%`;
+        if (this.progressBar) {
+            this.progressBar.style.width = `${value}%`;
+        }
 
         if (this.progressPercent) {
-            this.progressPercent.textContent =
-                `${Math.round(value)}%`;
+            this.progressPercent.textContent = `${Math.round(value)}%`;
         }
     }
 
-    finish() {
-        if (this.finished) return;
+    getElapsedTime() {
+        if (!this.startTime) return 0;
 
-        this.finished = true;
-        this.started = false;
-
-        clearInterval(this.timer);
-
-        this.input.blur();
-
-        this.showResult();
-
-        this.testMessage.textContent =
-            "Test complete — great work!";
+        return Math.max(
+            (Date.now() - this.startTime) / 1000,
+            0.1
+        );
     }
 
     showResult() {
-        if (!this.result) return;
-
-        const elapsed = this.startTime
-            ? Math.max(
-                (Date.now() - this.startTime) / 1000,
-                1
-            )
-            : 1;
+        const elapsed = this.getElapsedTime();
+        const minutes = Math.max(elapsed / 60, 1 / 60);
 
         const wpm = Math.round(
-            (this.correct / 5) / (elapsed / 60)
+            (this.correct / 5) / minutes
+        );
+
+        const rawWpm = Math.round(
+            (this.typed / 5) / minutes
         );
 
         const accuracy = this.typed
-            ? Math.round(
-                (this.correct / this.typed) * 100
-            )
+            ? Math.round((this.correct / this.typed) * 100)
             : 100;
 
-        const resultWpm = document.querySelector("#resultWpm");
-        const resultAccuracy =
-            document.querySelector("#resultAccuracy");
-        const resultErrors =
-            document.querySelector("#resultErrors");
-        const resultRawWpm =
-            document.querySelector("#resultRawWpm");
-
-        if (resultWpm) {
-            resultWpm.textContent = Math.max(wpm, 0);
+        if (this.resultWpm) {
+            this.resultWpm.textContent = Math.max(wpm, 0);
         }
 
-        if (resultAccuracy) {
-            resultAccuracy.textContent = `${accuracy}%`;
+        if (this.resultAccuracy) {
+            this.resultAccuracy.textContent = `${accuracy}%`;
         }
 
-        if (resultErrors) {
-            resultErrors.textContent = this.errors;
+        if (this.resultErrors) {
+            this.resultErrors.textContent = this.errors;
         }
 
-        if (resultRawWpm) {
-            resultRawWpm.textContent = Math.round(
-                (this.typed / 5) / (elapsed / 60)
-            );
+        if (this.resultRawWpm) {
+            this.resultRawWpm.textContent = Math.max(rawWpm, 0);
         }
+
+        if (!this.result) return;
 
         this.result.hidden = false;
 
@@ -323,7 +297,47 @@ class TypingTest {
         });
     }
 
-    resetStats() {
+    saveResult() {
+        const elapsed = Math.round(this.getElapsedTime());
+        const minutes = Math.max(elapsed / 60, 1 / 60);
+
+        const wpm = Math.round(
+            (this.correct / 5) / minutes
+        );
+
+        const rawWpm = Math.round(
+            (this.typed / 5) / minutes
+        );
+
+        const accuracy = this.typed
+            ? Math.round((this.correct / this.typed) * 100)
+            : 100;
+
+        const history = JSON.parse(
+            localStorage.getItem("veltype-history") || "[]"
+        );
+
+        history.unshift({
+            wpm: Math.max(wpm, 0),
+            rawWpm: Math.max(rawWpm, 0),
+            accuracy,
+            errors: this.errors,
+            characters: this.typed,
+            correctCharacters: this.correct,
+            duration: elapsed,
+            mode: this.timeLimit,
+            date: new Date().toISOString()
+        });
+
+        localStorage.setItem(
+            "veltype-history",
+            JSON.stringify(history.slice(0, 50))
+        );
+    }
+
+    reset() {
+        clearInterval(this.timer);
+
         this.timeLeft = this.timeLimit;
         this.started = false;
         this.finished = false;
@@ -331,41 +345,36 @@ class TypingTest {
         this.typed = 0;
         this.correct = 0;
         this.errors = 0;
-        this.lastInputLength = 0;
-
-        clearInterval(this.timer);
 
         this.input.value = "";
+
+        this.updateTimer();
+        this.updateProgress();
 
         this.wpmDisplay.textContent = "0";
         this.accuracyDisplay.textContent = "100%";
         this.errorsDisplay.textContent = "0";
 
-        this.updateProgress();
+        if (this.testMessage) {
+            this.testMessage.textContent =
+                "Click the passage and start typing";
+        }
     }
 
     restart() {
-        this.resetStats();
-        this.renderPassage();
-        this.updateTimer();
-        this.updateModeLabel();
-
         if (this.result) {
             this.result.classList.remove("show");
             this.result.hidden = true;
         }
 
-        if (this.testMessage) {
-            this.testMessage.textContent =
-                "Click the passage and start typing";
-        }
-
+        this.generatePassage();
+        this.reset();
         this.focusInput();
     }
 
     focusInput() {
-        if (!this.finished) {
+        if (!this.finished && this.input) {
             this.input.focus();
         }
     }
-                               }
+    }
