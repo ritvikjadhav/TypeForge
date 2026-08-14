@@ -9,8 +9,13 @@
     <meta name="author" content="VelType">
     <meta name="robots" content="index, follow">
     <title>VelType — Type Better. Think Faster.</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 <div class="site-shell">
 
@@ -29,15 +34,16 @@
         </nav>
 
         <div class="nav-actions">
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                <span>◐</span>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+                <span aria-hidden="true">◐</span>
             </button>
+
             <a href="test.html" class="nav-cta">
-                Start Test <span>↗</span>
+                Start Test <span aria-hidden="true">↗</span>
             </a>
         </div>
 
-        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
             <span></span>
             <span></span>
         </button>
@@ -48,59 +54,66 @@
         <!-- HERO -->
         <section class="hero">
             <div class="hero-copy">
-                <div class="eyebrow">
+                <div class="eyebrow hero-reveal">
                     <span class="eyebrow-dot"></span>
-                    A better way to type
+                    <span>A better way to type</span>
                 </div>
 
-                <h1>Type better.<br><em>Think faster.</em></h1>
+                <h1 class="hero-title hero-reveal">
+                    Type better.<br>
+                    <em>Think faster.</em>
+                </h1>
 
-                <p class="hero-description">
+                <p class="hero-description hero-reveal">
                     Build real typing speed through focused practice,
                     instant feedback and simple progress tracking.
                 </p>
 
-                <div class="hero-actions">
+                <div class="hero-actions hero-reveal">
                     <a href="test.html" class="button button-primary">
-                        Start typing
-                        <span>→</span>
+                        <span>Start typing</span>
+                        <span aria-hidden="true">→</span>
                     </a>
+
                     <a href="learn.html" class="button button-secondary">
                         Explore learning
                     </a>
                 </div>
 
-                <div class="hero-note">
+                <div class="hero-note hero-reveal">
                     <span class="check">✓</span>
-                    No account required
+                    <span>No account required</span>
                     <span class="note-divider"></span>
-                    Start in seconds
+                    <span>Start in seconds</span>
                 </div>
             </div>
 
             <!-- PRODUCT PREVIEW -->
-            <div class="hero-visual">
+            <div class="hero-visual" aria-label="Typing test preview">
                 <div class="typing-window">
                     <div class="window-top">
-                        <div class="window-dots">
+                        <div class="window-dots" aria-hidden="true">
                             <span></span>
                             <span></span>
                             <span></span>
                         </div>
+
                         <span class="window-label">TYPE TEST</span>
                         <span class="window-time">30s</span>
                     </div>
 
                     <div class="window-stats">
-                        <div>
+                        <div class="preview-stat">
                             <span>WPM</span>
                             <strong>87</strong>
                         </div>
-                        <div>
+
+                        <div class="preview-stat">
                             <span>Accuracy</span>
                             <strong>98.4%</strong>
                         </div>
-                        <div>
+
+                        <div class="preview-stat">
                             <span>Errors</span>
                             <strong>2</strong>
                         </div>
@@ -108,21 +121,15 @@
 
                     <div class="demo-passage">
                         <span class="typed">The best way to</span>
-                        <span class="active-word"> improve</span>
-                        <span class="remaining">
-                            your typing is to practice with intention.
-                            Every keystroke builds consistency.
-                        </span>
+                        <span class="active-word"> improve</span><span class="demo-cursor"></span><span class="remaining"> your typing is to practice with intention. Every keystroke builds consistency.</span>
                     </div>
 
-                    <div class="demo-cursor"></div>
-
-                    <div class="window-progress">
+                    <div class="window-progress" aria-hidden="true">
                         <span></span>
                     </div>
                 </div>
 
-                <div class="floating-stat floating-stat-one">
+                <div class="floating-stat floating-stat-one" aria-hidden="true">
                     <span class="floating-icon">↗</span>
                     <div>
                         <strong>+24%</strong>
@@ -130,7 +137,7 @@
                     </div>
                 </div>
 
-                <div class="floating-stat floating-stat-two">
+                <div class="floating-stat floating-stat-two" aria-hidden="true">
                     <span class="mini-ring">98</span>
                     <div>
                         <strong>Accuracy</strong>
@@ -141,7 +148,7 @@
         </section>
 
         <!-- QUICK PROOF -->
-        <section class="quick-proof">
+        <section class="quick-proof" aria-label="VelType highlights">
             <div class="proof-intro">
                 <span>BUILT AROUND BETTER TYPING</span>
             </div>
@@ -167,10 +174,7 @@
             <div class="section-heading">
                 <div>
                     <span class="section-label">01 — THE EXPERIENCE</span>
-                    <h2>
-                        Everything you need.<br>
-                        <em>Nothing you don't.</em>
-                    </h2>
+                    <h2>Everything you need.<br><em>Nothing you don't.</em></h2>
                 </div>
 
                 <p>
@@ -181,13 +185,13 @@
 
             <div class="feature-grid">
 
+                <!-- FEATURE 01 -->
                 <article class="feature-card feature-large">
                     <div class="feature-number">01</div>
 
                     <div class="feature-content">
                         <span class="feature-icon">⌁</span>
                         <h3>Instant feedback</h3>
-
                         <p>
                             See every mistake as you type. Correct and
                             incorrect characters are highlighted instantly
@@ -202,40 +206,37 @@
                     </div>
                 </article>
 
+                <!-- FEATURE 02 -->
                 <article class="feature-card">
                     <div class="feature-number">02</div>
-
                     <span class="feature-icon">↗</span>
 
                     <h3>Measure what matters</h3>
-
                     <p>
                         Track WPM, accuracy, errors and consistency
                         after every test.
                     </p>
                 </article>
 
+                <!-- FEATURE 03 -->
                 <article class="feature-card">
                     <div class="feature-number">03</div>
-
                     <span class="feature-icon">◒</span>
 
                     <h3>Learn step by step</h3>
-
                     <p>
                         Structured lessons take you from fundamentals
                         to advanced typing control.
                     </p>
                 </article>
 
+                <!-- FEATURE 04 -->
                 <article class="feature-card feature-wide">
-                    <div>
+                    <div class="feature-wide-copy">
                         <div class="feature-number">04</div>
-
                         <span class="feature-icon">⌘</span>
 
                         <h3>Practice your way</h3>
-
                         <p>
                             Choose your test duration, practice mode and
                             difficulty. Your keyboard becomes the only
@@ -243,67 +244,40 @@
                         </p>
                     </div>
 
-                    <!-- RESPONSIVE KEYBOARD -->
-                    <div class="keyboard-preview">
+                    <!-- 60% KEYBOARD -->
+                    <div class="keyboard-preview" aria-label="60 percent keyboard preview">
+                        <div class="keyboard-row">
+                            <span>Q</span><span>W</span><span>E</span><span>R</span>
+                            <span>T</span><span>Y</span><span>U</span><span>I</span>
+                            <span>O</span><span>P</span><span>[</span><span>]</span><span>\</span>
+                        </div>
 
-    <div class="keyboard-row">
-        <span>Q</span>
-        <span>W</span>
-        <span>E</span>
-        <span>R</span>
-        <span>T</span>
-        <span>Y</span>
-        <span>U</span>
-        <span>I</span>
-        <span>O</span>
-        <span>P</span>
-        <span>[</span>
-        <span>]</span>
-        <span>\</span>
-    </div>
+                        <div class="keyboard-row">
+                            <span class="key-caps">Caps</span>
+                            <span>A</span><span>S</span><span>D</span><span>F</span>
+                            <span>G</span><span>H</span><span>J</span><span>K</span>
+                            <span>L</span><span>;</span><span>'</span>
+                            <span class="key-enter">Enter</span>
+                        </div>
 
-    <div class="keyboard-row">
-        <span class="key-caps">Caps</span>
-        <span>A</span>
-        <span>S</span>
-        <span>D</span>
-        <span>F</span>
-        <span>G</span>
-        <span>H</span>
-        <span>J</span>
-        <span>K</span>
-        <span>L</span>
-        <span>;</span>
-        <span>'</span>
-        <span class="key-enter">Enter</span>
-    </div>
+                        <div class="keyboard-row">
+                            <span class="key-shift">Shift</span>
+                            <span>Z</span><span>X</span><span>C</span><span>V</span>
+                            <span>B</span><span>N</span><span>M</span><span>,</span>
+                            <span>.</span><span>/</span>
+                            <span class="key-shift">Shift</span>
+                        </div>
 
-    <div class="keyboard-row">
-        <span class="key-shift">Shift</span>
-        <span>Z</span>
-        <span>X</span>
-        <span>C</span>
-        <span>V</span>
-        <span>B</span>
-        <span>N</span>
-        <span>M</span>
-        <span>,</span>
-        <span>.</span>
-        <span>/</span>
-        <span class="key-shift">Shift</span>
-    </div>
-
-    <div class="keyboard-row">
-        <span class="key-fn">Ctrl</span>
-        <span class="key-fn">Win</span>
-        <span class="key-fn">Alt</span>
-        <span class="key-space">Space</span>
-        <span class="key-fn">Alt</span>
-        <span class="key-fn">Fn</span>
-        <span class="key-fn">Ctrl</span>
-    </div>
-
-    </div>
+                        <div class="keyboard-row">
+                            <span class="key-fn">Ctrl</span>
+                            <span class="key-fn">Win</span>
+                            <span class="key-fn">Alt</span>
+                            <span class="key-space">Space</span>
+                            <span class="key-fn">Alt</span>
+                            <span class="key-fn">Fn</span>
+                            <span class="key-fn">Ctrl</span>
+                        </div>
+                    </div>
                 </article>
 
             </div>
@@ -324,74 +298,53 @@
             </div>
 
             <div class="workflow-grid">
-
                 <article class="workflow-card">
                     <span class="workflow-index">01</span>
-
                     <h3>Test</h3>
-
                     <p>
                         Find your current speed and accuracy with a
                         distraction-free typing test.
                     </p>
-
-                    <a href="test.html">
-                        Take a test →
-                    </a>
+                    <a href="test.html">Take a test →</a>
                 </article>
 
                 <article class="workflow-card">
                     <span class="workflow-index">02</span>
-
                     <h3>Learn</h3>
-
                     <p>
                         Work on the specific skills that are holding
                         your typing back.
                     </p>
-
-                    <a href="learn.html">
-                        Start learning →
-                    </a>
+                    <a href="learn.html">Start learning →</a>
                 </article>
 
                 <article class="workflow-card">
                     <span class="workflow-index">03</span>
-
                     <h3>Improve</h3>
-
                     <p>
                         Compare your results over time and turn practice
                         into measurable progress.
                     </p>
-
-                    <a href="dashboard.html">
-                        View progress →
-                    </a>
+                    <a href="dashboard.html">View progress →</a>
                 </article>
-
             </div>
         </section>
 
         <!-- PROGRESS SHOWCASE -->
         <section class="showcase section">
             <div class="showcase-card">
-
                 <div class="showcase-copy">
                     <span class="section-label">03 — YOUR PROGRESS</span>
 
                     <h2>Know where you're going.</h2>
-
                     <p>
                         Your typing history gives you a clear picture of
                         what's improving and what needs more work.
                     </p>
-
                     <a href="dashboard.html" class="text-link">
                         View your dashboard <span>→</span>
                     </a>
                 </div>
-
                 <div class="dashboard-preview">
                     <div class="preview-header">
                         <div>
@@ -401,7 +354,6 @@
 
                         <span class="preview-badge">+12.8%</span>
                     </div>
-
                     <div class="chart">
                         <div class="chart-labels">
                             <span>100</span>
@@ -410,15 +362,10 @@
                             <span>25</span>
                             <span>0</span>
                         </div>
-
                         <div class="chart-area">
                             <div class="chart-grid"></div>
 
-                            <svg
-                                viewBox="0 0 500 180"
-                                preserveAspectRatio="none"
-                                aria-hidden="true"
-                            >
+                            <svg viewBox="0 0 500 180" preserveAspectRatio="none" aria-hidden="true">
                                 <path d="M0 145 C55 138, 65 118, 110 124 S165 105, 205 112 S260 80, 300 94 S355 65, 390 76 S445 45, 500 35"></path>
                                 <circle cx="500" cy="35" r="5"></circle>
                             </svg>
@@ -430,19 +377,16 @@
                             <span>Average</span>
                             <strong>76 WPM</strong>
                         </div>
-
                         <div>
                             <span>Best</span>
                             <strong>91 WPM</strong>
                         </div>
-
                         <div>
                             <span>Accuracy</span>
                             <strong>97.2%</strong>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -450,86 +394,37 @@
         <section class="cta section">
             <div class="cta-inner">
                 <span class="section-label">READY WHEN YOU ARE</span>
-
                 <h2>
                     Your keyboard is<br>
                     <em>waiting.</em>
                 </h2>
-
                 <p>
                     Take your first test and find out what you're capable of.
                 </p>
-
                 <a href="test.html" class="button button-light">
                     Start your first test
-                    <span>↗</span>
+                    <span aria-hidden="true">↗</span>
                 </a>
             </div>
         </section>
-
     </main>
-
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-brand">
             <p>Flow Into Speed</p>
         </div>
-
         <div class="footer-socials">
-
             <!-- INSTAGRAM -->
-            <a
-                href="https://www.instagram.com/veltype/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-            >
-                <svg
-                    width="21"
-                    height="21"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                >
-                    <rect
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        rx="5"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                    />
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="4.2"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                    />
-                    <circle
-                        cx="17.5"
-                        cy="6.5"
-                        r="1.1"
-                        fill="currentColor"
-                    />
+            <a href="https://www.instagram.com/veltype/" target="_blank" rel="noopener noreferrer" aria-label="VelType on Instagram">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/>
+                    <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/>
+                    <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
                 </svg>
             </a>
-
             <!-- FACEBOOK -->
-            <a
-                href="https://www.facebook.com/veltype/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-            >
-                <svg
-                    width="21"
-                    height="21"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                >
+            <a href="https://www.facebook.com/veltype/" target="_blank" rel="noopener noreferrer" aria-label="VelType on Facebook">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.6 1.7-1.6h1.8V3.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.5v3h2.8v8h3.2z"/>
                 </svg>
             </a>
@@ -545,4 +440,4 @@
 
 <script src="js/main.js"></script>
 </body>
-</html>
+                      </html>
