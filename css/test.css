@@ -1,42 +1,44 @@
-/* VelType V1 — Typing Test */
+/* V1 typing test page styles */
 
 .test-page {
     width: min(calc(100% - 48px), var(--max-width));
-    margin: auto;
-    padding: 80px 0 110px;
+    margin: 0 auto;
+    padding: 88px 0 110px;
 }
 
-.test-intro {
+.test-header {
     display: grid;
-    grid-template-columns: 1fr 320px;
-    align-items: end;
+    grid-template-columns: minmax(0, 1fr) 320px;
     gap: 60px;
-    margin-bottom: 50px;
+    align-items: end;
+    margin-bottom: 52px;
 }
 
-.test-intro h1 {
-    margin-top: 14px;
+.test-header h1 {
+    margin: 16px 0 0;
+    font-family: "Manrope", sans-serif;
     font-size: clamp(52px, 6vw, 82px);
+    font-weight: 800;
     line-height: .92;
     letter-spacing: -.07em;
 }
 
-.test-intro h1 em,
-.result-heading h2 em {
+.test-header h1 em {
     font-family: "Playfair Display", Georgia, serif;
     font-weight: 600;
     font-style: italic;
 }
 
-.test-intro > p {
+.test-header > p {
     max-width: 300px;
-    margin-bottom: 4px;
+    margin: 0 0 4px;
     color: var(--muted);
+    font-family: "Manrope", sans-serif;
     font-size: 13px;
-    line-height: 1.75;
+    line-height: 1.8;
 }
 
-.test-toolbar {
+.test-controls {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,30 +46,27 @@
     margin-bottom: 12px;
 }
 
-.test-mode-group {
+.session-controls {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 16px;
 }
 
-.toolbar-label,
-.passage-header span,
+.control-label,
+.typing-box-header span,
+.test-progress > div:first-child span,
 .typing-metric > span,
-.progress-meta,
-.test-message,
-.result-card > span,
-.result-card small,
-.guidance-number {
+.result-card > span {
     font-family: "DM Mono", monospace;
-}
-
-.toolbar-label {
-    color: var(--soft);
-    font-size: 9px;
+    font-size: 8px;
     letter-spacing: .1em;
 }
 
-.test-modes {
+.control-label {
+    color: var(--soft);
+}
+
+.mode-buttons {
     display: flex;
     gap: 5px;
 }
@@ -78,9 +77,15 @@
     border-radius: 7px;
     background: transparent;
     color: var(--muted);
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
     cursor: pointer;
-    font: 700 11px "Manrope", sans-serif;
-    transition: .2s ease;
+    transition:
+        color .2s ease,
+        background .2s ease,
+        border-color .2s ease,
+        transform .15s ease;
 }
 
 .mode-button {
@@ -99,6 +104,11 @@
     color: var(--bg);
 }
 
+.mode-button:active,
+.restart-button:active {
+    transform: scale(.97);
+}
+
 .restart-button {
     display: inline-flex;
     align-items: center;
@@ -108,66 +118,75 @@
 
 .restart-button span {
     font-size: 16px;
+    line-height: 1;
+    transition: transform .35s ease;
 }
 
-.mode-button:active,
-.restart-button:active {
-    transform: scale(.97);
+.restart-button:hover span {
+    transform: rotate(-90deg);
+}
+
+.typing-stage {
+    position: relative;
 }
 
 .typing-metrics {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    overflow: hidden;
     border: 1px solid var(--border);
     border-bottom: 0;
     border-radius: var(--radius-md) var(--radius-md) 0 0;
     background: var(--surface);
 }
 
-.typing-metric {
-    min-height: 90px;
+.metric {
+    min-height: 88px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     padding: 18px;
     border-right: 1px solid var(--border);
+    font-family: "Manrope", sans-serif;
 }
 
-.typing-metric:last-child {
+.metric:last-child {
     border-right: 0;
 }
 
-.typing-metric > span {
+.metric > span {
     color: var(--soft);
-    font-size: 8px;
-    letter-spacing: .09em;
 }
 
-.typing-metric strong {
+.metric strong {
+    color: var(--ink);
+    font-family: "Manrope", sans-serif;
     font-size: 24px;
+    font-weight: 700;
     line-height: 1;
     letter-spacing: -.05em;
 }
 
-.typing-metric small {
+.metric small {
     align-self: flex-end;
     margin-bottom: 2px;
     color: var(--soft);
-    font: 8px "DM Mono", monospace;
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
 }
 
-.typing-surface {
+.typing-box {
     position: relative;
     min-height: 390px;
-    padding: 0 44px 28px;
+    overflow: hidden;
+    padding: 0 46px 30px;
     border: 1px solid var(--border);
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     background: var(--surface);
-    overflow: hidden;
 }
 
-.passage-header {
+.typing-box-header {
     height: 52px;
     display: flex;
     align-items: center;
@@ -175,27 +194,32 @@
     border-bottom: 1px solid var(--border);
 }
 
-.passage-header span {
+.typing-box-header span {
     color: var(--soft);
-    font-size: 8px;
-    letter-spacing: .1em;
 }
 
-#testModeLabel {
+.typing-box-header span:last-child {
     color: var(--muted);
 }
 
 .typing-passage {
-    padding: 42px 0 25px;
+    position: relative;
+    z-index: 1;
+    padding: 42px 0 20px;
     color: var(--soft);
-    font: 400 clamp(17px, 2vw, 21px)/1.95 "DM Mono", monospace;
+    font-family: "DM Mono", monospace;
+    font-size: clamp(16px, 1.8vw, 20px);
+    font-weight: 400;
+    line-height: 1.95;
     letter-spacing: -.025em;
     cursor: text;
     user-select: none;
 }
 
 .typing-passage span {
+    position: relative;
     border-radius: 2px;
+    transition: color .08s ease;
 }
 
 .typing-passage span.correct {
@@ -203,21 +227,30 @@
 }
 
 .typing-passage span.wrong {
-    color: var(--danger);
+    color: var(--danger, #b42318);
 }
 
-.typing-passage span.current {
-    margin-left: -2px;
-    border-left: 2px solid var(--ink);
-    animation: cursorBlink .9s infinite;
+.typing-passage span.current::before {
+    content: "";
+    position: absolute;
+    top: 7%;
+    left: -2px;
+    width: 2px;
+    height: 86%;
+    border-radius: 2px;
+    background: var(--ink);
+    animation: typingCursor .9s ease-in-out infinite;
 }
 
-@keyframes cursorBlink {
-    0%, 45% {
-        border-color: var(--ink);
+@keyframes typingCursor {
+    0%,
+    45% {
+        opacity: 1;
     }
-    46%, 100% {
-        border-color: transparent;
+
+    46%,
+    100% {
+        opacity: 0;
     }
 }
 
@@ -225,7 +258,8 @@
     position: absolute;
     width: 1px;
     height: 1px;
-    left: -9999px;
+    top: 0;
+    left: 0;
     opacity: 0;
     pointer-events: none;
 }
@@ -236,7 +270,8 @@
     gap: 9px;
     margin-top: 18px;
     color: var(--soft);
-    font: 8px "DM Mono", monospace;
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
 }
 
 .hint-key {
@@ -248,22 +283,25 @@
 }
 
 .test-progress {
-    margin-top: 15px;
+    margin-top: 16px;
 }
 
-.progress-meta {
+.test-progress > div:first-child {
     display: flex;
     justify-content: space-between;
     margin-bottom: 7px;
     color: var(--soft);
-    font-size: 8px;
-    letter-spacing: .06em;
+}
+
+.test-progress > div:first-child span:last-child {
+    color: var(--muted);
 }
 
 .progress-track {
+    width: 100%;
     height: 3px;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 99px;
     background: var(--surface-alt);
 }
 
@@ -271,38 +309,65 @@
     display: block;
     width: 0;
     height: 100%;
+    border-radius: inherit;
     background: var(--ink);
-    transition: width .1s linear;
+    transition: width .12s linear;
 }
 
 .test-message {
-    margin-top: 17px;
-    color: var(--soft);
+    min-height: 16px;
+    margin: 18px 0 0;
     text-align: center;
+    color: var(--soft);
+    font-family: "DM Mono", monospace;
     font-size: 9px;
+    transition: color .2s ease;
 }
 
 .test-result {
     padding-top: 105px;
+    animation: resultReveal .55s ease both;
 }
 
-.result-heading {
+@keyframes resultReveal {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-header {
     max-width: 620px;
     margin-bottom: 42px;
 }
 
-.result-heading h2 {
-    margin: 15px 0;
+.result-header h2 {
+    margin: 16px 0;
+    font-family: "Manrope", sans-serif;
     font-size: clamp(42px, 5vw, 65px);
+    font-weight: 800;
     line-height: .95;
     letter-spacing: -.065em;
 }
 
-.result-heading p {
+.result-header h2 em {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.result-header p {
     max-width: 390px;
+    margin: 0;
     color: var(--muted);
+    font-family: "Manrope", sans-serif;
     font-size: 13px;
-    line-height: 1.75;
+    line-height: 1.8;
 }
 
 .result-grid {
@@ -312,7 +377,7 @@
 }
 
 .result-card {
-    min-height: 150px;
+    min-height: 155px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -324,29 +389,31 @@
 
 .result-card > span {
     color: var(--soft);
-    font-size: 8px;
-    letter-spacing: .09em;
 }
 
 .result-card strong {
+    color: var(--ink);
+    font-family: "Manrope", sans-serif;
     font-size: 32px;
+    font-weight: 700;
     letter-spacing: -.06em;
 }
 
 .result-card small {
     color: var(--soft);
+    font-family: "DM Mono", monospace;
     font-size: 8px;
 }
 
-.result-main {
+.result-primary {
     border-color: var(--ink);
     background: var(--ink);
-    color: var(--bg);
 }
 
-.result-main > span,
-.result-main small {
-    color: var(--soft);
+.result-primary > span,
+.result-primary strong,
+.result-primary small {
+    color: var(--bg);
 }
 
 .result-actions {
@@ -358,49 +425,58 @@
 .test-guidance {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
     margin-top: 110px;
     padding-top: 30px;
     border-top: 1px solid var(--border);
 }
 
-.guidance-item {
+.test-guidance article {
     display: grid;
-    grid-template-columns: 30px 1fr;
-    gap: 14px;
-    padding-right: 25px;
+    grid-template-columns: 32px 1fr;
+    gap: 15px;
+    padding: 0 25px;
     border-right: 1px solid var(--border);
 }
 
-.guidance-item:last-child {
+.test-guidance article:first-child {
+    padding-left: 0;
+}
+
+.test-guidance article:last-child {
+    padding-right: 0;
     border-right: 0;
 }
 
-.guidance-number {
+.test-guidance article > span {
     color: var(--soft);
+    font-family: "DM Mono", monospace;
     font-size: 9px;
 }
 
-.guidance-item strong {
+.test-guidance strong {
     display: block;
-    margin-bottom: 7px;
+    margin-bottom: 8px;
+    color: var(--ink);
+    font-family: "Manrope", sans-serif;
     font-size: 12px;
 }
 
-.guidance-item p {
+.test-guidance p {
     max-width: 260px;
+    margin: 0;
     color: var(--muted);
+    font-family: "Manrope", sans-serif;
     font-size: 11px;
     line-height: 1.7;
 }
 
 @media (max-width: 900px) {
-    .test-intro {
+    .test-header {
         grid-template-columns: 1fr 250px;
         gap: 35px;
     }
 
-    .typing-surface {
+    .typing-box {
         padding-right: 30px;
         padding-left: 30px;
     }
@@ -409,7 +485,7 @@
         grid-template-columns: 1fr 1fr;
     }
 
-    .result-main {
+    .result-primary {
         grid-column: span 2;
     }
 }
@@ -420,28 +496,29 @@
         padding: 55px 0 75px;
     }
 
-    .test-intro {
+    .test-header {
         display: block;
         margin-bottom: 32px;
     }
 
-    .test-intro h1 {
-        margin-top: 13px;
+    .test-header h1 {
+        margin-top: 14px;
         font-size: clamp(48px, 15vw, 68px);
     }
 
-    .test-intro > p {
+    .test-header > p {
+        max-width: 330px;
         margin-top: 20px;
         font-size: 12px;
     }
 
-    .test-toolbar {
+    .test-controls {
         align-items: stretch;
         flex-direction: column;
         gap: 10px;
     }
 
-    .test-mode-group {
+    .session-controls {
         justify-content: space-between;
     }
 
@@ -458,29 +535,30 @@
         grid-template-columns: 1fr 1fr;
     }
 
-    .typing-metric {
+    .metric {
         min-height: 72px;
         padding: 14px 10px;
+        gap: 6px;
     }
 
-    .typing-metric:nth-child(2) {
+    .metric:nth-child(2) {
         border-right: 0;
     }
 
-    .typing-metric:nth-child(-n + 2) {
+    .metric:nth-child(-n + 2) {
         border-bottom: 1px solid var(--border);
     }
 
-    .typing-metric strong {
+    .metric strong {
         font-size: 20px;
     }
 
-    .typing-surface {
-        min-height: 430px;
+    .typing-box {
+        min-height: 420px;
         padding: 0 20px 24px;
     }
 
-    .passage-header {
+    .typing-box-header {
         height: 48px;
     }
 
@@ -499,11 +577,11 @@
         padding-top: 75px;
     }
 
-    .result-heading {
+    .result-header {
         margin-bottom: 28px;
     }
 
-    .result-heading h2 {
+    .result-header h2 {
         font-size: clamp(40px, 12vw, 55px);
     }
 
@@ -530,29 +608,30 @@
 
     .test-guidance {
         grid-template-columns: 1fr;
-        gap: 0;
         margin-top: 75px;
     }
 
-    .guidance-item {
+    .test-guidance article,
+    .test-guidance article:first-child,
+    .test-guidance article:last-child {
         padding: 20px 0;
         border-right: 0;
         border-bottom: 1px solid var(--border);
     }
 
-    .guidance-item:last-child {
+    .test-guidance article:last-child {
         border-bottom: 0;
     }
 }
 
 @media (max-width: 420px) {
-    .test-mode-group {
+    .session-controls {
         align-items: flex-start;
         flex-direction: column;
         gap: 9px;
     }
 
-    .test-modes {
+    .mode-buttons {
         width: 100%;
     }
 
@@ -560,7 +639,7 @@
         flex: 1;
     }
 
-    .typing-surface {
+    .typing-box {
         min-height: 400px;
         padding-right: 16px;
         padding-left: 16px;
@@ -575,4 +654,18 @@
         align-items: flex-start;
         flex-direction: column;
     }
-   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .typing-passage span,
+    .progress-track span,
+    .restart-button span,
+    .test-message {
+        transition: none;
+    }
+
+    .typing-passage span.current::before,
+    .test-result {
+        animation: none;
+    }
+    }
