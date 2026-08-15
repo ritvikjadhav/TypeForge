@@ -12,7 +12,7 @@
     --lesson-shadow: 0 18px 50px rgba(25, 26, 23, .035);
 }
 
-.body.dark {
+body.dark {
     --lesson-bg: #111210;
     --lesson-card: #181916;
     --lesson-soft: #20211d;
