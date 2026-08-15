@@ -1961,3 +1961,86 @@ a {
         display: none;
     }
     }
+/* =========================================
+   V1 PREMIUM REVEAL SYSTEM
+========================================= */
+
+.page-reveal,
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity .8s ease,
+        transform .8s var(--ease);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+}
+
+.page-reveal.is-visible,
+.scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Hero visual gets a slightly more premium entrance */
+
+.hero-visual.page-reveal {
+    transform: translateY(28px) scale(.97);
+}
+
+.hero-visual.page-reveal.is-visible {
+    transform: translateY(0) scale(1);
+}
+
+
+/* Navbar enters slightly from above */
+
+.navbar.page-reveal {
+    transform: translateY(-12px);
+}
+
+.navbar.page-reveal.is-visible {
+    transform: translateY(0);
+}
+
+
+/* Showcase/card */
+
+.showcase-card.scroll-reveal {
+    transform: translateY(30px) scale(.985);
+}
+
+.showcase-card.scroll-reveal.is-visible {
+    transform: translateY(0) scale(1);
+}
+
+
+/* Press feedback */
+
+.is-pressed {
+    transform: scale(.97) !important;
+}
+
+
+/* Keyboard interaction */
+
+.keyboard-preview span.key-hover {
+    background: var(--ink);
+    color: var(--bg);
+    transform: translateY(-2px);
+}
+
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .page-reveal,
+    .scroll-reveal {
+        opacity: 1;
+        transform: none !important;
+        transition: none;
+    }
+
+        }
