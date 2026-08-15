@@ -1,10 +1,60 @@
 /* =========================================
    VELTYPE — LEARN V1
+   Theme-aware • Responsive • Clean
+   ========================================= */
+
+/* =========================================
+   THEME VARIABLES
+   ========================================= */
+
+:root {
+    --learn-bg: #faf7ee;
+    --learn-card: #fffef9;
+    --learn-soft: #f0eee5;
+    --learn-line: #deddd5;
+    --learn-line-soft: #e4e2da;
+
+    --learn-text: #171815;
+    --learn-muted: #77776f;
+    --learn-faint: #aaa9a1;
+
+    --learn-hover: #faf9f3;
+
+    --learn-shadow: 0 12px 35px rgba(30, 30, 25, .055);
+
+    --learn-radius: 24px;
+}
+
+/* =========================================
+   DARK THEME
+   ========================================= */
+
+body.dark {
+    --learn-bg: #111210;
+    --learn-card: #181916;
+    --learn-soft: #22231f;
+    --learn-line: #30312c;
+    --learn-line-soft: #30312c;
+
+    --learn-text: #f2f0e8;
+    --learn-muted: #aaa9a1;
+    --learn-faint: #777870;
+
+    --learn-hover: #20211d;
+
+    --learn-shadow: 0 12px 35px rgba(0, 0, 0, .25);
+}
+
+/* =========================================
+   PAGE
    ========================================= */
 
 .learn-page {
-    background: var(--cream, #FAF7EE);
-    color: var(--black, #171815);
+    background: var(--learn-bg);
+    color: var(--learn-text);
+    transition:
+        background .3s ease,
+        color .3s ease;
 }
 
 .learn-container {
@@ -30,9 +80,10 @@
 .learn-hero h1 {
     max-width: 850px;
     margin: 0;
+    color: var(--learn-text);
     font-size: clamp(52px, 7vw, 94px);
     line-height: .98;
-    letter-spacing: -0.055em;
+    letter-spacing: -.055em;
     font-weight: 700;
 }
 
@@ -45,7 +96,7 @@
 .learn-hero p {
     max-width: 680px;
     margin: 32px 0 0;
-    color: #77776f;
+    color: var(--learn-muted);
     font-size: 19px;
     line-height: 1.7;
 }
@@ -59,12 +110,16 @@
 
 .learn-hero-meta span {
     padding: 9px 13px;
-    border: 1px solid #deddd5;
+    border: 1px solid var(--learn-line);
     border-radius: 999px;
-    color: #8a8981;
+    color: var(--learn-faint);
     font-family: "DM Mono", monospace;
     font-size: 10px;
     letter-spacing: .08em;
+    transition:
+        border-color .3s ease,
+        color .3s ease,
+        background .3s ease;
 }
 
 /* =========================================
@@ -85,13 +140,14 @@
 
 .path-header h2 {
     margin: 0;
+    color: var(--learn-text);
     font-size: clamp(32px, 4vw, 48px);
     line-height: 1;
     letter-spacing: -.04em;
 }
 
 .path-note {
-    color: #999890;
+    color: var(--learn-faint);
     font-family: "DM Mono", monospace;
     font-size: 11px;
     text-transform: uppercase;
@@ -110,9 +166,13 @@
 
 .level {
     overflow: hidden;
-    border: 1px solid #dfded6;
-    border-radius: 24px;
-    background: rgba(255, 254, 249, .62);
+    border: 1px solid var(--learn-line);
+    border-radius: var(--learn-radius);
+    background: color-mix(
+        in srgb,
+        var(--learn-card) 62%,
+        transparent
+    );
     transition:
         border-color .35s ease,
         background .35s ease,
@@ -120,9 +180,9 @@
 }
 
 .level.open {
-    background: #fffef9;
-    border-color: #d5d3ca;
-    box-shadow: 0 12px 35px rgba(30, 30, 25, .055);
+    background: var(--learn-card);
+    border-color: var(--learn-line);
+    box-shadow: var(--learn-shadow);
 }
 
 /* =========================================
@@ -144,7 +204,7 @@
 }
 
 .level-number {
-    color: #aaa9a1;
+    color: var(--learn-faint);
     font-family: "DM Mono", monospace;
     font-size: 13px;
 }
@@ -162,6 +222,7 @@
 
 .level-title {
     margin: 0;
+    color: var(--learn-text);
     font-size: 28px;
     line-height: 1.1;
     letter-spacing: -.035em;
@@ -169,7 +230,7 @@
 
 .level-description {
     margin: 9px 0 0;
-    color: #85847d;
+    color: var(--learn-muted);
     font-size: 15px;
     line-height: 1.55;
 }
@@ -177,13 +238,20 @@
 .level-tag {
     padding: 7px 10px;
     border-radius: 8px;
-    background: #f0eee5;
-    color: #99978e;
+    background: var(--learn-soft);
+    color: var(--learn-faint);
     font-family: "DM Mono", monospace;
     font-size: 9px;
     letter-spacing: .04em;
     text-transform: uppercase;
+    transition:
+        background .3s ease,
+        color .3s ease;
 }
+
+/* =========================================
+   LEVEL PROGRESS
+   ========================================= */
 
 .level-progress {
     margin-top: 20px;
@@ -192,7 +260,7 @@
 .level-progress-top {
     display: flex;
     justify-content: space-between;
-    color: #aaa9a1;
+    color: var(--learn-faint);
     font-family: "DM Mono", monospace;
     font-size: 10px;
 }
@@ -202,7 +270,7 @@
     margin-top: 9px;
     overflow: hidden;
     border-radius: 999px;
-    background: #eeece3;
+    background: var(--learn-soft);
 }
 
 .progress-fill {
@@ -210,9 +278,13 @@
     width: 0%;
     height: 100%;
     border-radius: inherit;
-    background: #191a17;
+    background: var(--learn-text);
     transition: width .6s ease;
 }
+
+/* =========================================
+   LEVEL ARROW
+   ========================================= */
 
 .level-arrow {
     width: 48px;
@@ -220,20 +292,22 @@
     display: grid;
     place-items: center;
     flex-shrink: 0;
-    border: 1px solid #deddd5;
+    border: 1px solid var(--learn-line);
     border-radius: 50%;
+    color: var(--learn-text);
     font-size: 20px;
     transition:
         transform .4s cubic-bezier(.22, 1, .36, 1),
         background .3s ease,
-        border-color .3s ease;
+        border-color .3s ease,
+        color .3s ease;
 }
 
 .level.open .level-arrow {
     transform: rotate(180deg);
-    background: #191a17;
-    border-color: #191a17;
-    color: #fff;
+    background: var(--learn-text);
+    border-color: var(--learn-text);
+    color: var(--learn-bg);
 }
 
 /* =========================================
@@ -243,7 +317,8 @@
 .level-content {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows .55s cubic-bezier(.22, 1, .36, 1);
+    transition:
+        grid-template-rows .55s cubic-bezier(.22, 1, .36, 1);
 }
 
 .level.open .level-content {
@@ -256,7 +331,7 @@
 }
 
 .lesson-list {
-    border-top: 1px solid #e2e0d8;
+    border-top: 1px solid var(--learn-line-soft);
 }
 
 /* =========================================
@@ -268,8 +343,8 @@
     grid-template-columns: 70px 1fr 48px;
     align-items: center;
     gap: 25px;
-    padding: 27px 32px 27px 32px;
-    border-bottom: 1px solid #e4e2da;
+    padding: 27px 32px;
+    border-bottom: 1px solid var(--learn-line-soft);
     text-decoration: none;
     color: inherit;
     opacity: 0;
@@ -290,11 +365,11 @@
 }
 
 .lesson-item:hover {
-    background: #faf9f3;
+    background: var(--learn-hover);
 }
 
 .lesson-number {
-    color: #aaa9a1;
+    color: var(--learn-faint);
     font-family: "DM Mono", monospace;
     font-size: 12px;
 }
@@ -305,6 +380,7 @@
 
 .lesson-title {
     margin: 0;
+    color: var(--learn-text);
     font-size: 20px;
     line-height: 1.25;
     letter-spacing: -.025em;
@@ -313,7 +389,7 @@
 .lesson-description {
     max-width: 650px;
     margin: 7px 0 0;
-    color: #85847d;
+    color: var(--learn-muted);
     font-size: 14px;
     line-height: 1.55;
 }
@@ -326,30 +402,37 @@
 }
 
 .lesson-meta span {
-    color: #aaa9a1;
+    color: var(--learn-faint);
     font-family: "DM Mono", monospace;
     font-size: 9px;
     text-transform: uppercase;
 }
+
+/* =========================================
+   LESSON ARROW
+   ========================================= */
 
 .lesson-arrow {
     width: 44px;
     height: 44px;
     display: grid;
     place-items: center;
-    border: 1px solid #deddd5;
+    border: 1px solid var(--learn-line);
     border-radius: 50%;
+    color: var(--learn-text);
     font-size: 18px;
     transition:
         transform .3s ease,
         background .3s ease,
-        color .3s ease;
+        color .3s ease,
+        border-color .3s ease;
 }
 
 .lesson-item:hover .lesson-arrow {
     transform: translateX(3px);
-    background: #191a17;
-    color: #fff;
+    background: var(--learn-text);
+    border-color: var(--learn-text);
+    color: var(--learn-bg);
 }
 
 /* =========================================
@@ -357,7 +440,7 @@
    ========================================= */
 
 .lesson-item.completed .lesson-number {
-    color: #55564f;
+    color: var(--learn-muted);
 }
 
 .lesson-item.completed .lesson-title::after {
@@ -368,8 +451,8 @@
     height: 20px;
     margin-left: 9px;
     border-radius: 50%;
-    background: #191a17;
-    color: #fff;
+    background: var(--learn-text);
+    color: var(--learn-bg);
     font-family: "Manrope", sans-serif;
     font-size: 11px;
     vertical-align: 2px;
@@ -381,7 +464,7 @@
 
 .learn-cta {
     padding: 100px 0;
-    border-top: 1px solid #deddd5;
+    border-top: 1px solid var(--learn-line);
 }
 
 .learn-cta .learn-container {
@@ -393,9 +476,28 @@
 
 .learn-cta h2 {
     margin: 0;
+    color: var(--learn-text);
     font-size: clamp(45px, 6vw, 75px);
     line-height: .98;
     letter-spacing: -.055em;
+}
+
+/* =========================================
+   DARK MODE SMOOTH TRANSITIONS
+   ========================================= */
+
+.learn-page,
+.level,
+.level-tag,
+.level-arrow,
+.lesson-item,
+.lesson-arrow,
+.learn-hero-meta span,
+.progress-track {
+    transition:
+        background-color .3s ease,
+        border-color .3s ease,
+        color .3s ease;
 }
 
 /* =========================================
@@ -403,6 +505,7 @@
    ========================================= */
 
 @media (max-width: 700px) {
+
     .learn-container {
         width: min(100% - 32px, 1180px);
     }
@@ -533,12 +636,15 @@
    ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
     .level,
     .level-content,
     .level-arrow,
     .lesson-item,
     .lesson-arrow,
-    .progress-fill {
+    .progress-fill,
+    .learn-page,
+    .learn-hero-meta span {
         transition: none;
     }
-   }
+                                     }
