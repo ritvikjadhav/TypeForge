@@ -310,29 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       BUTTON PRESS FEEDBACK
-    ========================================= */
-
-    document
-        .querySelectorAll("button, .button, .nav-cta")
-        .forEach(element => {
-
-            element.addEventListener("pointerdown", () => {
-                element.classList.add("is-pressed");
-            });
-
-            const removePressed = () => {
-                element.classList.remove("is-pressed");
-            };
-
-            element.addEventListener("pointerup", removePressed);
-            element.addEventListener("pointerleave", removePressed);
-            element.addEventListener("pointercancel", removePressed);
-
-        });
-
-
-    /* =========================================
        KEYBOARD PREVIEW
     ========================================= */
 
