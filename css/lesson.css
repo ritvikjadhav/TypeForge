@@ -12,6 +12,19 @@
     --lesson-shadow: 0 18px 50px rgba(25, 26, 23, .035);
 }
 
+.body.dark {
+    --lesson-bg: #111210;
+    --lesson-card: #181916;
+    --lesson-soft: #20211d;
+    --lesson-line: #30312c;
+    --lesson-text: #f3f1e9;
+    --lesson-muted: #aaa9a1;
+    --lesson-faint: #74756e;
+    --lesson-error: #e36b63;
+    --lesson-success: #76a883;
+    --lesson-shadow: 0 18px 50px rgba(0, 0, 0, .22);
+}
+
 .lesson-main {
     padding: 72px 24px 100px;
     background: var(--lesson-bg);
