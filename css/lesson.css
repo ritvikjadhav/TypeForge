@@ -196,11 +196,19 @@
     line-height: 1.65;
 }
 
+/* =========================================================
+   TUTORIAL / GUIDE
+   ========================================================= */
+
 .guide-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    gap: 28px;
+    gap: 32px;
+}
+
+.guide-copy {
+    min-width: 0;
 }
 
 .guide-copy h3 {
@@ -234,43 +242,64 @@
 
 .guide-list li::before {
     content: "✓";
+    flex-shrink: 0;
     color: var(--lesson-text);
     font-weight: 700;
 }
 
 .guide-visual {
-    display: grid;
-    min-height: 220px;
-    place-items: center;
-    padding: 22px;
+    position: relative;
+    display: flex;
+    min-height: 260px;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    overflow: hidden;
     border: 1px solid var(--lesson-line);
     border-radius: 20px;
     background: var(--lesson-soft);
-    transition: transform .35s ease;
+    transition:
+        transform .35s ease,
+        border-color .35s ease;
 }
 
 .guide-visual:hover {
     transform: translateY(-2px);
+    border-color: #c9c6bd;
 }
 
-.guide-visual img {
+.guide-image {
     display: block;
     width: 100%;
-    max-height: 280px;
+    height: auto;
+    max-height: 330px;
     object-fit: contain;
+    border-radius: 13px;
 }
 
-.guide-visual-placeholder {
+.guide-image-fallback {
+    display: grid;
+    gap: 8px;
+    max-width: 300px;
+    padding: 20px;
     color: var(--lesson-muted);
     text-align: center;
 }
 
-.guide-visual-placeholder strong {
+.guide-image-fallback strong {
     display: block;
-    margin-bottom: 6px;
     color: var(--lesson-text);
     font-size: 18px;
 }
+
+.guide-image-fallback span {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   PRACTICE
+   ========================================================= */
 
 .practice-card {
     padding-bottom: 0;
@@ -322,6 +351,10 @@
     transform: scale(1.15);
 }
 
+/* =========================================================
+   LIVE STATS
+   ========================================================= */
+
 .live-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -359,6 +392,10 @@
 .live-stats strong.updated {
     animation: statUpdate .25s ease;
 }
+
+/* =========================================================
+   EXERCISE TABS
+   ========================================================= */
 
 .exercise-tabs {
     display: flex;
@@ -404,6 +441,10 @@
     background: var(--lesson-soft);
     color: var(--lesson-text);
 }
+
+/* =========================================================
+   TYPING AREA
+   ========================================================= */
 
 .typing-area {
     padding: 26px 30px 30px;
@@ -488,6 +529,10 @@
     font: 500 10px "DM Mono", monospace;
 }
 
+/* =========================================================
+   VISUAL KEYBOARD
+   ========================================================= */
+
 .keyboard-wrapper {
     padding: 26px 30px 30px;
     border-top: 1px solid var(--lesson-line);
@@ -544,6 +589,7 @@
     background: #faf8f1;
     color: #66675f;
     font: 500 10px "DM Mono", monospace;
+    cursor: pointer;
     box-shadow: 0 2px 0 #d2cfc5;
     transition:
         transform .12s ease,
@@ -553,11 +599,26 @@
         box-shadow .12s ease;
 }
 
+.key:hover {
+    border-color: #aaa99f;
+    color: var(--lesson-text);
+    transform: translateY(-1px);
+}
+
+.key:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 transparent;
+}
+
 .key.space {
     width: 210px;
 }
 
 .key.shift {
+    width: 82px;
+}
+
+.key.enter {
     width: 82px;
 }
 
@@ -569,12 +630,23 @@
     box-shadow: 0 0 0 transparent;
 }
 
+.key.selected {
+    border-color: var(--lesson-success);
+    background: var(--lesson-success);
+    color: #fff;
+    box-shadow: 0 0 0 transparent;
+}
+
 .key.wrong {
     border-color: var(--lesson-error);
     background: #f7dcd9;
     color: var(--lesson-error);
     animation: keyError .18s ease;
 }
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
 
 .practice-actions {
     display: flex;
@@ -590,6 +662,10 @@
     font: 500 10px "DM Mono", monospace;
     transition: color .2s ease;
 }
+
+/* =========================================================
+   COMPLETION
+   ========================================================= */
 
 .lesson-complete {
     margin-bottom: 18px;
@@ -665,6 +741,10 @@
     gap: 8px;
 }
 
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
 .lesson-navigation {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -731,6 +811,10 @@
 [hidden] {
     display: none !important;
 }
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
 
 @keyframes lessonReveal {
     from {
@@ -819,7 +903,12 @@
     }
 }
 
+/* =========================================================
+   TABLET
+   ========================================================= */
+
 @media (max-width: 800px) {
+
     .lesson-main {
         padding: 50px 16px 75px;
     }
@@ -851,6 +940,10 @@
         border-bottom: 1px solid var(--lesson-line);
     }
 
+    .guide-visual {
+        min-height: 220px;
+    }
+
     .keyboard {
         padding: 8px;
         overflow: hidden;
@@ -871,7 +964,8 @@
         width: 140px;
     }
 
-    .key.shift {
+    .key.shift,
+    .key.enter {
         width: 58px;
     }
 
@@ -884,7 +978,12 @@
     }
 }
 
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 520px) {
+
     .lesson-main {
         padding: 42px 12px 65px;
     }
@@ -957,12 +1056,23 @@
         width: 105px;
     }
 
-    .key.shift {
+    .key.shift,
+    .key.enter {
         width: 45px;
+    }
+
+    .guide-visual {
+        min-height: 190px;
+        padding: 12px;
     }
 }
 
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -971,4 +1081,5 @@
         animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
     }
-}
+    }
+        
