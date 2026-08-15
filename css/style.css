@@ -121,10 +121,6 @@ a {
     transition: transform .25s var(--ease);
 }
 
-.brand:hover .brand-mark {
-    transform: rotate(-6deg);
-}
-
 .nav-links {
     display: flex;
     align-items: center;
