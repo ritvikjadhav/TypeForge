@@ -1,7 +1,9 @@
 (() => {
     "use strict";
 
-    /* ==================== LESSON DATA ==================== */
+    /* =========================================================
+       VELTYPE - LESSON DATA
+       ========================================================= */
 
     const lessons = [
         {
@@ -9,15 +11,32 @@
             level: "Foundation",
             difficulty: "Beginner",
             title: "Keyboard Basics",
-            description: "Understand the keyboard layout and the purpose of the keys you use every day.",
+            description:
+                "Understand the keyboard layout and the purpose of the keys you use every day.",
             duration: 8,
+
             theory: [
-                ["Keyboard layout", "The keyboard is organized into rows and functional groups.", "Learn the layout before chasing speed."],
-                ["Letter keys", "Most typing starts with the alphabet keys across the three main rows.", "Your fingers will eventually move without thinking."],
-                ["Essential keys", "Space, Shift, Enter, Backspace, Tab and Escape each have different roles.", "Knowing these keys makes everyday typing easier."]
+                [
+                    "Keyboard layout",
+                    "The keyboard is organized into rows and functional groups.",
+                    "Learn the layout before chasing speed."
+                ],
+                [
+                    "Letter keys",
+                    "Most typing starts with the alphabet keys across the three main rows.",
+                    "Your fingers will eventually move without thinking."
+                ],
+                [
+                    "Essential keys",
+                    "Space, Shift, Enter, Backspace, Tab and Escape each have different roles.",
+                    "Knowing these keys makes everyday typing easier."
+                ]
             ],
+
             guideTitle: "Start with the keyboard.",
-            guideText: "Your first goal is familiarity, not speed.",
+            guideText:
+                "Your first goal is familiarity, not speed.",
+
             guideList: [
                 "Keep both hands close to the keyboard.",
                 "Use your thumbs for Space.",
@@ -25,6 +44,9 @@
                 "Use Enter to create or confirm a line.",
                 "Avoid looking down constantly."
             ],
+
+            guideImage: "assets/images/tutorials/keyboard-basics.webp",
+
             exercises: [
                 "asdf jkl;",
                 "qwer uiop",
@@ -32,20 +54,38 @@
                 "type with both hands"
             ]
         },
+
         {
             id: 2,
             level: "Foundation",
             difficulty: "Beginner",
             title: "Typing Posture",
-            description: "Build a comfortable position for your body, hands, wrists and screen.",
+            description:
+                "Build a comfortable position for your body, hands, wrists and screen.",
             duration: 7,
+
             theory: [
-                ["Shoulders", "Keep your shoulders relaxed instead of lifting or tightening them.", "Relaxation reduces unnecessary fatigue."],
-                ["Wrists", "Keep your wrists neutral and let your fingers do most of the movement.", "Avoid pressing your wrists heavily into the desk."],
-                ["Screen position", "Your screen should allow you to look forward without bending your neck.", "Comfort helps you practice longer."]
+                [
+                    "Shoulders",
+                    "Keep your shoulders relaxed instead of lifting or tightening them.",
+                    "Relaxation reduces unnecessary fatigue."
+                ],
+                [
+                    "Wrists",
+                    "Keep your wrists neutral and let your fingers do most of the movement.",
+                    "Avoid pressing your wrists heavily into the desk."
+                ],
+                [
+                    "Screen position",
+                    "Your screen should allow you to look forward without bending your neck.",
+                    "Comfort helps you practice longer."
+                ]
             ],
+
             guideTitle: "Create a comfortable setup.",
-            guideText: "Good typing technique begins before the first keystroke.",
+            guideText:
+                "Good typing technique begins before the first keystroke.",
+
             guideList: [
                 "Keep your back supported.",
                 "Keep elbows comfortably near your body.",
@@ -53,6 +93,9 @@
                 "Keep both feet stable.",
                 "Look at the screen while typing."
             ],
+
+            guideImage: "assets/images/tutorials/typing-posture.webp",
+
             exercises: [
                 "asdf fdsa",
                 "jkl; ;lkj",
@@ -60,20 +103,38 @@
                 "a calm hand types"
             ]
         },
+
         {
             id: 3,
             level: "Foundation",
             difficulty: "Beginner",
             title: "Finger Placement",
-            description: "Learn the home position and give each finger a clear starting point.",
+            description:
+                "Learn the home position and give each finger a clear starting point.",
             duration: 10,
+
             theory: [
-                ["Left hand", "The left hand begins around A, S, D and F.", "Each finger is responsible for a movement zone."],
-                ["Right hand", "The right hand begins around J, K, L and semicolon.", "Return your fingers to these positions after reaching."],
-                ["F and J", "The small bumps on F and J provide tactile reference points.", "They help you position your hands without looking."]
+                [
+                    "Left hand",
+                    "The left hand begins around A, S, D and F.",
+                    "Each finger is responsible for a movement zone."
+                ],
+                [
+                    "Right hand",
+                    "The right hand begins around J, K, L and semicolon.",
+                    "Return your fingers to these positions after reaching."
+                ],
+                [
+                    "F and J",
+                    "The small bumps on F and J provide tactile reference points.",
+                    "They help you position your hands without looking."
+                ]
             ],
+
             guideTitle: "Find your home position.",
-            guideText: "Your fingers should rest lightly instead of hovering far above the keys.",
+            guideText:
+                "Your fingers should rest lightly instead of hovering far above the keys.",
+
             guideList: [
                 "Left fingers rest on A S D F.",
                 "Right fingers rest on J K L ;.",
@@ -81,6 +142,9 @@
                 "Keep your fingers curved naturally.",
                 "Return to home position after movement."
             ],
+
+            guideImage: "assets/images/tutorials/finger-placement.webp",
+
             exercises: [
                 "a s d f j k l ;",
                 "fj dk sl a;",
@@ -88,20 +152,38 @@
                 "dad asks a lad"
             ]
         },
+
         {
             id: 4,
             level: "Foundation",
             difficulty: "Beginner",
             title: "Home Row Control",
-            description: "Build accuracy and control before moving across the entire keyboard.",
+            description:
+                "Build accuracy and control before moving across the entire keyboard.",
             duration: 10,
+
             theory: [
-                ["Home row", "The home row provides the base position for touch typing.", "Start and return here naturally."],
-                ["Index fingers", "The index fingers cover more keys than the other fingers.", "Keep them ready for wider movement."],
-                ["Accuracy", "Slow, correct repetitions build stronger muscle memory than rushed mistakes.", "Control comes before speed."]
+                [
+                    "Home row",
+                    "The home row provides the base position for touch typing.",
+                    "Start and return here naturally."
+                ],
+                [
+                    "Index fingers",
+                    "The index fingers cover more keys than the other fingers.",
+                    "Keep them ready for wider movement."
+                ],
+                [
+                    "Accuracy",
+                    "Slow, correct repetitions build stronger muscle memory than rushed mistakes.",
+                    "Control comes before speed."
+                ]
             ],
+
             guideTitle: "Control every movement.",
-            guideText: "Keep movements small and deliberate while learning.",
+            guideText:
+                "Keep movements small and deliberate while learning.",
+
             guideList: [
                 "Do not stretch your wrists.",
                 "Return fingers to the home row.",
@@ -109,6 +191,9 @@
                 "Prioritize correct keystrokes.",
                 "Increase speed only when accuracy is stable."
             ],
+
+            guideImage: "assets/images/tutorials/home-row.webp",
+
             exercises: [
                 "fff jjj ddd kkk",
                 "sss lll aaa ;;;",
@@ -116,13 +201,18 @@
                 "a sad lad asks dad"
             ]
         },
+
         {
             id: 5,
             level: "Core Typing",
             difficulty: "Beginner",
             title: "Left Hand Reach",
-            description: "Strengthen left-hand control across the home, top and bottom rows.",
+            description:
+                "Strengthen left-hand control across the home, top and bottom rows.",
             duration: 10,
+
+            guideImage: "assets/images/tutorials/left-hand-reach.webp",
+
             exercises: [
                 "aqaz swsx dedc frfv",
                 "qwer asdf zxcv",
@@ -130,13 +220,18 @@
                 "fast hands stay calm"
             ]
         },
+
         {
             id: 6,
             level: "Core Typing",
             difficulty: "Beginner",
             title: "Right Hand Reach",
-            description: "Build controlled movement across the right side of the keyboard.",
+            description:
+                "Build controlled movement across the right side of the keyboard.",
             duration: 10,
+
+            guideImage: "assets/images/tutorials/right-hand-reach.webp",
+
             exercises: [
                 "jujm kik, lol.",
                 "yuiop hjkl; nm,.",
@@ -144,13 +239,18 @@
                 "keep your right hand steady"
             ]
         },
+
         {
             id: 7,
             level: "Core Typing",
             difficulty: "Beginner",
             title: "Top Row",
-            description: "Reach upward while keeping your hands connected to the home position.",
+            description:
+                "Reach upward while keeping your hands connected to the home position.",
             duration: 12,
+
+            guideImage: "assets/images/tutorials/top-row.webp",
+
             exercises: [
                 "qwer tyui",
                 "opqw erui",
@@ -158,13 +258,18 @@
                 "write every word clearly"
             ]
         },
+
         {
             id: 8,
             level: "Core Typing",
             difficulty: "Beginner",
             title: "Bottom Row",
-            description: "Develop comfortable movement on the bottom row without losing control.",
+            description:
+                "Develop comfortable movement on the bottom row without losing control.",
             duration: 12,
+
+            guideImage: "assets/images/tutorials/bottom-row.webp",
+
             exercises: [
                 "zxcv bnm",
                 "zinc move next",
@@ -172,13 +277,18 @@
                 "zoom across the bottom row"
             ]
         },
+
         {
             id: 9,
             level: "Core Typing",
             difficulty: "Beginner",
             title: "Full Alphabet",
-            description: "Connect all three letter rows and type without stopping to search.",
+            description:
+                "Connect all three letter rows and type without stopping to search.",
             duration: 12,
+
+            guideImage: "assets/images/tutorials/full-alphabet.webp",
+
             exercises: [
                 "quick brown",
                 "lazy dog jumps",
@@ -186,13 +296,18 @@
                 "every letter has a place"
             ]
         },
+
         {
             id: 10,
             level: "Accuracy",
             difficulty: "Intermediate",
             title: "Numbers",
-            description: "Develop reliable number-row movement for everyday typing.",
+            description:
+                "Develop reliable number-row movement for everyday typing.",
             duration: 10,
+
+            guideImage: "assets/images/tutorials/numbers.webp",
+
             exercises: [
                 "12345 67890",
                 "2468 13579",
@@ -200,13 +315,18 @@
                 "42 users scored 98 points"
             ]
         },
+
         {
             id: 11,
             level: "Accuracy",
             difficulty: "Intermediate",
             title: "Capital Letters",
-            description: "Use Shift naturally while keeping both hands coordinated.",
+            description:
+                "Use Shift naturally while keeping both hands coordinated.",
             duration: 10,
+
+            guideImage: "assets/images/tutorials/capital-letters.webp",
+
             exercises: [
                 "A S D F J K",
                 "Hello World",
@@ -214,13 +334,18 @@
                 "Every Good Habit Starts Small"
             ]
         },
+
         {
             id: 12,
             level: "Accuracy",
             difficulty: "Intermediate",
             title: "Punctuation",
-            description: "Practice the punctuation used in normal conversations and writing.",
+            description:
+                "Practice the punctuation used in normal conversations and writing.",
             duration: 12,
+
+            guideImage: "assets/images/tutorials/punctuation.webp",
+
             exercises: [
                 "hello, world.",
                 "wait; think; type.",
@@ -228,13 +353,18 @@
                 "Great! Keep going."
             ]
         },
+
         {
             id: 13,
             level: "Accuracy",
             difficulty: "Intermediate",
             title: "Symbols",
-            description: "Build confidence with common symbols used in everyday computer work.",
+            description:
+                "Build confidence with common symbols used in everyday computer work.",
             duration: 12,
+
+            guideImage: "assets/images/tutorials/symbols.webp",
+
             exercises: [
                 "@ # $ % &",
                 "email@example.com",
@@ -242,13 +372,18 @@
                 "Use #tags & @mentions"
             ]
         },
+
         {
             id: 14,
             level: "Accuracy",
             difficulty: "Intermediate",
             title: "Error Control",
-            description: "Learn to slow down when accuracy begins to fall.",
+            description:
+                "Learn to slow down when accuracy begins to fall.",
             duration: 10,
+
+            guideImage: "assets/images/tutorials/error-control.webp",
+
             exercises: [
                 "accuracy comes first",
                 "slow typing can be fast learning",
@@ -256,13 +391,18 @@
                 "clean typing becomes natural"
             ]
         },
+
         {
             id: 15,
             level: "Speed",
             difficulty: "Intermediate",
             title: "Letter Patterns",
-            description: "Train common letter combinations so your fingers begin moving automatically.",
+            description:
+                "Train common letter combinations so your fingers begin moving automatically.",
             duration: 12,
+
+            guideImage: "assets/images/tutorials/letter-patterns.webp",
+
             exercises: [
                 "th he in er",
                 "an re on at",
@@ -270,13 +410,18 @@
                 "the other thing matters"
             ]
         },
+
         {
             id: 16,
             level: "Speed",
             difficulty: "Intermediate",
             title: "Common Words",
-            description: "Increase speed by practicing words that appear frequently in everyday writing.",
+            description:
+                "Increase speed by practicing words that appear frequently in everyday writing.",
             duration: 12,
+
+            guideImage: "assets/images/tutorials/common-words.webp",
+
             exercises: [
                 "the and you that",
                 "with have this from",
@@ -284,13 +429,18 @@
                 "people make work today"
             ]
         },
+
         {
             id: 17,
             level: "Speed",
             difficulty: "Intermediate",
             title: "Sentence Flow",
-            description: "Move from individual words into smooth continuous sentences.",
+            description:
+                "Move from individual words into smooth continuous sentences.",
             duration: 12,
+
+            guideImage: "assets/images/tutorials/sentence-flow.webp",
+
             exercises: [
                 "The morning starts with quiet practice.",
                 "Good typing should feel smooth and controlled.",
@@ -298,13 +448,18 @@
                 "Keep your rhythm steady from start to finish."
             ]
         },
+
         {
             id: 18,
             level: "Speed",
             difficulty: "Intermediate",
             title: "Consistent Speed",
-            description: "Maintain a steady rhythm instead of relying on short bursts of speed.",
+            description:
+                "Maintain a steady rhythm instead of relying on short bursts of speed.",
             duration: 15,
+
+            guideImage: "assets/images/tutorials/consistent-speed.webp",
+
             exercises: [
                 "Keep your rhythm steady.",
                 "Do not rush difficult words.",
@@ -312,13 +467,18 @@
                 "Consistent speed is better than uncontrolled speed."
             ]
         },
+
         {
             id: 19,
             level: "Real World",
             difficulty: "Intermediate",
             title: "Typing Emails",
-            description: "Practice the language, spacing and punctuation commonly used in emails.",
+            description:
+                "Practice the language, spacing and punctuation commonly used in emails.",
             duration: 12,
+
+            guideImage: "assets/images/tutorials/typing-emails.webp",
+
             exercises: [
                 "Hello, I hope you are doing well.",
                 "Thank you for taking the time to reply.",
@@ -326,13 +486,18 @@
                 "Best regards, and thank you for your help."
             ]
         },
+
         {
             id: 20,
             level: "Real World",
             difficulty: "Intermediate",
             title: "Documents",
-            description: "Build endurance with realistic professional writing.",
+            description:
+                "Build endurance with realistic professional writing.",
             duration: 15,
+
+            guideImage: "assets/images/tutorials/documents.webp",
+
             exercises: [
                 "Clear writing helps readers understand your ideas.",
                 "Good documents need accuracy, spacing and consistent punctuation.",
@@ -340,13 +505,18 @@
                 "Comfortable typing makes longer writing sessions easier."
             ]
         },
+
         {
             id: 21,
             level: "Real World",
             difficulty: "Advanced",
             title: "Coding Practice",
-            description: "Practice brackets, operators, punctuation and common programming patterns.",
+            description:
+                "Practice brackets, operators, punctuation and common programming patterns.",
             duration: 15,
+
+            guideImage: "assets/images/tutorials/coding-practice.webp",
+
             exercises: [
                 "const user = { name: 'Alex' };",
                 "function add(a, b) { return a + b; }",
@@ -354,13 +524,18 @@
                 "let total = price * quantity;"
             ]
         },
+
         {
             id: 22,
             level: "Real World",
             difficulty: "Advanced",
             title: "Data Entry",
-            description: "Improve accuracy when entering numbers, dates, prices and structured information.",
+            description:
+                "Improve accuracy when entering numbers, dates, prices and structured information.",
             duration: 12,
+
+            guideImage: "assets/images/tutorials/data-entry.webp",
+
             exercises: [
                 "1024 2048 4096",
                 "1250.50 980.25 450.00",
@@ -368,13 +543,18 @@
                 "Invoice 1042 total $1250.50"
             ]
         },
+
         {
             id: 23,
             level: "Advanced",
             difficulty: "Advanced",
             title: "Speed Under Pressure",
-            description: "Maintain accuracy while working at a faster pace.",
+            description:
+                "Maintain accuracy while working at a faster pace.",
             duration: 15,
+
+            guideImage: "assets/images/tutorials/speed-under-pressure.webp",
+
             exercises: [
                 "Speed means nothing without control.",
                 "Stay calm when the pace increases.",
@@ -382,13 +562,18 @@
                 "Accuracy under pressure is a real typing skill."
             ]
         },
+
         {
             id: 24,
             level: "Advanced",
             difficulty: "Advanced",
             title: "Final Typing Challenge",
-            description: "Combine accuracy, speed, punctuation and endurance in one final challenge.",
+            description:
+                "Combine accuracy, speed, punctuation and endurance in one final challenge.",
             duration: 20,
+
+            guideImage: "assets/images/tutorials/final-typing-challenge.webp",
+
             exercises: [
                 "Typing improves through deliberate and consistent practice.",
                 "The goal is to type quickly, accurately and comfortably.",
@@ -398,40 +583,9 @@
         }
     ];
 
-    /* ==================== KEYBOARD ==================== */
-
-    const keyboardRows = [
-        ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="],
-        ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]"],
-        ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'"],
-        ["z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
-        ["shift", "space", "enter"]
-    ];
-
-    const shiftedSymbols = {
-        "`": "~",
-        "1": "!",
-        "2": "@",
-        "3": "#",
-        "4": "$",
-        "5": "%",
-        "6": "^",
-        "7": "&",
-        "8": "*",
-        "9": "(",
-        "0": ")",
-        "-": "_",
-        "=": "+",
-        "[": "{",
-        "]": "}",
-        ";": ":",
-        "'": "\"",
-        ",": "<",
-        ".": ">",
-        "/": "?"
-    };
-
-    /* ==================== DOM ==================== */
+    /* =========================================================
+       DOM
+       ========================================================= */
 
     const $ = id => document.getElementById(id);
 
@@ -466,8 +620,6 @@
         progress: $("lessonProgressBar"),
         exerciseProgress: $("exerciseProgress"),
 
-        keyboard: $("keyboard"),
-
         reset: $("resetExercise"),
 
         completion: $("completionCard"),
@@ -486,18 +638,29 @@
         nextTitle: $("nextTitle")
     };
 
-    /* ==================== URL + LESSON ==================== */
+    /* =========================================================
+       URL + CURRENT LESSON
+       ========================================================= */
 
     const params = new URLSearchParams(window.location.search);
-    const requestedLesson = Number.parseInt(params.get("lesson"), 10);
 
-    const lessonId = Number.isInteger(requestedLesson) && requestedLesson > 0
-        ? requestedLesson
-        : 1;
+    const requestedLesson = Number.parseInt(
+        params.get("lesson"),
+        10
+    );
 
-    const lesson = lessons.find(item => item.id === lessonId) || lessons[0];
+    const lessonId =
+        Number.isInteger(requestedLesson) && requestedLesson > 0
+            ? requestedLesson
+            : 1;
 
-    /* ==================== STATE ==================== */
+    const lesson =
+        lessons.find(item => item.id === lessonId) ||
+        lessons[0];
+
+    /* =========================================================
+       STATE
+       ========================================================= */
 
     let exerciseIndex = 0;
     let currentText = "";
@@ -512,44 +675,79 @@
     let finished = false;
     let completionShown = false;
 
-    let inputBridge = null;
-
-    /* ==================== INITIALIZATION ==================== */
+    /* =========================================================
+       INITIALIZATION
+       ========================================================= */
 
     function init() {
-        if (!els.display || !els.tabs || !els.keyboard) {
-            console.warn("VelType: required lesson elements are missing.");
+        if (!els.display || !els.tabs) {
+            console.warn(
+                "VelType: required lesson elements are missing."
+            );
+
             return;
         }
 
         renderLesson();
         renderExercises();
-        renderKeyboard();
-        createMobileInputBridge();
         setupEvents();
         setupNavigation();
         loadExercise(0);
     }
 
-    /* ==================== LESSON CONTENT ==================== */
+    /* =========================================================
+       LESSON CONTENT
+       ========================================================= */
 
     function renderLesson() {
-        setText(els.level, lesson.level);
-        setText(els.number, `LESSON ${String(lesson.id).padStart(2, "0")}`);
-        setText(els.title, lesson.title);
-        setText(els.description, lesson.description);
-        setText(els.difficulty, lesson.difficulty.toUpperCase());
-        setText(els.duration, `${lesson.duration} MIN`);
-        setText(els.practiceTitle, lesson.title);
+        setText(
+            els.level,
+            lesson.level
+        );
+
+        setText(
+            els.number,
+            `LESSON ${String(lesson.id).padStart(2, "0")}`
+        );
+
+        setText(
+            els.title,
+            lesson.title
+        );
+
+        setText(
+            els.description,
+            lesson.description
+        );
+
+        setText(
+            els.difficulty,
+            lesson.difficulty.toUpperCase()
+        );
+
+        setText(
+            els.duration,
+            `${lesson.duration} MIN`
+        );
+
+        setText(
+            els.practiceTitle,
+            lesson.title
+        );
 
         renderTheory();
         renderGuide();
     }
 
     function renderTheory() {
-        if (!els.theorySection || !els.theory) return;
+        if (!els.theorySection || !els.theory) {
+            return;
+        }
 
-        if (!Array.isArray(lesson.theory) || lesson.theory.length === 0) {
+        if (
+            !Array.isArray(lesson.theory) ||
+            lesson.theory.length === 0
+        ) {
             els.theorySection.hidden = true;
             return;
         }
@@ -558,35 +756,77 @@
 
         els.theory.innerHTML = `
             <div class="theory-grid">
-                ${lesson.theory.map(item => `
-                    <article class="info-block">
-                        <span>${escapeHTML(item[0])}</span>
-                        <h3>${escapeHTML(item[1])}</h3>
-                        <p>${escapeHTML(item[2])}</p>
-                    </article>
-                    `).join("")}
+                ${lesson.theory
+                    .map(item => `
+                        <article class="info-block">
+                            <span>
+                                ${escapeHTML(item[0])}
+                            </span>
+
+                            <h3>
+                                ${escapeHTML(item[1])}
+                            </h3>
+
+                            <p>
+                                ${escapeHTML(item[2])}
+                            </p>
+                        </article>
+                    `)
+                    .join("")}
             </div>
         `;
     }
 
     function renderGuide() {
-        if (!els.guideSection || !els.guide) return;
+        if (!els.guideSection || !els.guide) {
+            return;
+        }
 
-        if (!lesson.guideList?.length) {
+        if (
+            !Array.isArray(lesson.guideList) ||
+            lesson.guideList.length === 0
+        ) {
             els.guideSection.hidden = true;
             return;
         }
 
         els.guideSection.hidden = false;
 
-        const title = lesson.guideTitle || "Build your technique.";
+        const title =
+            lesson.guideTitle ||
+            "Build your technique.";
 
-        setText(els.guideTitle, title);
+        setText(
+            els.guideTitle,
+            title
+        );
+
+        const imageHTML = lesson.guideImage
+            ? `
+                <img
+                    src="${escapeHTML(lesson.guideImage)}"
+                    alt="${escapeHTML(lesson.title)} typing tutorial"
+                    loading="lazy"
+                >
+            `
+            : `
+                <div class="guide-visual-placeholder">
+                    <strong>VelType technique</strong>
+                    <span>
+                        Follow the instructions and focus on
+                        accuracy before speed.
+                    </span>
+                </div>
+            `;
 
         els.guide.innerHTML = `
             <div class="guide-grid">
+
                 <div class="guide-copy">
-                    <h3>${escapeHTML(title)}</h3>
+
+                    <h3>
+                        ${escapeHTML(title)}
+                    </h3>
 
                     <p>
                         ${escapeHTML(
@@ -596,65 +836,88 @@
                     </p>
 
                     <ul class="guide-list">
-                        ${lesson.guideList.map(item => `
-                            <li>${escapeHTML(item)}</li>
-                        `).join("")}
+                        ${lesson.guideList
+                            .map(item => `
+                                <li>
+                                    ${escapeHTML(item)}
+                                </li>
+                            `)
+                            .join("")}
                     </ul>
+
                 </div>
 
                 <div class="guide-visual">
-                    <div class="guide-visual-placeholder">
-                        <strong>VelType technique</strong>
-                        <span>
-                            Relax your hands, keep your posture comfortable
-                            and focus on accuracy.
-                        </span>
-                    </div>
+                    ${imageHTML}
                 </div>
+
             </div>
         `;
     }
 
-    /* ==================== EXERCISES ==================== */
+    /* =========================================================
+       EXERCISES
+       ========================================================= */
 
     function renderExercises() {
         if (!els.tabs) return;
 
-        els.tabs.innerHTML = lesson.exercises.map((_, index) => `
-            <button
-                type="button"
-                class="exercise-tab ${index === 0 ? "active" : ""}"
-                data-index="${index}"
-                aria-label="Exercise ${index + 1}"
-            >
-                Exercise ${String(index + 1).padStart(2, "0")}
-            </button>
-        `).join("");
+        els.tabs.innerHTML = lesson.exercises
+            .map(
+                (_, index) => `
+                    <button
+                        type="button"
+                        class="exercise-tab ${
+                            index === 0 ? "active" : ""
+                        }"
+                        data-index="${index}"
+                        aria-label="Exercise ${index + 1}"
+                    >
+                        Exercise
+                        ${String(index + 1).padStart(2, "0")}
+                    </button>
+                `
+            )
+            .join("");
 
-        els.tabs.querySelectorAll(".exercise-tab").forEach(button => {
-            button.addEventListener("click", () => {
-                const index = Number(button.dataset.index);
+        els.tabs
+            .querySelectorAll(".exercise-tab")
+            .forEach(button => {
+                button.addEventListener(
+                    "click",
+                    () => {
+                        const index = Number(
+                            button.dataset.index
+                        );
 
-                if (Number.isInteger(index)) {
-                    loadExercise(index);
-                }
+                        if (
+                            Number.isInteger(index)
+                        ) {
+                            loadExercise(index);
+                        }
+                    }
+                );
             });
-        });
     }
 
     function loadExercise(index) {
-        if (!lesson.exercises[index]) return;
+        if (!lesson.exercises[index]) {
+            return;
+        }
 
         clearTimer();
 
         exerciseIndex = index;
-        currentText = lesson.exercises[index];
+
+        currentText =
+            lesson.exercises[index];
 
         position = 0;
         errors = 0;
         correct = 0;
 
         startedAt = null;
+
         finished = false;
         completionShown = false;
 
@@ -671,11 +934,14 @@
         }
 
         resetStatus();
+
         renderText();
+
         updateTabs();
+
         updateStats();
+
         updateExerciseProgress();
-        clearKeyboard();
 
         focusTypingArea();
     }
@@ -683,37 +949,66 @@
     function renderText() {
         if (!els.display) return;
 
-        els.display.innerHTML = [...currentText]
-            .map((character, index) => `
-                <span
-                    class="char ${index === 0 ? "current" : ""}"
-                    data-index="${index}"
-                >${formatCharacter(character)}</span>
-            `)
+        els.display.innerHTML = [
+            ...currentText
+        ]
+            .map(
+                (character, index) => `
+                    <span
+                        class="char ${
+                            index === 0
+                                ? "current"
+                                : ""
+                        }"
+                        data-index="${index}"
+                    >
+                        ${formatCharacter(character)}
+                    </span>
+                `
+            )
             .join("");
 
         setText(
             els.count,
             `0 / ${currentText.length}`
         );
-
-        highlightKey();
     }
 
-    /* ==================== TYPING INPUT ==================== */
+    /* =========================================================
+       PHYSICAL KEYBOARD INPUT
+       ========================================================= */
 
     function handleKey(event) {
-        if (finished) return;
+        if (finished) {
+            return;
+        }
 
         const key = normalizeEventKey(event);
 
-        if (!key) return;
+        if (!key) {
+            return;
+        }
 
-        if (["Backspace", "Delete", "Tab"].includes(key)) {
+        /*
+         * Backspace, Delete and Tab are intentionally disabled.
+         */
+
+        if (
+            [
+                "Backspace",
+                "Delete",
+                "Tab"
+            ].includes(key)
+        ) {
             event.preventDefault();
 
-            if (key === "Backspace" || key === "Delete") {
-                showMessage("Backspace is disabled during lessons.");
+            if (
+                key === "Backspace" ||
+                key === "Delete"
+            ) {
+                showMessage(
+                    "Backspace is disabled during lessons."
+                );
             }
 
             return;
@@ -721,39 +1016,70 @@
 
         if (key === "Escape") {
             event.preventDefault();
+
             stopTyping();
+
             return;
         }
 
-        if (key === "Enter" && currentText[position] !== "\n") {
+        /*
+         * Enter
+         */
+
+        if (
+            key === "Enter" &&
+            currentText[position] !== "\n"
+        ) {
             event.preventDefault();
+
             processCharacter("\n");
+
             return;
         }
 
-        if (key.length !== 1 && key !== " ") {
+        /*
+         * Only printable characters and Space.
+         */
+
+        if (
+            key.length !== 1 &&
+            key !== " "
+        ) {
             return;
         }
 
         event.preventDefault();
+
         processCharacter(key);
     }
 
     function processCharacter(key) {
-        if (finished) return;
+        if (finished) {
+            return;
+        }
 
         startTypingIfNeeded();
 
-        const expected = currentText[position];
+        const expected =
+            currentText[position];
+
+        /*
+         * CORRECT
+         */
 
         if (key === expected) {
             correct++;
 
             markCorrect();
+
             position++;
 
-            if (position >= currentText.length) {
+            if (
+                position >=
+                currentText.length
+            ) {
                 finishExercise();
+
                 return;
             }
 
@@ -763,7 +1089,13 @@
                 "active",
                 "Typing..."
             );
-        } else {
+        }
+
+        /*
+         * WRONG
+         */
+
+        else {
             errors++;
 
             markWrong();
@@ -777,47 +1109,85 @@
         }
 
         updateStats();
+
         updateExerciseProgress();
-        highlightKey();
     }
 
-    /* ==================== CHARACTER STATES ==================== */
+    /* =========================================================
+       CHARACTER STATES
+       ========================================================= */
 
     function markCorrect() {
-        const character = getCharacter(position);
+        const character =
+            getCharacter(position);
 
-        if (!character) return;
+        if (!character) {
+            return;
+        }
 
-        character.classList.remove("current", "wrong");
-        character.classList.add("correct");
+        character.classList.remove(
+            "current",
+            "wrong"
+        );
+
+        character.classList.add(
+            "correct"
+        );
     }
 
     function markWrong() {
-        const character = getCharacter(position);
+        const character =
+            getCharacter(position);
 
-        if (!character) return;
+        if (!character) {
+            return;
+        }
 
-        character.classList.remove("wrong");
+        character.classList.remove(
+            "wrong"
+        );
+
         void character.offsetWidth;
-        character.classList.add("wrong");
+
+        character.classList.add(
+            "wrong"
+        );
 
         setTimeout(() => {
-            if (!finished && position === Number(character.dataset.index)) {
-                character.classList.remove("wrong");
-                character.classList.add("current");
+            if (
+                !finished &&
+                position ===
+                    Number(
+                        character.dataset.index
+                    )
+            ) {
+                character.classList.remove(
+                    "wrong"
+                );
+
+                character.classList.add(
+                    "current"
+                );
             }
         }, 260);
     }
 
     function markCurrent() {
-        els.display?.querySelectorAll(".char").forEach(character => {
-            character.classList.remove("current");
-        });
+        els.display
+            ?.querySelectorAll(".char")
+            .forEach(character => {
+                character.classList.remove(
+                    "current"
+                );
+            });
 
-        const current = getCharacter(position);
+        const current =
+            getCharacter(position);
 
         if (current) {
-            current.classList.add("current");
+            current.classList.add(
+                "current"
+            );
         }
     }
 
@@ -827,208 +1197,142 @@
         );
     }
 
-    /* ==================== KEYBOARD ==================== */
-
-    function renderKeyboard() {
-        if (!els.keyboard) return;
-
-        els.keyboard.innerHTML = keyboardRows
-            .map(row => `
-                <div class="key-row">
-                    ${row.map(renderKey).join("")}
-                </div>
-            `)
-            .join("");
-
-        els.keyboard.querySelectorAll(".key").forEach(key => {
-            key.addEventListener("click", event => {
-                event.preventDefault();
-
-                const value = key.dataset.key;
-
-                if (!value) return;
-
-                focusTypingArea();
-
-                if (value === "shift") return;
-
-                if (value === "space") {
-                    processCharacter(" ");
-                    return;
-                }
-
-                if (value === "enter") {
-                    processCharacter("\n");
-                    return;
-                }
-
-                processCharacter(value);
-            });
-        });
-    }
-
-    function renderKey(key) {
-        const label = {
-            space: "SPACE",
-            shift: "SHIFT",
-            enter: "ENTER"
-        }[key] || key.toUpperCase();
-
-        const extraClass = [
-            key === "space" ? "space" : "",
-            key === "shift" ? "shift" : "",
-            key === "enter" ? "enter" : ""
-        ].filter(Boolean).join(" ");
-
-        return `
-            <button
-                type="button"
-                class="key ${extraClass}"
-                data-key="${escapeHTML(key)}"
-                tabindex="-1"
-                aria-label="${escapeHTML(label)}"
-            >
-                ${escapeHTML(label)}
-            </button>
-        `;
-    }
-
-    function highlightKey() {
-        clearKeyboard();
-
-        const expected = currentText[position];
-
-        if (!expected) return;
-
-        const lower = expected.toLowerCase();
-
-        if (/^[a-z]$/.test(lower)) {
-            highlightKeyButton(lower);
-
-            if (expected !== lower) {
-                highlightKeyButton("shift");
-            }
-
-            return;
-        }
-
-        if (expected === " ") {
-            highlightKeyButton("space");
-            return;
-        }
-
-        if (expected === "\n") {
-            highlightKeyButton("enter");
-            return;
-        }
-
-        if (shiftedSymbols[lower]) {
-            highlightKeyButton("shift");
-            highlightKeyButton(lower);
-            return;
-        }
-
-        highlightKeyButton(lower);
-    }
-
-    function highlightKeyButton(key) {
-        const button = els.keyboard?.querySelector(
-            `[data-key="${CSS.escape(key)}"]`
-        );
-
-        button?.classList.add("active");
-    }
-
-    function clearKeyboard() {
-        els.keyboard?.querySelectorAll(".key").forEach(key => {
-            key.classList.remove("active", "wrong");
-        });
-    }
-
-    /* ==================== STATS ==================== */
+    /* =========================================================
+       STATS
+       ========================================================= */
 
     function updateStats() {
-        const elapsed = getElapsedSeconds();
-        const typed = correct + errors;
+        const elapsed =
+            getElapsedSeconds();
 
-        const minutes = elapsed / 60;
+        const typed =
+            correct + errors;
 
-        const wpm = minutes > 0
-            ? Math.round((correct / 5) / minutes)
-            : 0;
+        const minutes =
+            elapsed / 60;
 
-        const accuracy = typed > 0
-            ? Math.round((correct / typed) * 100)
-            : 100;
+        const wpm =
+            minutes > 0
+                ? Math.round(
+                      (correct / 5) /
+                          minutes
+                  )
+                : 0;
 
-        setText(els.wpm, String(wpm));
-        setText(els.accuracy, `${accuracy}%`);
-        setText(els.errors, String(errors));
+        const accuracy =
+            typed > 0
+                ? Math.round(
+                      (correct / typed) *
+                          100
+                  )
+                : 100;
+
+        setText(
+            els.wpm,
+            String(wpm)
+        );
+
+        setText(
+            els.accuracy,
+            `${accuracy}%`
+        );
+
+        setText(
+            els.errors,
+            String(errors)
+        );
 
         setText(
             els.count,
-            `${Math.min(position, currentText.length)} / ${currentText.length}`
+            `${Math.min(
+                position,
+                currentText.length
+            )} / ${currentText.length}`
         );
     }
 
     function getElapsedSeconds() {
-        if (!startedAt) return 0;
+        if (!startedAt) {
+            return 0;
+        }
 
         return Math.max(
-            (Date.now() - startedAt) / 1000,
+            (Date.now() - startedAt) /
+                1000,
             0
         );
     }
 
-    /* ==================== TIMER ==================== */
+    /* =========================================================
+       TIMER
+       ========================================================= */
 
     function startTimer() {
         clearTimer();
 
-        timerId = window.setInterval(() => {
-            updateStats();
+        timerId =
+            window.setInterval(() => {
+                updateStats();
 
-            const seconds = Math.floor(
-                getElapsedSeconds()
-            );
+                const seconds =
+                    Math.floor(
+                        getElapsedSeconds()
+                    );
 
-            setText(
-                els.timer,
-                formatTime(seconds)
-            );
-        }, 250);
+                setText(
+                    els.timer,
+                    formatTime(seconds)
+                );
+            }, 250);
     }
 
     function clearTimer() {
-        if (!timerId) return;
+        if (!timerId) {
+            return;
+        }
 
         clearInterval(timerId);
+
         timerId = null;
     }
 
-    /* ==================== EXERCISE COMPLETION ==================== */
+    /* =========================================================
+       EXERCISE COMPLETION
+       ========================================================= */
 
     function finishExercise() {
-        if (finished) return;
+        if (finished) {
+            return;
+        }
 
         finished = true;
+
         clearTimer();
 
-        const elapsed = Math.max(
-            getElapsedSeconds(),
-            1
-        );
+        const elapsed =
+            Math.max(
+                getElapsedSeconds(),
+                1
+            );
 
-        const wpm = Math.round(
-            (correct / 5) /
-            (elapsed / 60)
-        );
+        const wpm =
+            Math.round(
+                (correct / 5) /
+                    (elapsed / 60)
+            );
 
-        const accuracy = Math.round(
-            (correct / Math.max(correct + errors, 1)) * 100
-        );
+        const accuracy =
+            Math.round(
+                (correct /
+                    Math.max(
+                        correct + errors,
+                        1
+                    )) *
+                    100
+            );
 
         markAllComplete();
+
         updateStats();
 
         setStatus(
@@ -1036,45 +1340,97 @@
             "Exercise complete ✓"
         );
 
+        /*
+         * DATABASE-READY STORAGE FUNCTION
+         *
+         * v1:
+         *     localStorage
+         *
+         * Future:
+         *     Replace this function internally
+         *     with fetch("/api/lessons/progress")
+         */
+
         saveExerciseProgress(
             wpm,
             accuracy
         );
 
-        if (exerciseIndex < lesson.exercises.length - 1) {
+        /*
+         * Automatically move to the
+         * next exercise.
+         */
+
+        if (
+            exerciseIndex <
+            lesson.exercises.length - 1
+        ) {
             window.setTimeout(() => {
-                loadExercise(exerciseIndex + 1);
+                loadExercise(
+                    exerciseIndex + 1
+                );
             }, 650);
 
             return;
         }
 
-        finishLesson(wpm, accuracy);
+        finishLesson(
+            wpm,
+            accuracy
+        );
     }
 
     function markAllComplete() {
-        els.display?.querySelectorAll(".char").forEach(character => {
-            character.classList.remove("current", "wrong");
-            character.classList.add("correct");
-        });
+        els.display
+            ?.querySelectorAll(".char")
+            .forEach(character => {
+                character.classList.remove(
+                    "current",
+                    "wrong"
+                );
+
+                character.classList.add(
+                    "correct"
+                );
+            });
 
         els.tabs
-            ?.querySelector(`[data-index="${exerciseIndex}"]`)
+            ?.querySelector(
+                `[data-index="${exerciseIndex}"]`
+            )
             ?.classList.add("complete");
     }
 
-    /* ==================== LESSON COMPLETION ==================== */
+    /* =========================================================
+       LESSON COMPLETION
+       ========================================================= */
 
-    function finishLesson(wpm, accuracy) {
-        if (completionShown) return;
+    function finishLesson(
+        wpm,
+        accuracy
+    ) {
+        if (completionShown) {
+            return;
+        }
 
         completionShown = true;
 
         clearTimer();
 
-        setText(els.finalWpm, String(wpm));
-        setText(els.finalAccuracy, `${accuracy}%`);
-        setText(els.finalErrors, String(errors));
+        setText(
+            els.finalWpm,
+            String(wpm)
+        );
+
+        setText(
+            els.finalAccuracy,
+            `${accuracy}%`
+        );
+
+        setText(
+            els.finalErrors,
+            String(errors)
+        );
 
         if (els.completionText) {
             els.completionText.textContent =
@@ -1093,13 +1449,26 @@
             els.completion.hidden = false;
 
             requestAnimationFrame(() => {
-                els.completion.classList.remove("lesson-complete-enter");
+                els.completion.classList.remove(
+                    "lesson-complete-enter"
+                );
+
                 void els.completion.offsetWidth;
-                els.completion.classList.add("lesson-complete-enter");
+
+                els.completion.classList.add(
+                    "lesson-complete-enter"
+                );
             });
         }
 
-        saveLessonCompletion(wpm, accuracy);
+        /*
+         * Save final lesson result.
+         */
+
+        saveLessonCompletion(
+            wpm,
+            accuracy
+        );
 
         updateExerciseProgress();
 
@@ -1111,17 +1480,27 @@
         }, 80);
     }
 
-    /* ==================== PROGRESS ==================== */
+    /* =========================================================
+       PROGRESS
+       ========================================================= */
 
     function updateExerciseProgress() {
-        const total = lesson.exercises.length;
-        const completed = finished
-            ? exerciseIndex + 1
-            : exerciseIndex;
+        const total =
+            lesson.exercises.length;
 
-        const percentage = total
-            ? Math.min((completed / total) * 100, 100)
-            : 0;
+        const completed =
+            finished
+                ? exerciseIndex + 1
+                : exerciseIndex;
+
+        const percentage =
+            total
+                ? Math.min(
+                      (completed / total) *
+                          100,
+                      100
+                  )
+                : 0;
 
         setText(
             els.exerciseProgress,
@@ -1129,12 +1508,16 @@
         );
 
         if (els.progress) {
-            els.progress.style.width = `${percentage}%`;
+            els.progress.style.width =
+                `${percentage}%`;
         }
     }
 
     function updateTabs() {
-        els.tabs?.querySelectorAll(".exercise-tab")
+        els.tabs
+            ?.querySelectorAll(
+                ".exercise-tab"
+            )
             .forEach((tab, index) => {
                 tab.classList.toggle(
                     "active",
@@ -1143,44 +1526,116 @@
             });
     }
 
-    /* ==================== LOCAL STORAGE ==================== */
+    /* =========================================================
+       LOCAL STORAGE
+       DATABASE-READY STORAGE LAYER
+       ========================================================= */
+
+    /*
+     * IMPORTANT:
+     *
+     * These functions are the ONLY area you should need
+     * to replace when you connect your real database.
+     *
+     * CURRENT:
+     * Browser localStorage
+     *
+     * FUTURE:
+     * API -> Backend -> Database
+     */
 
     function getLessonStorageKey() {
         return `veltype_lesson_${lesson.id}`;
     }
 
-    function saveExerciseProgress(wpm, accuracy) {
-        const key = getLessonStorageKey();
+    function saveExerciseProgress(
+        wpm,
+        accuracy
+    ) {
+        const key =
+            getLessonStorageKey();
 
-        const data = readStorage(key);
+        const data =
+            readStorage(key);
 
-        if (!Array.isArray(data.exercises)) {
+        if (
+            !Array.isArray(
+                data.exercises
+            )
+        ) {
             data.exercises = [];
         }
 
-        data.exercises[exerciseIndex] = {
+        data.exercises[
+            exerciseIndex
+        ] = {
+            exerciseNumber:
+                exerciseIndex + 1,
+
             completed: true,
+
             wpm,
+
             accuracy,
+
             errors,
-            completedAt: new Date().toISOString()
+
+            completedAt:
+                new Date().toISOString()
         };
 
-        writeStorage(key, data);
+        /*
+         * Overall lesson metadata.
+         */
+
+        data.lessonId =
+            lesson.id;
+
+        data.lessonTitle =
+            lesson.title;
+
+        data.level =
+            lesson.level;
+
+        data.lastUpdated =
+            new Date().toISOString();
+
+        writeStorage(
+            key,
+            data
+        );
     }
 
-    function saveLessonCompletion(wpm, accuracy) {
-        const progress = readStorage(
-            "veltypeLessonProgress"
-        );
+    function saveLessonCompletion(
+        wpm,
+        accuracy
+    ) {
+        const progress =
+            readStorage(
+                "veltypeLessonProgress"
+            );
 
         progress[lesson.id] = {
+            lessonId: lesson.id,
+
+            title: lesson.title,
+
+            level: lesson.level,
+
+            difficulty:
+                lesson.difficulty,
+
             completed: true,
+
             wpm,
+
             accuracy,
+
             errors,
-            completedAt: new Date().toISOString()
-                };
+
+            completedAt:
+                new Date().toISOString()
+        };
 
         writeStorage(
             "veltypeLessonProgress",
@@ -1191,60 +1646,150 @@
     function readStorage(key) {
         try {
             return JSON.parse(
-                localStorage.getItem(key) || "{}"
+                localStorage.getItem(
+                    key
+                ) || "{}"
             );
         } catch {
             return {};
         }
     }
 
-    function writeStorage(key, value) {
+    function writeStorage(
+        key,
+        value
+    ) {
         try {
             localStorage.setItem(
                 key,
                 JSON.stringify(value)
             );
         } catch {
-            console.warn("VelType: unable to save progress.");
+            console.warn(
+                "VelType: unable to save progress."
+            );
         }
     }
 
-    /* ==================== NAVIGATION ==================== */
+    /* =========================================================
+       FUTURE DATABASE API PLACEHOLDERS
+       ========================================================= */
+
+    /*
+     * DO NOT USE THESE YET.
+     *
+     * When your backend/database is ready,
+     * these functions can replace localStorage.
+     *
+     * Example future structure:
+     *
+     * async function saveProgressToDatabase(data) {
+     *
+     *     await fetch("/api/progress", {
+     *         method: "POST",
+     *
+     *         headers: {
+     *             "Content-Type":
+     *                 "application/json"
+     *         },
+     *
+     *         body: JSON.stringify(data)
+     *     });
+     * }
+     *
+     * async function getProgressFromDatabase() {
+     *
+     *     const response =
+     *         await fetch("/api/progress");
+     *
+     *     return response.json();
+     * }
+     */
+
+    /* =========================================================
+       NAVIGATION
+       ========================================================= */
 
     function setupNavigation() {
-        const previous = lessons.find(
-            item => item.id === lesson.id - 1
-        );
+        const previous =
+            lessons.find(
+                item =>
+                    item.id ===
+                    lesson.id - 1
+            );
 
-        const next = lessons.find(
-            item => item.id === lesson.id + 1
-        );
+        const next =
+            lessons.find(
+                item =>
+                    item.id ===
+                    lesson.id + 1
+            );
+
+        /*
+         * PREVIOUS
+         */
 
         if (previous) {
             const url =
-                `lesson.html?level=${encodeURIComponent(previous.level)}&lesson=${previous.id}`;
+                `lesson.html?level=${encodeURIComponent(
+                    previous.level
+                )}&lesson=${previous.id}`;
 
-            setLink(els.previous, url);
-            setText(els.previousTitle, previous.title);
+            setLink(
+                els.previous,
+                url
+            );
+
+            setText(
+                els.previousTitle,
+                previous.title
+            );
         } else {
-            setLink(els.previous, "learn.html");
-            setText(els.previousTitle, "Learning path");
+            setLink(
+                els.previous,
+                "learn.html"
+            );
+
+            setText(
+                els.previousTitle,
+                "Learning path"
+            );
         }
+
+        /*
+         * NEXT
+         */
 
         if (next) {
             const url =
-                `lesson.html?level=${encodeURIComponent(next.level)}&lesson=${next.id}`;
+                `lesson.html?level=${encodeURIComponent(
+                    next.level
+                )}&lesson=${next.id}`;
 
-            setLink(els.next, url);
-            setLink(els.nextBottom, url);
+            setLink(
+                els.next,
+                url
+            );
+
+            setLink(
+                els.nextBottom,
+                url
+            );
 
             setText(
                 els.nextTitle,
                 next.title
             );
         } else {
-            setLink(els.next, "learn.html");
-            setLink(els.nextBottom, "learn.html");
+            setLink(
+                els.next,
+                "learn.html"
+            );
+
+            setLink(
+                els.nextBottom,
+                "learn.html"
+            );
 
             setText(
                 els.nextTitle,
@@ -1253,23 +1798,44 @@
         }
     }
 
-    /* ==================== BUTTON EVENTS ==================== */
+    /* =========================================================
+       BUTTON EVENTS
+       ========================================================= */
 
     function setupEvents() {
+        /*
+         * Physical keyboard input.
+         */
+
         els.display?.addEventListener(
             "keydown",
             handleKey
         );
+
+        /*
+         * Clicking typing area focuses it.
+         */
 
         els.display?.addEventListener(
             "click",
             focusTypingArea
         );
 
+        /*
+         * Reset exercise.
+         */
+
         els.reset?.addEventListener(
             "click",
-            () => loadExercise(exerciseIndex)
+            () =>
+                loadExercise(
+                    exerciseIndex
+                )
         );
+
+        /*
+         * Retry entire lesson.
+         */
 
         els.retry?.addEventListener(
             "click",
@@ -1278,7 +1844,9 @@
 
                 window.setTimeout(() => {
                     document
-                        .querySelector(".practice-card")
+                        .querySelector(
+                            ".practice-card"
+                        )
                         ?.scrollIntoView({
                             behavior: "smooth",
                             block: "start"
@@ -1287,84 +1855,29 @@
             }
         );
 
+        /*
+         * Escape pauses typing.
+         */
+
         document.addEventListener(
             "keydown",
             event => {
-                if (event.key === "Escape") {
+                if (
+                    event.key ===
+                    "Escape"
+                ) {
                     stopTyping();
                 }
             }
         );
     }
 
-    /* ==================== MOBILE INPUT ==================== */
-
-    function createMobileInputBridge() {
-        if (inputBridge || !els.display) return;
-
-        inputBridge = document.createElement("textarea");
-
-        inputBridge.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        inputBridge.setAttribute(
-            "autocomplete",
-            "off"
-        );
-
-        inputBridge.setAttribute(
-            "autocorrect",
-            "off"
-        );
-
-        inputBridge.setAttribute(
-            "autocapitalize",
-            "off"
-        );
-
-        inputBridge.setAttribute(
-            "spellcheck",
-            "false"
-        );
-
-        inputBridge.style.position = "fixed";
-        inputBridge.style.width = "1px";
-        inputBridge.style.height = "1px";
-        inputBridge.style.opacity = "0";
-        inputBridge.style.pointerEvents = "none";
-        inputBridge.style.left = "-100px";
-        inputBridge.style.bottom = "0";
-        inputBridge.style.resize = "none";
-
-        document.body.appendChild(inputBridge);
-
-        inputBridge.addEventListener(
-            "keydown",
-            event => {
-                handleKey(event);
-            }
-        );
-
-        inputBridge.addEventListener(
-            "input",
-            () => {
-                if (!inputBridge) return;
-
-                inputBridge.value = "";
-            }
-        );
-    }
+    /* =========================================================
+       PC / LAPTOP FOCUS
+       ========================================================= */
 
     function focusTypingArea() {
-        if (finished) return;
-
-        if (window.matchMedia("(pointer: coarse)").matches) {
-            inputBridge?.focus({
-                preventScroll: true
-            });
-
+        if (finished) {
             return;
         }
 
@@ -1374,10 +1887,12 @@
     function stopTyping() {
         clearTimer();
 
-        inputBridge?.blur();
         els.display?.blur();
 
-        if (!finished && startedAt) {
+        if (
+            !finished &&
+            startedAt
+        ) {
             setStatus(
                 "",
                 "Paused"
@@ -1385,12 +1900,17 @@
         }
     }
 
-    /* ==================== UI FEEDBACK ==================== */
+    /* =========================================================
+       UI FEEDBACK
+       ========================================================= */
 
     function startTypingIfNeeded() {
-        if (startedAt) return;
+        if (startedAt) {
+            return;
+        }
 
-        startedAt = Date.now();
+        startedAt =
+            Date.now();
 
         startTimer();
 
@@ -1412,7 +1932,10 @@
         );
     }
 
-    function setStatus(type, message) {
+    function setStatus(
+        type,
+        message
+    ) {
         if (els.status) {
             els.status.className =
                 `practice-status ${type}`.trim();
@@ -1432,7 +1955,9 @@
     }
 
     function pulseTypingArea() {
-        if (!els.display) return;
+        if (!els.display) {
+            return;
+        }
 
         els.display.classList.remove(
             "typing-error-pulse"
@@ -1445,10 +1970,15 @@
         );
     }
 
-    /* ==================== HELPERS ==================== */
+    /* =========================================================
+       HELPERS
+       ========================================================= */
 
     function normalizeEventKey(event) {
-        if (event.key === "Spacebar") {
+        if (
+            event.key ===
+            "Spacebar"
+        ) {
             return " ";
         }
 
@@ -1456,8 +1986,13 @@
     }
 
     function displayKey(key) {
-        if (key === " ") return "SPACE";
-        if (key === "\n") return "ENTER";
+        if (key === " ") {
+            return "SPACE";
+        }
+
+        if (key === "\n") {
+            return "ENTER";
+        }
 
         return key;
     }
@@ -1471,41 +2006,79 @@
             return "↵";
         }
 
-        return escapeHTML(character);
+        return escapeHTML(
+            character
+        );
     }
 
     function escapeHTML(value) {
         return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
     }
 
     function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const secs = seconds % 60;
+        const minutes =
+            Math.floor(
+                seconds / 60
+            );
 
-        return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+        const secs =
+            seconds % 60;
+
+        return `${String(
+            minutes
+        ).padStart(
+            2,
+            "0"
+        )}:${String(secs).padStart(
+            2,
+            "0"
+        )}`;
     }
 
-    function setText(element, value) {
+    function setText(
+        element,
+        value
+    ) {
         if (element) {
-            element.textContent = value;
+            element.textContent =
+                value;
         }
     }
 
-    function setLink(element, href) {
+    function setLink(
+        element,
+        href
+    ) {
         if (element) {
-            element.href = href;
+            element.href =
+                href;
         }
     }
 
-    /* ==================== START ==================== */
+    /* =========================================================
+       START
+       ========================================================= */
 
     init();
 
 })();
-                    
-        
