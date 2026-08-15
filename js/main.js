@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuToggle = document.querySelector("#menuToggle");
     const navLinks = document.querySelector(".nav-links");
 
-    /* ================================
+    /* =========================================
        THEME
-    ================================= */
+    ========================================= */
 
     const savedTheme = localStorage.getItem("veltype-theme");
 
@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* ================================
+    /* =========================================
        MOBILE NAVIGATION
-    ================================= */
+    ========================================= */
 
     function closeMobileMenu() {
         navLinks?.classList.remove("mobile-open");
@@ -40,16 +40,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const isOpen = navLinks?.classList.toggle("mobile-open");
 
-        menuToggle.setAttribute(
+        menuToggle?.setAttribute(
             "aria-expanded",
             String(isOpen)
         );
     });
 
     navLinks?.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", () => {
-            closeMobileMenu();
-        });
+        link.addEventListener("click", closeMobileMenu);
     });
 
     document.addEventListener("click", event => {
@@ -61,94 +59,114 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            closeMobileMenu();
+        }
+    });
 
-    /* ================================
-       PAGE LOAD ANIMATION
-    ================================= */
 
-    const pageElements = [
-        ".navbar",
-        ".hero-copy",
-        ".hero-visual",
-        ".quick-proof"
+    /* =========================================
+       PAGE LOAD REVEAL
+       Only runs once when the page opens
+    ========================================= */
+
+    const loadGroups = [
+        {
+            selector: ".navbar",
+            delay: 0
+        },
+        {
+            selector: ".hero .eyebrow",
+            delay: 100
+        },
+        {
+            selector: ".hero .hero-title",
+            delay: 180
+        },
+        {
+            selector: ".hero .hero-description",
+            delay: 280
+        },
+        {
+            selector: ".hero .hero-actions",
+            delay: 380
+        },
+        {
+            selector: ".hero .hero-note",
+            delay: 460
+        },
+        {
+            selector: ".hero-visual",
+            delay: 220
+        },
+        {
+            selector: ".quick-proof",
+            delay: 520
+        }
     ];
 
-    pageElements.forEach(selector => {
-        document.querySelectorAll(selector).forEach(element => {
+    loadGroups.forEach(item => {
+        document.querySelectorAll(item.selector).forEach(element => {
+
             element.classList.add("page-reveal");
+
+            element.style.setProperty(
+                "--reveal-delay",
+                `${item.delay}ms`
+            );
+
         });
     });
 
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            document.querySelectorAll(".page-reveal").forEach(element => {
-                element.classList.add("is-visible");
-            });
+
+            document
+                .querySelectorAll(".page-reveal")
+                .forEach(element => {
+                    element.classList.add("is-visible");
+                });
+
         });
     });
 
 
-    /* ================================
-       HERO STAGGER
-    ================================= */
-
-    const heroItems = [
-        ".hero .eyebrow",
-        ".hero .hero-title",
-        ".hero .hero-description",
-        ".hero .hero-actions",
-        ".hero .hero-note"
-    ];
-
-    heroItems.forEach((selector, index) => {
-        document.querySelectorAll(selector).forEach(element => {
-            element.classList.add("hero-reveal");
-            element.style.setProperty(
-                "--delay",
-                `${index * 90}ms`
-            );
-        });
-    });
-
-    setTimeout(() => {
-        document.querySelectorAll(".hero-reveal").forEach(element => {
-            element.classList.add("is-visible");
-        });
-    }, 100);
-
-
-    /* ================================
+    /* =========================================
        SCROLL REVEAL
-    ================================= */
+    ========================================= */
 
-    const revealSelectors = [
-        ".section-heading",
-        ".feature-card",
-        ".workflow-card",
-        ".showcase-card",
-        ".cta-inner",
-        ".footer"
-    ];
+    const scrollElements = document.querySelectorAll(
+        ".section-heading, .feature-card, .workflow-card, .showcase-card, .cta-inner, .footer"
+    );
 
-    const revealElements = [];
+    scrollElements.forEach((element, index) => {
 
-    revealSelectors.forEach(selector => {
-        document.querySelectorAll(selector).forEach(element => {
-            element.classList.add("scroll-reveal");
-            revealElements.push(element);
-        });
+        element.classList.add("scroll-reveal");
+
+        element.style.setProperty(
+            "--reveal-delay",
+            `${(index % 4) * 80}ms`
+        );
+
     });
+
 
     if ("IntersectionObserver" in window) {
 
         const observer = new IntersectionObserver(
             entries => {
+
                 entries.forEach(entry => {
+
                     if (!entry.isIntersecting) return;
 
                     entry.target.classList.add("is-visible");
+
                     observer.unobserve(entry.target);
+
                 });
+
             },
             {
                 threshold: 0.12,
@@ -156,56 +174,62 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         );
 
-        revealElements.forEach(element => {
+        scrollElements.forEach(element => {
             observer.observe(element);
         });
 
     } else {
-        revealElements.forEach(element => {
+
+        scrollElements.forEach(element => {
             element.classList.add("is-visible");
         });
+
     }
 
 
-    /* ================================
-       STAGGER FEATURE CARDS
-    ================================= */
+    /* =========================================
+       FEATURE CARD STAGGER
+    ========================================= */
 
     document.querySelectorAll(".feature-grid").forEach(grid => {
 
         grid.querySelectorAll(".feature-card").forEach(
             (card, index) => {
+
                 card.style.setProperty(
-                    "--delay",
-                    `${index * 80}ms`
+                    "--reveal-delay",
+                    `${index * 90}ms`
                 );
+
             }
         );
 
     });
 
 
-    /* ================================
-       STAGGER WORKFLOW CARDS
-    ================================= */
+    /* =========================================
+       WORKFLOW CARD STAGGER
+    ========================================= */
 
     document.querySelectorAll(".workflow-grid").forEach(grid => {
 
         grid.querySelectorAll(".workflow-card").forEach(
             (card, index) => {
+
                 card.style.setProperty(
-                    "--delay",
+                    "--reveal-delay",
                     `${index * 100}ms`
                 );
+
             }
         );
 
     });
 
 
-    /* ================================
-       SMOOTH ANCHOR NAVIGATION
-    ================================= */
+    /* =========================================
+       SMOOTH ANCHOR SCROLL
+    ========================================= */
 
     document.querySelectorAll('a[href^="#"]').forEach(link => {
 
@@ -237,9 +261,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* ================================
+    /* =========================================
        ACTIVE NAVIGATION
-    ================================= */
+    ========================================= */
 
     const sections = document.querySelectorAll("section[id]");
     const navAnchors = document.querySelectorAll(
@@ -263,12 +287,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     navAnchors.forEach(anchor => {
 
-                        const isActive =
-                            anchor.getAttribute("href") === `#${id}`;
-
                         anchor.classList.toggle(
                             "active",
-                            isActive
+                            anchor.getAttribute("href") === `#${id}`
                         );
 
                     });
@@ -277,121 +298,79 @@ document.addEventListener("DOMContentLoaded", () => {
 
             },
             {
-                rootMargin: "-35% 0px -55% 0px",
-                threshold: 0
+                rootMargin: "-35% 0px -55% 0px"
             }
         );
 
         sections.forEach(section => {
             sectionObserver.observe(section);
         });
-    }
-
-
-    /* ================================
-       TYPING PREVIEW MICRO ANIMATION
-    ================================= */
-
-    const demoPassage = document.querySelector(".demo-passage");
-
-    if (demoPassage) {
-
-        const cursor = demoPassage.querySelector(".demo-cursor");
-
-        if (cursor) {
-            cursor.setAttribute(
-                "aria-hidden",
-                "true"
-            );
-        }
 
     }
 
 
-    /* ================================
-       KEYBOARD HOVER FEEDBACK
-    ================================= */
+    /* =========================================
+       BUTTON PRESS FEEDBACK
+    ========================================= */
 
-    document.querySelectorAll(".keyboard-preview span").forEach(key => {
+    document
+        .querySelectorAll("button, .button, .nav-cta")
+        .forEach(element => {
 
-        key.addEventListener("mouseenter", () => {
-            key.classList.add("key-hover");
+            element.addEventListener("pointerdown", () => {
+                element.classList.add("is-pressed");
+            });
+
+            const removePressed = () => {
+                element.classList.remove("is-pressed");
+            };
+
+            element.addEventListener("pointerup", removePressed);
+            element.addEventListener("pointerleave", removePressed);
+            element.addEventListener("pointercancel", removePressed);
+
         });
 
-        key.addEventListener("mouseleave", () => {
-            key.classList.remove("key-hover");
+
+    /* =========================================
+       KEYBOARD PREVIEW
+    ========================================= */
+
+    document
+        .querySelectorAll(".keyboard-preview span")
+        .forEach(key => {
+
+            key.addEventListener("mouseenter", () => {
+                key.classList.add("key-hover");
+            });
+
+            key.addEventListener("mouseleave", () => {
+                key.classList.remove("key-hover");
+            });
+
         });
 
-    });
 
-
-    /* CTA / BUTTON PRESS FEEDBACK */
-
-    document.querySelectorAll("button, .button, .nav-cta").forEach(element => {
-
-        element.addEventListener("pointerdown", () => {
-            element.classList.add("is-pressed");
-        });
-        element.addEventListener("pointerup", () => {
-            element.classList.remove("is-pressed");
-        });
-        element.addEventListener("pointerleave", () => {
-            element.classList.remove("is-pressed");
-        });
-    });
-
-
-    /* ESCAPE CLOSES MOBILE MENU */
-
-    document.addEventListener("keydown", event => {
-        if (event.key === "Escape") {
-            closeMobileMenu();
-        }
-    });
-
-
-    /* REDUCED MOTION */
+    /* =========================================
+       ACCESSIBILITY
+    ========================================= */
 
     const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
     );
+
     if (reducedMotion.matches) {
+
         document
             .querySelectorAll(
-                ".page-reveal, .hero-reveal, .scroll-reveal"
+                ".page-reveal, .scroll-reveal"
             )
             .forEach(element => {
+
                 element.classList.add("is-visible");
+
             });
+
     }
+
 });
-// Premium scroll reveal
-const animatedElements = document.querySelectorAll(
-    ".showcase-card, .feature-card, .workflow-card, .quick-proof"
-);
-
-if ("IntersectionObserver" in window) {
-    const revealObserver = new IntersectionObserver(
-        entries => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-
-                entry.target.classList.add("is-visible");
-
-                revealObserver.unobserve(entry.target);
-            });
-        },
-        {
-            threshold: 0.12,
-            rootMargin: "0px 0px -60px 0px"
-        }
-    );
-
-    animatedElements.forEach(element => {
-        revealObserver.observe(element);
-    });
-} else {
-    animatedElements.forEach(element => {
-        element.classList.add("is-visible");
-    });
-                             }
