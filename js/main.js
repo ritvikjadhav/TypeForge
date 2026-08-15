@@ -365,3 +365,33 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 });
+// Premium scroll reveal
+const animatedElements = document.querySelectorAll(
+    ".showcase-card, .feature-card, .workflow-card, .quick-proof"
+);
+
+if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                entry.target.classList.add("is-visible");
+
+                revealObserver.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0.12,
+            rootMargin: "0px 0px -60px 0px"
+        }
+    );
+
+    animatedElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+} else {
+    animatedElements.forEach(element => {
+        element.classList.add("is-visible");
+    });
+                             }
