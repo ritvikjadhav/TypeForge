@@ -1309,8 +1309,40 @@ a {
     outline: 2px solid var(--ink);
     outline-offset: 4px;
 }
+/* =================================
+   V1 PAGE ANIMATIONS
+================================= */
 
+.page-reveal,
+.hero-reveal,
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity .7s var(--ease),
+        transform .7s var(--ease);
+}
+
+.page-reveal.is-visible,
+.hero-reveal.is-visible,
+.scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-reveal,
+.scroll-reveal {
+    transition-delay: var(--delay, 0ms);
+}
+
+.is-pressed {
+    transform: scale(.97) !important;
+}
+
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
+
     html {
         scroll-behavior: auto;
     }
@@ -1322,5 +1354,15 @@ a {
         animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
     }
-        }
-    
+
+    .page-reveal,
+    .hero-reveal,
+    .scroll-reveal {
+        opacity: 1;
+        transform: none;
+    }
+
+    .is-pressed {
+        transform: none !important;
+    }
+}
