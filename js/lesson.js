@@ -27,7 +27,7 @@
                 "Avoid looking down constantly."
             ],
 
-            guideImage: "assets/images/tutorials/keyboard-basics.webp",
+            guideImage: "image/keyboard-basics.png",
 
             exercises: [
                 "asdf jkl; asdf jkl; asdf jkl; ",
