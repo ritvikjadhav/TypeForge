@@ -15,24 +15,6 @@
                 "Understand the keyboard layout and the purpose of the keys you use every day.",
             duration: 8,
 
-            theory: [
-                [
-                    "Keyboard layout",
-                    "The keyboard is organized into rows and functional groups.",
-                    "Learn the layout before chasing speed."
-                ],
-                [
-                    "Letter keys",
-                    "Most typing starts with the alphabet keys across the three main rows.",
-                    "Your fingers will eventually move without thinking."
-                ],
-                [
-                    "Essential keys",
-                    "Space, Shift, Enter, Backspace, Tab and Escape each have different roles.",
-                    "Knowing these keys makes everyday typing easier."
-                ]
-            ],
-
             guideTitle: "Start with the keyboard.",
             guideText:
                 "Your first goal is familiarity, not speed.",
@@ -63,24 +45,6 @@
             description:
                 "Build a comfortable position for your body, hands, wrists and screen.",
             duration: 7,
-
-            theory: [
-                [
-                    "Shoulders",
-                    "Keep your shoulders relaxed instead of lifting or tightening them.",
-                    "Relaxation reduces unnecessary fatigue."
-                ],
-                [
-                    "Wrists",
-                    "Keep your wrists neutral and let your fingers do most of the movement.",
-                    "Avoid pressing your wrists heavily into the desk."
-                ],
-                [
-                    "Screen position",
-                    "Your screen should allow you to look forward without bending your neck.",
-                    "Comfort helps you practice longer."
-                ]
-            ],
 
             guideTitle: "Create a comfortable setup.",
             guideText:
@@ -113,24 +77,6 @@
                 "Learn the home position and give each finger a clear starting point.",
             duration: 10,
 
-            theory: [
-                [
-                    "Left hand",
-                    "The left hand begins around A, S, D and F.",
-                    "Each finger is responsible for a movement zone."
-                ],
-                [
-                    "Right hand",
-                    "The right hand begins around J, K, L and semicolon.",
-                    "Return your fingers to these positions after reaching."
-                ],
-                [
-                    "F and J",
-                    "The small bumps on F and J provide tactile reference points.",
-                    "They help you position your hands without looking."
-                ]
-            ],
-
             guideTitle: "Find your home position.",
             guideText:
                 "Your fingers should rest lightly instead of hovering far above the keys.",
@@ -161,24 +107,6 @@
             description:
                 "Build accuracy and control before moving across the entire keyboard.",
             duration: 10,
-
-            theory: [
-                [
-                    "Home row",
-                    "The home row provides the base position for touch typing.",
-                    "Start and return here naturally."
-                ],
-                [
-                    "Index fingers",
-                    "The index fingers cover more keys than the other fingers.",
-                    "Keep them ready for wider movement."
-                ],
-                [
-                    "Accuracy",
-                    "Slow, correct repetitions build stronger muscle memory than rushed mistakes.",
-                    "Control comes before speed."
-                ]
-            ],
 
             guideTitle: "Control every movement.",
             guideText:
