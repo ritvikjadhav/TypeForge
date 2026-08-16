@@ -1,6 +1,6 @@
 /* =========================================
-   VELTYPE — LEARN V1
-   Theme-aware • Responsive • Clean
+   VELTYPE — LEARN
+   Theme-aware • Responsive • Animated
    ========================================= */
 
 /* =========================================
@@ -13,15 +13,11 @@
     --learn-soft: #f0eee5;
     --learn-line: #deddd5;
     --learn-line-soft: #e4e2da;
-
     --learn-text: #171815;
     --learn-muted: #77776f;
     --learn-faint: #aaa9a1;
-
     --learn-hover: #faf9f3;
-
     --learn-shadow: 0 12px 35px rgba(30, 30, 25, .055);
-
     --learn-radius: 24px;
 }
 
@@ -35,13 +31,10 @@ body.dark {
     --learn-soft: #22231f;
     --learn-line: #30312c;
     --learn-line-soft: #30312c;
-
     --learn-text: #f2f0e8;
     --learn-muted: #aaa9a1;
     --learn-faint: #777870;
-
     --learn-hover: #20211d;
-
     --learn-shadow: 0 12px 35px rgba(0, 0, 0, .25);
 }
 
@@ -53,7 +46,7 @@ body.dark {
     background: var(--learn-bg);
     color: var(--learn-text);
     transition:
-        background .3s ease,
+        background-color .3s ease,
         color .3s ease;
 }
 
@@ -119,7 +112,7 @@ body.dark {
     transition:
         border-color .3s ease,
         color .3s ease,
-        background .3s ease;
+        background-color .3s ease;
 }
 
 /* =========================================
@@ -155,7 +148,7 @@ body.dark {
 }
 
 /* =========================================
-   LEVEL ACCORDION
+   LEVEL LIST
    ========================================= */
 
 .level-list {
@@ -163,6 +156,52 @@ body.dark {
     flex-direction: column;
     gap: 14px;
 }
+
+/* =========================================
+   SCROLL REVEAL
+   Controlled by learn.js
+   ========================================= */
+
+.level.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity .7s ease,
+        transform .7s cubic-bezier(.22, 1, .36, 1),
+        border-color .35s ease,
+        background-color .35s ease,
+        box-shadow .35s ease;
+}
+
+.level.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger each level */
+.level:nth-child(2) {
+    transition-delay: .08s;
+}
+
+.level:nth-child(3) {
+    transition-delay: .16s;
+}
+
+.level:nth-child(4) {
+    transition-delay: .24s;
+}
+
+.level:nth-child(5) {
+    transition-delay: .32s;
+}
+
+.level:nth-child(6) {
+    transition-delay: .40s;
+}
+
+/* =========================================
+   LEVEL ACCORDION
+   ========================================= */
 
 .level {
     overflow: hidden;
@@ -175,8 +214,12 @@ body.dark {
     );
     transition:
         border-color .35s ease,
-        background .35s ease,
+        background-color .35s ease,
         box-shadow .35s ease;
+}
+
+.level:hover {
+    transform: translateY(-2px);
 }
 
 .level.open {
@@ -245,7 +288,7 @@ body.dark {
     letter-spacing: .04em;
     text-transform: uppercase;
     transition:
-        background .3s ease,
+        background-color .3s ease,
         color .3s ease;
 }
 
@@ -279,7 +322,7 @@ body.dark {
     height: 100%;
     border-radius: inherit;
     background: var(--learn-text);
-    transition: width .6s ease;
+    transition: width .9s cubic-bezier(.22, 1, .36, 1);
 }
 
 /* =========================================
@@ -298,7 +341,7 @@ body.dark {
     font-size: 20px;
     transition:
         transform .4s cubic-bezier(.22, 1, .36, 1),
-        background .3s ease,
+        background-color .3s ease,
         border-color .3s ease,
         color .3s ease;
 }
@@ -317,12 +360,15 @@ body.dark {
 .level-content {
     display: grid;
     grid-template-rows: 0fr;
+    opacity: 0;
     transition:
-        grid-template-rows .55s cubic-bezier(.22, 1, .36, 1);
+        grid-template-rows .55s cubic-bezier(.22, 1, .36, 1),
+        opacity .35s ease;
 }
 
 .level.open .level-content {
     grid-template-rows: 1fr;
+    opacity: 1;
 }
 
 .level-content-inner {
@@ -348,11 +394,12 @@ body.dark {
     text-decoration: none;
     color: inherit;
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(12px);
     transition:
-        opacity .35s ease,
-        transform .45s cubic-bezier(.22, 1, .36, 1),
-        background .25s ease;
+        opacity .4s ease,
+        transform .4s cubic-bezier(.22, 1, .36, 1),
+        background-color .25s ease,
+        border-color .25s ease;
 }
 
 .level.open .lesson-item {
@@ -366,6 +413,7 @@ body.dark {
 
 .lesson-item:hover {
     background: var(--learn-hover);
+    transform: translateX(6px);
 }
 
 .lesson-number {
@@ -423,13 +471,13 @@ body.dark {
     font-size: 18px;
     transition:
         transform .3s ease,
-        background .3s ease,
+        background-color .3s ease,
         color .3s ease,
         border-color .3s ease;
 }
 
 .lesson-item:hover .lesson-arrow {
-    transform: translateX(3px);
+    transform: translateX(5px);
     background: var(--learn-text);
     border-color: var(--learn-text);
     color: var(--learn-bg);
@@ -480,24 +528,6 @@ body.dark {
     font-size: clamp(45px, 6vw, 75px);
     line-height: .98;
     letter-spacing: -.055em;
-}
-
-/* =========================================
-   DARK MODE SMOOTH TRANSITIONS
-   ========================================= */
-
-.learn-page,
-.level,
-.level-tag,
-.level-arrow,
-.lesson-item,
-.lesson-arrow,
-.learn-hero-meta span,
-.progress-track {
-    transition:
-        background-color .3s ease,
-        border-color .3s ease,
-        color .3s ease;
 }
 
 /* =========================================
@@ -638,6 +668,8 @@ body.dark {
 @media (prefers-reduced-motion: reduce) {
 
     .level,
+    .level.reveal,
+    .level.reveal.visible,
     .level-content,
     .level-arrow,
     .lesson-item,
@@ -645,6 +677,11 @@ body.dark {
     .progress-fill,
     .learn-page,
     .learn-hero-meta span {
-        transition: none;
+        transition: none !important;
+        transform: none !important;
     }
-                                     }
+
+    .level.reveal {
+        opacity: 1 !important;
+    }
+}
