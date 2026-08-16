@@ -48,9 +48,9 @@
             guideImage: "assets/images/tutorials/keyboard-basics.webp",
 
             exercises: [
-                "asdf jkl;",
-                "qwer uiop",
-                "zxcv nm,.",
+                "asdf jkl; asdf jkl; asdf jkl; ",
+                "qwer uiop qwer uiop qwer uiop ",
+                "zxcv nm,. zxcv nm,. zxcv nm,. ",
                 "type with both hands"
             ]
         },
@@ -1531,180 +1531,175 @@
        DATABASE-READY STORAGE LAYER
        ========================================================= */
 
-    /*
-     * IMPORTANT:
-     *
-     * These functions are the ONLY area you should need
-     * to replace when you connect your real database.
-     *
-     * CURRENT:
-     * Browser localStorage
-     *
-     * FUTURE:
-     * API -> Backend -> Database
-     */
-
-    function getLessonStorageKey() {
-        return `veltype_lesson_${lesson.id}`;
-    }
-
-    function saveExerciseProgress(
-        wpm,
-        accuracy
-    ) {
-        const key =
-            getLessonStorageKey();
-
-        const data =
-            readStorage(key);
-
-        if (
-            !Array.isArray(
-                data.exercises
-            )
-        ) {
-            data.exercises = [];
-        }
-
-        data.exercises[
-            exerciseIndex
-        ] = {
-            exerciseNumber:
-                exerciseIndex + 1,
-
-            completed: true,
-
-            wpm,
-
-            accuracy,
-
-            errors,
-
-            completedAt:
-                new Date().toISOString()
-        };
-
-        /*
-         * Overall lesson metadata.
-         */
-
-        data.lessonId =
-            lesson.id;
-
-        data.lessonTitle =
-            lesson.title;
-
-        data.level =
-            lesson.level;
-
-        data.lastUpdated =
-            new Date().toISOString();
-
-        writeStorage(
-            key,
-            data
-        );
-    }
-
-    function saveLessonCompletion(
-        wpm,
-        accuracy
-    ) {
-        const progress =
-            readStorage(
-                "veltypeLessonProgress"
-            );
-
-        progress[lesson.id] = {
-            lessonId: lesson.id,
-
-            title: lesson.title,
-
-            level: lesson.level,
-
-            difficulty:
-                lesson.difficulty,
-
-            completed: true,
-
-            wpm,
-
-            accuracy,
-
-            errors,
-
-            completedAt:
-                new Date().toISOString()
-        };
-
-        writeStorage(
-            "veltypeLessonProgress",
-            progress
-        );
-    }
-
-    function readStorage(key) {
-        try {
-            return JSON.parse(
-                localStorage.getItem(
-                    key
-                ) || "{}"
-            );
-        } catch {
-            return {};
-        }
-    }
-
-    function writeStorage(
-        key,
-        value
-    ) {
-        try {
-            localStorage.setItem(
-                key,
-                JSON.stringify(value)
-            );
-        } catch {
-            console.warn(
-                "VelType: unable to save progress."
-            );
-        }
-    }
 
     /* =========================================================
-       FUTURE DATABASE API PLACEHOLDERS
-       ========================================================= */
+   LOCAL STORAGE
+   VelType uses browser localStorage for all progress.
+   ========================================================= */
+
+const STORAGE_KEYS = {
+    lessons: "veltypeLessons",
+    lessonProgress: "veltypeLessonProgress"
+};
+
+function getLessonStorageKey() {
+    return `veltype_lesson_${lesson.id}`;
+}
+
+function readStorage(key, fallback = {}) {
+    try {
+        const value = localStorage.getItem(key);
+        if (!value) return fallback;
+
+        const parsed = JSON.parse(value);
+        return parsed ?? fallback;
+    } catch {
+        return fallback;
+    }
+}
+
+function writeStorage(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+    } catch {
+        console.warn(`VelType: unable to save "${key}".`);
+        return false;
+    }
+}
+
+/* =========================================================
+   SAVE EXERCISE PROGRESS
+   Stores detailed progress for the current lesson.
+   ========================================================= */
+
+function saveExerciseProgress(wpm, accuracy) {
+    const key = getLessonStorageKey();
+    const data = readStorage(key, {});
+
+    if (!Array.isArray(data.exercises)) {
+        data.exercises = [];
+    }
+
+    data.lessonId = lesson.id;
+    data.lessonTitle = lesson.title;
+    data.level = lesson.level;
+    data.difficulty = lesson.difficulty;
+    data.lastUpdated = new Date().toISOString();
+
+    data.exercises[exerciseIndex] = {
+        exerciseNumber: exerciseIndex + 1,
+        completed: true,
+        wpm: Math.max(0, Number(wpm) || 0),
+        accuracy: Math.min(100, Math.max(0, Number(accuracy) || 0)),
+        errors: Math.max(0, Number(errors) || 0),
+        completedAt: new Date().toISOString()
+    };
+
+    writeStorage(key, data);
+}
+
+/* =========================================================
+   SAVE LESSON PROGRESS
+   Updates the dashboard-readable lesson summary.
+   ========================================================= */
+
+function saveLessonCompletion(wpm, accuracy) {
+    const now = new Date().toISOString();
+    const progress = readStorage(
+        STORAGE_KEYS.lessonProgress,
+        {}
+    );
+
+    const lessonResult = {
+        lessonId: lesson.id,
+        title: lesson.title,
+        level: lesson.level,
+        difficulty: lesson.difficulty,
+        completed: true,
+        wpm: Math.max(0, Number(wpm) || 0),
+        accuracy: Math.min(
+            100,
+            Math.max(0, Number(accuracy) || 0)
+        ),
+        errors: Math.max(0, Number(errors) || 0),
+        completedAt: now
+    };
+
+    progress[lesson.id] = lessonResult;
+
+    writeStorage(
+        STORAGE_KEYS.lessonProgress,
+        progress
+    );
 
     /*
-     * DO NOT USE THESE YET.
-     *
-     * When your backend/database is ready,
-     * these functions can replace localStorage.
-     *
-     * Example future structure:
-     *
-     * async function saveProgressToDatabase(data) {
-     *
-     *     await fetch("/api/progress", {
-     *         method: "POST",
-     *
-     *         headers: {
-     *             "Content-Type":
-     *                 "application/json"
-     *         },
-     *
-     *         body: JSON.stringify(data)
-     *     });
-     * }
-     *
-     * async function getProgressFromDatabase() {
-     *
-     *     const response =
-     *         await fetch("/api/progress");
-     *
-     *     return response.json();
-     * }
+     * Dashboard summary.
+     * This is the important connection between lesson.js
+     * and dashboard.js.
      */
+
+    const lessonsData = readStorage(
+        STORAGE_KEYS.lessons,
+        {}
+    );
+
+    lessonsData[lesson.id] = lessonResult;
+
+    writeStorage(
+        STORAGE_KEYS.lessons,
+        lessonsData
+    );
+}
+
+/* =========================================================
+   LESSON PROGRESS READER
+   Used internally when restoring lesson state.
+   ========================================================= */
+
+function getSavedLessonProgress() {
+    const progress = readStorage(
+        STORAGE_KEYS.lessonProgress,
+        {}
+    );
+
+    return progress[lesson.id] || null;
+}
+
+/* =========================================================
+   RESET CURRENT LESSON PROGRESS
+   Removes only this lesson's saved data.
+   ========================================================= */
+
+function resetSavedLessonProgress() {
+    localStorage.removeItem(
+        getLessonStorageKey()
+    );
+
+    const progress = readStorage(
+        STORAGE_KEYS.lessonProgress,
+        {}
+    );
+
+    delete progress[lesson.id];
+
+    writeStorage(
+        STORAGE_KEYS.lessonProgress,
+        progress
+    );
+
+    const lessonsData = readStorage(
+        STORAGE_KEYS.lessons,
+        {}
+    );
+
+    delete lessonsData[lesson.id];
+
+    writeStorage(
+        STORAGE_KEYS.lessons,
+        lessonsData
+    );
+                             }
 
     /* =========================================================
        NAVIGATION
