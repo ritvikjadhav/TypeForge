@@ -287,8 +287,6 @@
                 "Connect all three letter rows and type without stopping to search.",
             duration: 12,
 
-            guideImage: "assets/images/tutorials/full-alphabet.webp",
-
             exercises: [
                 "quick brown",
                 "lazy dog jumps",
@@ -305,8 +303,6 @@
             description:
                 "Develop reliable number-row movement for everyday typing.",
             duration: 10,
-
-            guideImage: "assets/images/tutorials/numbers.webp",
 
             exercises: [
                 "12345 67890",
@@ -325,8 +321,6 @@
                 "Use Shift naturally while keeping both hands coordinated.",
             duration: 10,
 
-            guideImage: "assets/images/tutorials/capital-letters.webp",
-
             exercises: [
                 "A S D F J K",
                 "Hello World",
@@ -343,8 +337,6 @@
             description:
                 "Practice the punctuation used in normal conversations and writing.",
             duration: 12,
-
-            guideImage: "assets/images/tutorials/punctuation.webp",
 
             exercises: [
                 "hello, world.",
@@ -363,8 +355,6 @@
                 "Build confidence with common symbols used in everyday computer work.",
             duration: 12,
 
-            guideImage: "assets/images/tutorials/symbols.webp",
-
             exercises: [
                 "@ # $ % &",
                 "email@example.com",
@@ -382,8 +372,6 @@
                 "Learn to slow down when accuracy begins to fall.",
             duration: 10,
 
-            guideImage: "assets/images/tutorials/error-control.webp",
-
             exercises: [
                 "accuracy comes first",
                 "slow typing can be fast learning",
@@ -400,9 +388,7 @@
             description:
                 "Train common letter combinations so your fingers begin moving automatically.",
             duration: 12,
-
-            guideImage: "assets/images/tutorials/letter-patterns.webp",
-
+            
             exercises: [
                 "th he in er",
                 "an re on at",
@@ -419,8 +405,6 @@
             description:
                 "Increase speed by practicing words that appear frequently in everyday writing.",
             duration: 12,
-
-            guideImage: "assets/images/tutorials/common-words.webp",
 
             exercises: [
                 "the and you that",
@@ -439,8 +423,6 @@
                 "Move from individual words into smooth continuous sentences.",
             duration: 12,
 
-            guideImage: "assets/images/tutorials/sentence-flow.webp",
-
             exercises: [
                 "The morning starts with quiet practice.",
                 "Good typing should feel smooth and controlled.",
@@ -457,8 +439,6 @@
             description:
                 "Maintain a steady rhythm instead of relying on short bursts of speed.",
             duration: 15,
-
-            guideImage: "assets/images/tutorials/consistent-speed.webp",
 
             exercises: [
                 "Keep your rhythm steady.",
@@ -477,8 +457,6 @@
                 "Practice the language, spacing and punctuation commonly used in emails.",
             duration: 12,
 
-            guideImage: "assets/images/tutorials/typing-emails.webp",
-
             exercises: [
                 "Hello, I hope you are doing well.",
                 "Thank you for taking the time to reply.",
@@ -495,8 +473,6 @@
             description:
                 "Build endurance with realistic professional writing.",
             duration: 15,
-
-            guideImage: "assets/images/tutorials/documents.webp",
 
             exercises: [
                 "Clear writing helps readers understand your ideas.",
@@ -515,8 +491,6 @@
                 "Practice brackets, operators, punctuation and common programming patterns.",
             duration: 15,
 
-            guideImage: "assets/images/tutorials/coding-practice.webp",
-
             exercises: [
                 "const user = { name: 'Alex' };",
                 "function add(a, b) { return a + b; }",
@@ -533,8 +507,6 @@
             description:
                 "Improve accuracy when entering numbers, dates, prices and structured information.",
             duration: 12,
-
-            guideImage: "assets/images/tutorials/data-entry.webp",
 
             exercises: [
                 "1024 2048 4096",
@@ -553,8 +525,6 @@
                 "Maintain accuracy while working at a faster pace.",
             duration: 15,
 
-            guideImage: "assets/images/tutorials/speed-under-pressure.webp",
-
             exercises: [
                 "Speed means nothing without control.",
                 "Stay calm when the pace increases.",
@@ -571,8 +541,6 @@
             description:
                 "Combine accuracy, speed, punctuation and endurance in one final challenge.",
             duration: 20,
-
-            guideImage: "assets/images/tutorials/final-typing-challenge.webp",
 
             exercises: [
                 "Typing improves through deliberate and consistent practice.",
