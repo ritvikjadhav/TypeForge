@@ -1,39 +1,94 @@
+/* =========================================================
+   VELTYPE — LESSON PAGE
+   LIGHT + DARK THEME
+   ========================================================= */
+
+/* =========================================================
+   THEME VARIABLES
+   ========================================================= */
+
 :root {
     --lesson-bg: #faf7ee;
     --lesson-card: #fffdf8;
     --lesson-soft: #f2efe6;
     --lesson-line: #dfddd5;
+
     --lesson-text: #191a17;
     --lesson-muted: #777871;
     --lesson-faint: #aaa99f;
+
     --lesson-error: #c94b43;
     --lesson-success: #4f7b5c;
+
+    --lesson-input-bg: #fdfaf2;
+    --lesson-input-focus: #fffdf8;
+
+    --lesson-keyboard-bg: #ebe8df;
+    --lesson-key-bg: #faf8f1;
+    --lesson-key-border: #d8d5cc;
+    --lesson-key-shadow: #d2cfc5;
+    --lesson-key-text: #66675f;
+
+    --lesson-hover: #faf9f3;
+    --lesson-button-hover: #fffdf8;
+
     --lesson-radius: 24px;
     --lesson-shadow: 0 18px 50px rgba(25, 26, 23, .035);
 }
+
+/* =========================================================
+   DARK THEME
+   ========================================================= */
 
 body.dark {
     --lesson-bg: #111210;
     --lesson-card: #181916;
     --lesson-soft: #20211d;
     --lesson-line: #30312c;
+
     --lesson-text: #f3f1e9;
     --lesson-muted: #aaa9a1;
     --lesson-faint: #74756e;
+
     --lesson-error: #e36b63;
     --lesson-success: #76a883;
+
+    --lesson-input-bg: #151613;
+    --lesson-input-focus: #1c1d19;
+
+    --lesson-keyboard-bg: #1b1c19;
+    --lesson-key-bg: #242520;
+    --lesson-key-border: #363730;
+    --lesson-key-shadow: #111210;
+    --lesson-key-text: #c7c6bd;
+
+    --lesson-hover: #20211d;
+    --lesson-button-hover: #20211d;
+
     --lesson-shadow: 0 18px 50px rgba(0, 0, 0, .22);
 }
+
+/* =========================================================
+   MAIN
+   ========================================================= */
 
 .lesson-main {
     padding: 72px 24px 100px;
     background: var(--lesson-bg);
+    color: var(--lesson-text);
+    transition:
+        background .3s ease,
+        color .3s ease;
 }
 
 .lesson-container {
     width: min(1120px, 100%);
     margin: 0 auto;
 }
+
+/* =========================================================
+   INTRO
+   ========================================================= */
 
 .lesson-intro {
     margin-bottom: 34px;
@@ -70,6 +125,7 @@ body.dark {
 
 .lesson-heading h1 {
     margin: 10px 0 12px;
+    color: var(--lesson-text);
     font-size: clamp(42px, 6vw, 72px);
     line-height: .96;
     letter-spacing: -.06em;
@@ -93,6 +149,10 @@ body.dark {
     font: 500 10px/1.2 "DM Mono", monospace;
     letter-spacing: .08em;
 }
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
 
 .lesson-progress {
     margin-top: 34px;
@@ -128,16 +188,32 @@ body.dark {
     transition: width .65s cubic-bezier(.22, 1, .36, 1);
 }
 
+/* =========================================================
+   GENERAL LESSON CARD
+   ========================================================= */
+
 .lesson-card {
     margin-bottom: 18px;
     overflow: hidden;
     border: 1px solid var(--lesson-line);
     border-radius: var(--lesson-radius);
     background: var(--lesson-card);
+    color: var(--lesson-text);
     box-shadow: var(--lesson-shadow);
+
     animation: lessonReveal .55s ease both;
     animation-delay: .08s;
+
+    transition:
+        background .3s ease,
+        border-color .3s ease,
+        color .3s ease,
+        box-shadow .3s ease;
 }
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
 
 .card-heading {
     display: flex;
@@ -150,6 +226,7 @@ body.dark {
 
 .card-heading h2 {
     margin: 7px 0 0;
+    color: var(--lesson-text);
     font-size: 25px;
     line-height: 1.1;
     letter-spacing: -.04em;
@@ -159,6 +236,10 @@ body.dark {
     color: var(--lesson-faint);
     font: 500 10px "DM Mono", monospace;
 }
+
+/* =========================================================
+   THEORY
+   ========================================================= */
 
 .theory-content,
 .guide-content {
@@ -184,7 +265,6 @@ body.dark {
 
 .info-block:hover {
     transform: translateY(-2px);
-    border-color: #c9c6bd;
 }
 
 .info-block span {
@@ -198,6 +278,7 @@ body.dark {
 
 .info-block h3 {
     margin: 0 0 7px;
+    color: var(--lesson-text);
     font-size: 17px;
     letter-spacing: -.025em;
 }
@@ -226,6 +307,7 @@ body.dark {
 
 .guide-copy h3 {
     margin: 0 0 10px;
+    color: var(--lesson-text);
     font-size: 23px;
     letter-spacing: -.035em;
 }
@@ -271,14 +353,15 @@ body.dark {
     border: 1px solid var(--lesson-line);
     border-radius: 20px;
     background: var(--lesson-soft);
+
     transition:
         transform .35s ease,
-        border-color .35s ease;
+        border-color .35s ease,
+        background .3s ease;
 }
 
 .guide-visual:hover {
     transform: translateY(-2px);
-    border-color: #c9c6bd;
 }
 
 .guide-image {
@@ -306,6 +389,7 @@ body.dark {
 }
 
 .guide-image-fallback span {
+    color: var(--lesson-muted);
     font-size: 12px;
     line-height: 1.6;
 }
@@ -328,6 +412,7 @@ body.dark {
 
 .practice-header h2 {
     margin: 7px 0 0;
+    color: var(--lesson-text);
     font-size: 27px;
     line-height: 1.1;
     letter-spacing: -.04em;
@@ -348,6 +433,7 @@ body.dark {
     flex-shrink: 0;
     border-radius: 50%;
     background: var(--lesson-faint);
+
     transition:
         background .25s ease,
         transform .25s ease;
@@ -396,6 +482,7 @@ body.dark {
 .live-stats strong {
     display: block;
     margin-top: 7px;
+    color: var(--lesson-text);
     font-size: 27px;
     line-height: 1;
     letter-spacing: -.04em;
@@ -431,6 +518,7 @@ body.dark {
     color: var(--lesson-muted);
     font: 500 10px "DM Mono", monospace;
     cursor: pointer;
+
     transition:
         color .2s ease,
         background .2s ease,
@@ -440,14 +528,14 @@ body.dark {
 
 .exercise-tab:hover {
     transform: translateY(-1px);
-    border-color: #aaa99f;
+    border-color: var(--lesson-muted);
     color: var(--lesson-text);
 }
 
 .exercise-tab.active {
     border-color: var(--lesson-text);
     background: var(--lesson-text);
-    color: #fff;
+    color: var(--lesson-bg);
 }
 
 .exercise-tab.complete {
@@ -476,29 +564,44 @@ body.dark {
 .typing-display {
     min-height: 175px;
     padding: 28px;
+
     border: 1px solid var(--lesson-line);
     border-radius: 18px;
     outline: 0;
-    background: #fdfaf2;
+
+    background: var(--lesson-input-bg);
     color: var(--lesson-faint);
+
     font: 500 clamp(18px, 2vw, 23px)/1.9 "DM Mono", monospace;
     letter-spacing: .01em;
+
     cursor: text;
+
     box-shadow: inset 0 0 0 3px rgba(0, 0, 0, .018);
+
     transition:
         border-color .25s ease,
         box-shadow .25s ease,
-        background .25s ease;
+        background .25s ease,
+        color .25s ease;
+}
+
+body.dark .typing-display {
+    box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .018);
 }
 
 .typing-display:hover {
-    border-color: #c9c6bd;
+    border-color: var(--lesson-muted);
 }
 
 .typing-display:focus {
-    border-color: #aaa99f;
-    background: #fffdf8;
+    border-color: var(--lesson-muted);
+    background: var(--lesson-input-focus);
     box-shadow: inset 0 0 0 3px rgba(0, 0, 0, .035);
+}
+
+body.dark .typing-display:focus {
+    box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .025);
 }
 
 .char {
@@ -536,6 +639,10 @@ body.dark {
     animation: wrongChar .18s ease;
 }
 
+body.dark .char.wrong {
+    background: rgba(227, 107, 99, .15);
+}
+
 .typing-help {
     margin: 11px 0 0;
     color: var(--lesson-faint);
@@ -543,7 +650,7 @@ body.dark {
 }
 
 /* =========================================================
-   VISUAL KEYBOARD
+   KEYBOARD
    ========================================================= */
 
 .keyboard-wrapper {
@@ -577,9 +684,15 @@ body.dark {
     width: min(760px, 100%);
     margin: auto;
     padding: 14px;
+
     border: 1px solid var(--lesson-line);
     border-radius: 17px;
-    background: #ebe8df;
+
+    background: var(--lesson-keyboard-bg);
+
+    transition:
+        background .3s ease,
+        border-color .3s ease;
 }
 
 .key-row {
@@ -597,13 +710,19 @@ body.dark {
     min-width: 38px;
     height: 37px;
     padding: 0 9px;
-    border: 1px solid #d8d5cc;
+
+    border: 1px solid var(--lesson-key-border);
     border-radius: 7px;
-    background: #faf8f1;
-    color: #66675f;
+
+    background: var(--lesson-key-bg);
+    color: var(--lesson-key-text);
+
     font: 500 10px "DM Mono", monospace;
+
     cursor: pointer;
-    box-shadow: 0 2px 0 #d2cfc5;
+
+    box-shadow: 0 2px 0 var(--lesson-key-shadow);
+
     transition:
         transform .12s ease,
         background .12s ease,
@@ -613,7 +732,7 @@ body.dark {
 }
 
 .key:hover {
-    border-color: #aaa99f;
+    border-color: var(--lesson-muted);
     color: var(--lesson-text);
     transform: translateY(-1px);
 }
@@ -639,7 +758,7 @@ body.dark {
     transform: translateY(2px);
     border-color: var(--lesson-text);
     background: var(--lesson-text);
-    color: #fff;
+    color: var(--lesson-bg);
     box-shadow: 0 0 0 transparent;
 }
 
@@ -652,7 +771,7 @@ body.dark {
 
 .key.wrong {
     border-color: var(--lesson-error);
-    background: #f7dcd9;
+    background: rgba(201, 75, 67, .14);
     color: var(--lesson-error);
     animation: keyError .18s ease;
 }
@@ -677,17 +796,62 @@ body.dark {
 }
 
 /* =========================================================
+   LESSON BUTTONS
+   IMPORTANT:
+   Prevent global button styles from breaking dark theme.
+   ========================================================= */
+
+.lesson-main .button,
+.lesson-main button.button {
+    border-color: var(--lesson-line);
+    background: var(--lesson-card);
+    color: var(--lesson-text);
+    transition:
+        background .25s ease,
+        color .25s ease,
+        border-color .25s ease,
+        transform .25s ease;
+}
+
+.lesson-main .button:hover,
+.lesson-main button.button:hover {
+    border-color: var(--lesson-muted);
+    background: var(--lesson-button-hover);
+    color: var(--lesson-text);
+}
+
+/* Primary buttons can still use the lesson text color */
+.lesson-main .button.primary,
+.lesson-main button.button.primary {
+    border-color: var(--lesson-text);
+    background: var(--lesson-text);
+    color: var(--lesson-bg);
+}
+
+.lesson-main .button.primary:hover,
+.lesson-main button.button.primary:hover {
+    background: var(--lesson-text);
+    color: var(--lesson-bg);
+}
+
+/* =========================================================
    COMPLETION
    ========================================================= */
 
 .lesson-complete {
     margin-bottom: 18px;
     padding: 58px 30px;
+
     border: 1px solid var(--lesson-line);
     border-radius: var(--lesson-radius);
+
     background: var(--lesson-card);
+    color: var(--lesson-text);
+
     box-shadow: var(--lesson-shadow);
+
     text-align: center;
+
     animation: completeIn .55s cubic-bezier(.22, 1, .36, 1) both;
 }
 
@@ -697,15 +861,20 @@ body.dark {
     height: 60px;
     place-items: center;
     margin: 0 auto 20px;
+
     border-radius: 50%;
+
     background: var(--lesson-text);
-    color: #fff;
+    color: var(--lesson-bg);
+
     font-size: 23px;
+
     animation: completeIcon .6s cubic-bezier(.22, 1, .36, 1) .1s both;
 }
 
 .lesson-complete h2 {
     margin: 9px 0;
+    color: var(--lesson-text);
     font-size: clamp(30px, 5vw, 46px);
     letter-spacing: -.05em;
 }
@@ -720,9 +889,12 @@ body.dark {
 .completion-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+
     max-width: 620px;
     margin: 32px auto;
+
     overflow: hidden;
+
     border: 1px solid var(--lesson-line);
     border-radius: 17px;
 }
@@ -744,6 +916,7 @@ body.dark {
 }
 
 .completion-stats strong {
+    color: var(--lesson-text);
     font-size: 25px;
 }
 
@@ -755,7 +928,7 @@ body.dark {
 }
 
 /* =========================================================
-   NAVIGATION
+   PREVIOUS / NEXT NAVIGATION
    ========================================================= */
 
 .lesson-navigation {
@@ -764,30 +937,56 @@ body.dark {
     align-items: center;
     gap: 14px;
     margin-top: 30px;
+
     animation: lessonReveal .55s ease .2s both;
 }
 
-.lesson-nav-button {
+.lesson-nav-button,
+.lesson-nav-button:visited {
     display: flex;
     align-items: center;
     gap: 14px;
+
     min-height: 68px;
     padding: 13px 17px;
+
     border: 1px solid var(--lesson-line);
     border-radius: 17px;
+
     background: var(--lesson-card);
     color: var(--lesson-text);
+
     text-decoration: none;
+
     transition:
         transform .25s ease,
         border-color .25s ease,
-        background .25s ease;
+        background .25s ease,
+        color .25s ease;
+}
+
+.lesson-nav-button span,
+.lesson-nav-button strong {
+    color: var(--lesson-text);
+}
+
+.lesson-nav-button small {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--lesson-faint);
+    font: 500 9px "DM Mono", monospace;
 }
 
 .lesson-nav-button:hover {
     transform: translateY(-2px);
-    border-color: #aaa99f;
-    background: #fffdf8;
+    border-color: var(--lesson-muted);
+    background: var(--lesson-button-hover);
+    color: var(--lesson-text);
+}
+
+.lesson-nav-button:hover span,
+.lesson-nav-button:hover strong {
+    color: var(--lesson-text);
 }
 
 .lesson-nav-button.next {
@@ -799,18 +998,12 @@ body.dark {
     font-size: 18px;
 }
 
-.lesson-nav-button small {
-    display: block;
-    margin-bottom: 4px;
-    color: var(--lesson-faint);
-    font: 500 9px "DM Mono", monospace;
-}
-
 .lesson-nav-button strong {
     font-size: 13px;
 }
 
-.lesson-nav-center {
+.lesson-nav-center,
+.lesson-nav-center:visited {
     color: var(--lesson-muted);
     font: 500 10px "DM Mono", monospace;
     text-decoration: none;
@@ -820,6 +1013,32 @@ body.dark {
 .lesson-nav-center:hover {
     color: var(--lesson-text);
 }
+
+/* =========================================================
+   FORCE THEME ON NAV BUTTONS
+   If another global CSS file contains .button rules,
+   these selectors still protect lesson navigation.
+   ========================================================= */
+
+body.dark .lesson-nav-button,
+body.dark .lesson-nav-button:visited {
+    background: var(--lesson-card);
+    color: var(--lesson-text);
+    border-color: var(--lesson-line);
+}
+
+body.dark .lesson-nav-button span,
+body.dark .lesson-nav-button strong {
+    color: var(--lesson-text);
+}
+
+body.dark .lesson-nav-button small {
+    color: var(--lesson-faint);
+}
+
+/* =========================================================
+   HIDDEN
+   ========================================================= */
 
 [hidden] {
     display: none !important;
@@ -1025,6 +1244,10 @@ body.dark {
         font-size: 13px;
     }
 
+    .lesson-meta-top {
+        gap: 12px;
+    }
+
     .typing-display {
         min-height: 190px;
         padding: 21px;
@@ -1058,6 +1281,10 @@ body.dark {
         flex-direction: column;
     }
 
+    .practice-actions .button {
+        width: 100%;
+    }
+
     .key {
         min-width: 21px;
         height: 31px;
@@ -1066,17 +1293,45 @@ body.dark {
     }
 
     .key.space {
-        width: 105px;
+        width: 100px;
     }
 
     .key.shift,
     .key.enter {
-        width: 45px;
+        width: 43px;
     }
 
-    .guide-visual {
-        min-height: 190px;
-        padding: 12px;
+    .keyboard {
+        padding: 6px;
+    }
+
+    .key-row {
+        gap: 2px;
+        margin-bottom: 3px;
+    }
+
+    .keyboard-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .lesson-nav-button {
+        min-height: 60px;
+        padding: 11px 12px;
+        gap: 8px;
+    }
+
+    .lesson-nav-button span {
+        font-size: 15px;
+    }
+
+    .lesson-nav-button strong {
+        font-size: 11px;
+    }
+
+    .lesson-nav-button small {
+        font-size: 8px;
     }
 }
 
@@ -1086,13 +1341,22 @@ body.dark {
 
 @media (prefers-reduced-motion: reduce) {
 
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
+    .lesson-card,
+    .lesson-navigation,
+    .info-block,
+    .guide-visual,
+    .progress-track span,
+    .exercise-tab,
+    .typing-display,
+    .lesson-nav-button,
+    .level-arrow,
+    .lesson-item,
+    .lesson-arrow {
+        transition: none;
+    }
+
+    .lesson-card,
+    .lesson-navigation {
+        animation: none;
     }
     }
-        
