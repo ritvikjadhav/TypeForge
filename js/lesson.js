@@ -15,7 +15,7 @@
                 "Understand the keyboard layout and the purpose of the keys you use every day.",
             duration: 8,
 
-            guideTitle: "Start with the keyboard.",
+            
             guideText:
                 "Your first goal is familiarity, not speed.",
 
