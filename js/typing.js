@@ -392,51 +392,60 @@ class TypingTest {
     }
 
     saveResult() {
-        const elapsed =
-            Math.round(this.getElapsedTime());
-        const minutes =
-            Math.max(elapsed / 60, 1 / 60);
-        const wpm =
-            Math.round(
-                (this.correct / 5) / minutes
-            );
-        const rawWpm =
-            Math.round(
-                (this.typed / 5) / minutes
-            );
-        const accuracy =
-            this.typed
-                ? Math.round(
-                    (this.correct / this.typed) * 100
-                )
-                : 100;
-        const history =
-            JSON.parse(
-                localStorage.getItem(
-                    "veltype-history"
-                ) || "[]"
-            );
+    const elapsed = Math.round(this.getElapsedTime());
 
-        history.unshift({
-            wpm: Math.max(wpm, 0),
-            rawWpm: Math.max(rawWpm, 0),
-            accuracy,
-            errors: this.errors,
-            characters: this.typed,
-            correctCharacters: this.correct,
-            duration: elapsed,
-            mode: this.timeLimit,
-            date: new Date().toISOString()
-        });
-        
-        localStorage.setItem(
-            "veltype-history",
-            JSON.stringify(
-                history.slice(0, 50)
-            )
+    const minutes = Math.max(
+        elapsed / 60,
+        1 / 60
+    );
+
+    const wpm = Math.round(
+        (this.correct / 5) / minutes
+    );
+
+    const rawWpm = Math.round(
+        (this.typed / 5) / minutes
+    );
+
+    const accuracy = this.typed
+        ? Math.round(
+            (this.correct / this.typed) * 100
+        )
+        : 100;
+
+    let history = [];
+
+    try {
+        history = JSON.parse(
+            localStorage.getItem("veltypeTests") || "[]"
         );
+
+        if (!Array.isArray(history)) {
+            history = [];
+        }
+    } catch {
+        history = [];
     }
 
+    history.unshift({
+        wpm: Math.max(wpm, 0),
+        rawWpm: Math.max(rawWpm, 0),
+        accuracy: Math.min(100, accuracy),
+        errors: this.errors,
+        characters: this.typed,
+        correctCharacters: this.correct,
+        duration: elapsed,
+        mode: this.timeLimit,
+        date: new Date().toISOString(),
+        timestamp: Date.now()
+    });
+
+    localStorage.setItem(
+        "veltypeTests",
+        JSON.stringify(history.slice(0, 50))
+    );
+    }
+    
     reset() {
         clearInterval(this.timer);
         this.timeLeft = this.timeLimit;
