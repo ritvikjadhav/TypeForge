@@ -21,10 +21,6 @@
     --learn-radius: 24px;
 }
 
-/* =========================================
-   DARK THEME
-   ========================================= */
-
 body.dark {
     --learn-bg: #111210;
     --learn-card: #181916;
@@ -110,13 +106,88 @@ body.dark {
     font-size: 10px;
     letter-spacing: .08em;
     transition:
+        background-color .3s ease,
         border-color .3s ease,
         color .3s ease,
-        background-color .3s ease;
+        transform .3s ease;
+}
+
+.learn-hero-meta span:hover {
+    background: var(--learn-hover);
+    transform: translateY(-2px);
 }
 
 /* =========================================
-   PATH HEADER
+   HERO ANIMATION
+   ========================================= */
+
+@keyframes learnFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes learnFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.learn-hero .section-label {
+    opacity: 0;
+    animation:
+        learnFadeUp .7s cubic-bezier(.22, 1, .36, 1) .05s forwards;
+}
+
+.learn-hero h1 {
+    opacity: 0;
+    animation:
+        learnFadeUp .85s cubic-bezier(.22, 1, .36, 1) .15s forwards;
+}
+
+.learn-hero p {
+    opacity: 0;
+    animation:
+        learnFadeUp .75s cubic-bezier(.22, 1, .36, 1) .3s forwards;
+}
+
+.learn-hero-meta {
+    opacity: 0;
+    animation:
+        learnFadeUp .7s cubic-bezier(.22, 1, .36, 1) .45s forwards;
+}
+
+.learn-hero-meta span {
+    opacity: 0;
+    transform: translateY(8px);
+    animation:
+        learnFadeUp .55s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+.learn-hero-meta span:nth-child(1) {
+    animation-delay: .5s;
+}
+
+.learn-hero-meta span:nth-child(2) {
+    animation-delay: .6s;
+}
+
+.learn-hero-meta span:nth-child(3) {
+    animation-delay: .7s;
+}
+
+/* =========================================
+   LEARNING PATH
    ========================================= */
 
 .learning-path {
@@ -129,6 +200,9 @@ body.dark {
     align-items: end;
     gap: 30px;
     margin-bottom: 30px;
+    opacity: 0;
+    animation:
+        learnFadeUp .75s cubic-bezier(.22, 1, .36, 1) .15s forwards;
 }
 
 .path-header h2 {
@@ -158,49 +232,7 @@ body.dark {
 }
 
 /* =========================================
-   SCROLL REVEAL
-   Controlled by learn.js
-   ========================================= */
-
-.level.reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition:
-        opacity .7s ease,
-        transform .7s cubic-bezier(.22, 1, .36, 1),
-        border-color .35s ease,
-        background-color .35s ease,
-        box-shadow .35s ease;
-}
-
-.level.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Stagger each level */
-.level:nth-child(2) {
-    transition-delay: .08s;
-}
-
-.level:nth-child(3) {
-    transition-delay: .16s;
-}
-
-.level:nth-child(4) {
-    transition-delay: .24s;
-}
-
-.level:nth-child(5) {
-    transition-delay: .32s;
-}
-
-.level:nth-child(6) {
-    transition-delay: .40s;
-}
-
-/* =========================================
-   LEVEL ACCORDION
+   LEVEL CARD
    ========================================= */
 
 .level {
@@ -212,11 +244,44 @@ body.dark {
         var(--learn-card) 62%,
         transparent
     );
+    opacity: 0;
+    transform: translateY(24px);
+    animation:
+        learnFadeUp .7s cubic-bezier(.22, 1, .36, 1) forwards;
     transition:
         border-color .35s ease,
         background-color .35s ease,
-        box-shadow .35s ease;
+        box-shadow .35s ease,
+        transform .35s cubic-bezier(.22, 1, .36, 1);
 }
+
+/* Level entrance stagger */
+
+.level:nth-child(1) {
+    animation-delay: .1s;
+}
+
+.level:nth-child(2) {
+    animation-delay: .18s;
+}
+
+.level:nth-child(3) {
+    animation-delay: .26s;
+}
+
+.level:nth-child(4) {
+    animation-delay: .34s;
+}
+
+.level:nth-child(5) {
+    animation-delay: .42s;
+}
+
+.level:nth-child(6) {
+    animation-delay: .50s;
+}
+
+/* Level hover */
 
 .level:hover {
     transform: translateY(-2px);
@@ -244,6 +309,17 @@ body.dark {
     color: inherit;
     text-align: left;
     cursor: pointer;
+    transition:
+        background-color .3s ease,
+        transform .25s ease;
+}
+
+.level-trigger:hover {
+    background: var(--learn-hover);
+}
+
+.level-trigger:active {
+    transform: scale(.995);
 }
 
 .level-number {
@@ -322,7 +398,8 @@ body.dark {
     height: 100%;
     border-radius: inherit;
     background: var(--learn-text);
-    transition: width .9s cubic-bezier(.22, 1, .36, 1);
+    transition:
+        width .9s cubic-bezier(.22, 1, .36, 1);
 }
 
 /* =========================================
@@ -354,7 +431,7 @@ body.dark {
 }
 
 /* =========================================
-   ACCORDION CONTENT
+   ACCORDION
    ========================================= */
 
 .level-content {
@@ -394,17 +471,36 @@ body.dark {
     text-decoration: none;
     color: inherit;
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
     transition:
         opacity .4s ease,
-        transform .4s cubic-bezier(.22, 1, .36, 1),
+        transform .45s cubic-bezier(.22, 1, .36, 1),
         background-color .25s ease,
-        border-color .25s ease;
+        border-color .25s ease,
+        padding-left .3s ease;
 }
 
 .level.open .lesson-item {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Lesson stagger */
+
+.level.open .lesson-item:nth-child(1) {
+    transition-delay: .04s;
+}
+
+.level.open .lesson-item:nth-child(2) {
+    transition-delay: .09s;
+}
+
+.level.open .lesson-item:nth-child(3) {
+    transition-delay: .14s;
+}
+
+.level.open .lesson-item:nth-child(4) {
+    transition-delay: .19s;
 }
 
 .lesson-item:last-child {
@@ -413,7 +509,8 @@ body.dark {
 
 .lesson-item:hover {
     background: var(--learn-hover);
-    transform: translateX(6px);
+    transform: translateX(5px);
+    padding-left: 37px;
 }
 
 .lesson-number {
@@ -484,7 +581,7 @@ body.dark {
 }
 
 /* =========================================
-   COMPLETED STATE
+   COMPLETED LESSON
    ========================================= */
 
 .lesson-item.completed .lesson-number {
@@ -513,6 +610,9 @@ body.dark {
 .learn-cta {
     padding: 100px 0;
     border-top: 1px solid var(--learn-line);
+    opacity: 0;
+    animation:
+        learnFadeUp .8s cubic-bezier(.22, 1, .36, 1) .2s forwards;
 }
 
 .learn-cta .learn-container {
@@ -531,6 +631,34 @@ body.dark {
 }
 
 /* =========================================
+   FOOTER
+   ========================================= */
+
+.footer {
+    animation:
+        learnFadeIn .8s ease .35s both;
+}
+
+/* =========================================
+   DARK MODE TRANSITIONS
+   ========================================= */
+
+.learn-page,
+.level,
+.level-tag,
+.level-arrow,
+.lesson-item,
+.lesson-arrow,
+.learn-hero-meta span,
+.progress-track,
+.learn-cta {
+    transition:
+        background-color .3s ease,
+        border-color .3s ease,
+        color .3s ease;
+}
+
+/* =========================================
    MOBILE
    ========================================= */
 
@@ -539,6 +667,8 @@ body.dark {
     .learn-container {
         width: min(100% - 32px, 1180px);
     }
+
+    /* Hero */
 
     .learn-hero {
         padding: 70px 0 55px;
@@ -558,6 +688,8 @@ body.dark {
         margin-top: 28px;
     }
 
+    /* Path */
+
     .learning-path {
         padding-bottom: 70px;
     }
@@ -573,8 +705,14 @@ body.dark {
         font-size: 35px;
     }
 
+    /* Levels */
+
     .level {
         border-radius: 20px;
+    }
+
+    .level:hover {
+        transform: none;
     }
 
     .level-trigger {
@@ -610,10 +748,17 @@ body.dark {
         font-size: 17px;
     }
 
+    /* Lessons */
+
     .lesson-item {
         grid-template-columns: 30px 1fr 40px;
         gap: 12px;
         padding: 22px 18px;
+    }
+
+    .lesson-item:hover {
+        transform: none;
+        padding-left: 18px;
     }
 
     .lesson-number {
@@ -643,6 +788,8 @@ body.dark {
         font-size: 16px;
     }
 
+    /* CTA */
+
     .learn-cta {
         padding: 70px 0;
     }
@@ -667,21 +814,25 @@ body.dark {
 
 @media (prefers-reduced-motion: reduce) {
 
+    .learn-page,
+    .learn-hero .section-label,
+    .learn-hero h1,
+    .learn-hero p,
+    .learn-hero-meta,
+    .learn-hero-meta span,
+    .path-header,
     .level,
-    .level.reveal,
-    .level.reveal.visible,
+    .level-trigger,
     .level-content,
     .level-arrow,
     .lesson-item,
     .lesson-arrow,
     .progress-fill,
-    .learn-page,
-    .learn-hero-meta span {
+    .learn-cta,
+    .footer {
+        animation: none !important;
         transition: none !important;
+        opacity: 1 !important;
         transform: none !important;
     }
-
-    .level.reveal {
-        opacity: 1 !important;
-    }
-}
+   }
