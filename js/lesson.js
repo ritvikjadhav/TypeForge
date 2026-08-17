@@ -44,7 +44,7 @@ const lessons = [
             "Keep both feet stable.",
             "Look at the screen while typing."
         ],
-        guideImage: "assets/images/tutorials/typing-posture.webp",
+        guideImage: "image/typing-posture.png",
         exercises: [
             "asdf jkl; asdf jkl; keep your shoulders relaxed",
             "jkl; asdf jkl; asdf keep your wrists straight",
@@ -69,7 +69,7 @@ const lessons = [
             "Keep your fingers naturally curved.",
             "Return to home position after movement."
         ],
-        guideImage: "assets/images/tutorials/finger-placement.webp",
+        guideImage: "image/finger-placement.png",
         exercises: [
             "a s d f j k l ; a s d f j k l ;",
             "fj dk sl a; fj dk sl a; fdsa jkl;",
@@ -94,7 +94,7 @@ const lessons = [
             "Prioritize correct keystrokes.",
             "Increase speed only when accuracy is stable."
         ],
-        guideImage: "assets/images/tutorials/home-row.webp",
+        guideImage: "image/home-row.png",
         exercises: [
             "fff jjj ddd kkk sss lll aaa ;;;",
             "asdf fdsa jkl; ;lkj asdf jkl; fdsa",
@@ -110,7 +110,7 @@ const lessons = [
         title: "Left Hand Reach",
         description: "Strengthen left-hand control across the home, top and bottom rows.",
         duration: 14,
-        guideImage: "assets/images/tutorials/left-hand-reach.webp",
+        guideImage: "image/left-hand-reach.png",
         exercises: [
             "aqaz swsx dedc frfv aqaz swsx dedc frfv",
             "qwer asdf zxcv qwer asdf zxcv",
@@ -126,7 +126,7 @@ const lessons = [
         title: "Right Hand Reach",
         description: "Build controlled movement across the right side of the keyboard.",
         duration: 14,
-        guideImage: "assets/images/tutorials/right-hand-reach.webp",
+        guideImage: "image/right-hand-reach.png",
         exercises: [
             "jujm kik, lol. jujm kik, lol. yuiop",
             "yuiop hjkl; nm,. yuiop hjkl; nm,.",
@@ -142,7 +142,7 @@ const lessons = [
         title: "Top Row",
         description: "Reach upward while keeping your hands connected to the home position.",
         duration: 15,
-        guideImage: "assets/images/tutorials/top-row.webp",
+        guideImage: "image/top-row.png",
         exercises: [
             "qwer tyui qwer tyui opqw erui",
             "write every word clearly while keeping your fingers relaxed",
@@ -158,7 +158,7 @@ const lessons = [
         title: "Bottom Row",
         description: "Develop comfortable movement on the bottom row without losing control.",
         duration: 15,
-        guideImage: "assets/images/tutorials/bottom-row.webp",
+        guideImage: "image/bottom-row.png",
         exercises: [
             "zxcv bnm zxcv bnm zxcv bnm",
             "zinc move next zoom across the bottom row",
