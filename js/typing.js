@@ -476,4 +476,4 @@ class TypingTest {
             preventScroll: true
         });
     }
-            }
+}
