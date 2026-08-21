@@ -1,94 +1,136 @@
+"use strict";
+
 /* =========================================
    VELTYPE — LEARN
-   Lesson data, rendering, accordion and progress
+   Learning path, lesson rendering and progress
    ========================================= */
 
-const levels = [
+const levelList = document.getElementById("levelList");
+
+const STORAGE_KEY = "veltypeLessonProgress";
+
+/*
+    Six learning levels.
+    Lesson information itself comes from lessondata.js.
+*/
+
+const levelGroups = [
     {
         id: 1,
         title: "Foundation",
         description: "Start here if you're new to touch typing.",
         difficulty: "Beginner",
-        lessons: [
-            { id: 1, title: "Keyboard Basics", description: "Understand the keyboard, key groups and the role of the most important keys.", duration: 8, difficulty: "Beginner" },
-            { id: 2, title: "Correct Sitting Position", description: "Set up your hands, wrists, posture and screen position for comfortable typing.", duration: 7, difficulty: "Beginner" },
-            { id: 3, title: "Finger Placement", description: "Learn which finger controls each part of the keyboard and why position matters.", duration: 10, difficulty: "Beginner" },
-            { id: 4, title: "Home Row Basics", description: "Master the home row and use F and J as your navigation anchors.", duration: 10, difficulty: "Beginner" }
-        ]
+        lessonIds: [1, 2, 3, 4]
     },
     {
         id: 2,
         title: "Core Typing",
         description: "Build control across the full keyboard.",
         difficulty: "Beginner",
-        lessons: [
-            { id: 5, title: "Left Hand Practice", description: "Build muscle memory across the left side of the keyboard.", duration: 10, difficulty: "Beginner" },
-            { id: 6, title: "Right Hand Practice", description: "Strengthen your right-hand movement while maintaining correct finger placement.", duration: 10, difficulty: "Beginner" },
-            { id: 7, title: "Top Row", description: "Reach the top row naturally without losing your home-row position.", duration: 12, difficulty: "Beginner" },
-            { id: 8, title: "Bottom Row", description: "Learn the bottom row and improve accuracy across the full alphabet.", duration: 12, difficulty: "Beginner" }
-        ]
+        lessonIds: [5, 6, 7, 8]
     },
     {
         id: 3,
         title: "Accuracy",
         description: "Turn correct technique into reliable typing.",
         difficulty: "Intermediate",
-        lessons: [
-            { id: 9, title: "Numbers & Symbols", description: "Learn efficient movement for numbers, punctuation and common symbols.", duration: 12, difficulty: "Intermediate" },
-            { id: 10, title: "Capital Letters", description: "Use Shift correctly and build clean capitalization habits.", duration: 8, difficulty: "Intermediate" },
-            { id: 11, title: "Punctuation", description: "Practice commas, periods, quotes, brackets and other everyday punctuation.", duration: 12, difficulty: "Intermediate" },
-            { id: 12, title: "Fixing Common Errors", description: "Identify repeated mistakes and build cleaner typing habits.", duration: 10, difficulty: "Intermediate" }
-        ]
+        lessonIds: [9, 10, 11, 12, 13, 14]
     },
     {
         id: 4,
         title: "Speed",
         description: "Build speed without losing control.",
         difficulty: "Intermediate",
-        lessons: [
-            { id: 13, title: "Common Letter Patterns", description: "Practice frequently used letter combinations to reduce unnecessary movement.", duration: 12, difficulty: "Intermediate" },
-            { id: 14, title: "Common Words", description: "Build speed through high-frequency words used in everyday writing.", duration: 12, difficulty: "Intermediate" },
-            { id: 15, title: "Sentence Flow", description: "Move from isolated words to smooth, continuous sentences.", duration: 12, difficulty: "Intermediate" },
-            { id: 16, title: "Building Consistent Speed", description: "Learn how to maintain speed without sacrificing accuracy.", duration: 15, difficulty: "Intermediate" }
-        ]
+        lessonIds: [15, 16, 17, 18]
     },
     {
         id: 5,
         title: "Real World",
         description: "Apply typing skills to everyday computer work.",
         difficulty: "Advanced",
-        lessons: [
-            { id: 17, title: "Typing Emails", description: "Practice the patterns, punctuation and formatting commonly used in emails.", duration: 12, difficulty: "Intermediate" },
-            { id: 18, title: "Documents & Writing", description: "Improve typing endurance through longer-form everyday writing.", duration: 15, difficulty: "Intermediate" },
-            { id: 19, title: "Typing for Coding", description: "Practice symbols, brackets and character combinations commonly used in code.", duration: 15, difficulty: "Advanced" },
-            { id: 20, title: "Numbers & Data Entry", description: "Develop reliable number-entry speed and accuracy for practical work.", duration: 12, difficulty: "Advanced" }
-        ]
+        lessonIds: [19, 20, 21, 22]
     },
     {
         id: 6,
         title: "Advanced",
         description: "Push your speed, endurance and consistency.",
         difficulty: "Advanced",
-        lessons: [
-            { id: 21, title: "Speed Under Pressure", description: "Maintain accuracy while gradually increasing your typing speed.", duration: 15, difficulty: "Advanced" },
-            { id: 22, title: "Long-Form Endurance", description: "Build the stamina needed for longer writing and work sessions.", duration: 18, difficulty: "Advanced" },
-            { id: 23, title: "60+ WPM Training", description: "Use structured drills to move beyond intermediate typing speeds.", duration: 20, difficulty: "Advanced" },
-            { id: 24, title: "Final Typing Challenge", description: "Put everything together in a realistic test of speed, accuracy and consistency.", duration: 20, difficulty: "Advanced" }
-        ]
+        lessonIds: [23, 24]
     }
 ];
 
 /* =========================================
-   ELEMENTS & INITIALIZATION
+   INITIALIZATION
    ========================================= */
 
-const levelList = document.getElementById("levelList");
-
-if (levelList) {
+if (levelList && Array.isArray(lessons)) {
     renderLevels();
     setupAccordion();
     loadProgress();
     setupRevealAnimations();
+
+    window.addEventListener("storage", handleStorageChange);
+}
+
+/* =========================================
+   GET LESSON
+   Reads lesson information from lessondata.js
+   ========================================= */
+
+function getLesson(id) {
+    return lessons.find(
+        lesson => lesson.id === id
+    );
+}
+
+/* =========================================
+   READ PROGRESS
+   ========================================= */
+
+function getProgress() {
+    try {
+        const saved = JSON.parse(
+            localStorage.getItem(STORAGE_KEY)
+        );
+
+        return saved && typeof saved === "object"
+            ? saved
+            : {};
+    } catch {
+        return {};
+    }
+}
+
+/* =========================================
+   CHECK LESSON COMPLETION
+   ========================================= */
+
+function isLessonCompleted(id, progress) {
+    return Boolean(
+        progress[id]?.completed === true
+    );
+}
+
+/* =========================================
+   CHECK LESSON UNLOCK
+   =========================================
+
+   Lesson 1 is always unlocked.
+
+   Every next lesson becomes available
+   only after the previous lesson is
+   completely finished.
+*/
+
+function isLessonUnlocked(id, progress) {
+    if (id === 1) {
+        return true;
+    }
+
+    return isLessonCompleted(
+        id - 1,
+        progress
+    );
 }
 
 /* =========================================
@@ -96,213 +138,485 @@ if (levelList) {
    ========================================= */
 
 function renderLevels() {
-    levelList.innerHTML = levels.map(level => `
-        <article class="level reveal" data-level="${level.id}">
-            <button class="level-trigger" type="button" aria-expanded="false" aria-controls="level-content-${level.id}">
-                <span class="level-number">${String(level.id).padStart(2, "0")}</span>
+    const progress = getProgress();
 
-                <span class="level-main">
-                    <span class="level-title-row">
-                        <span class="level-title">${level.title}</span>
-                        <span class="level-tag">${level.difficulty}</span>
-                    </span>
+    levelList.innerHTML = levelGroups
+        .map(level => {
+            const levelLessons = level.lessonIds
+                .map(getLesson)
+                .filter(Boolean);
 
-                    <span class="level-description">${level.description}</span>
+            const completedCount =
+                levelLessons.filter(lesson =>
+                    isLessonCompleted(
+                        lesson.id,
+                        progress
+                    )
+                ).length;
 
-                    <span class="level-progress">
-                        <span class="level-progress-top">
-                            <span class="progress-count">0/${level.lessons.length}</span>
-                            <span class="progress-percent">0%</span>
+            const percent =
+                levelLessons.length
+                    ? Math.round(
+                          (completedCount /
+                              levelLessons.length) *
+                              100
+                      )
+                    : 0;
+
+            return `
+                <article
+                    class="level reveal"
+                    data-level="${level.id}"
+                >
+
+                    <button
+                        class="level-trigger"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="level-content-${level.id}"
+                    >
+
+                        <span class="level-number">
+                            ${String(level.id).padStart(2, "0")}
                         </span>
 
-                        <span class="progress-track">
-                            <span class="progress-fill"></span>
-                        </span>
-                    </span>
-                </span>
+                        <span class="level-main">
 
-                <span class="level-arrow" aria-hidden="true">↓</span>
-            </button>
+                            <span class="level-title-row">
+                                <span class="level-title">
+                                    ${escapeHTML(level.title)}
+                                </span>
 
-            <div class="level-content" id="level-content-${level.id}">
-                <div class="level-content-inner">
-                    <div class="lesson-list">
-                        ${level.lessons.map(lesson => `
-                            <a href="lesson.html?lesson=${lesson.id}" class="lesson-item" data-lesson="${lesson.id}">
-                                <span class="lesson-number">${String(lesson.id).padStart(2, "0")}</span>
+                                <span class="level-tag">
+                                    ${escapeHTML(level.difficulty)}
+                                </span>
+                            </span>
 
-                                <span class="lesson-content">
-                                    <span class="lesson-title">${lesson.title}</span>
-                                    <span class="lesson-description">${lesson.description}</span>
+                            <span class="level-description">
+                                ${escapeHTML(level.description)}
+                            </span>
 
-                                    <span class="lesson-meta">
-                                        <span>${lesson.duration} min</span>
-                                        <span>${lesson.difficulty}</span>
+                            <span class="level-progress">
+
+                                <span class="level-progress-top">
+                                    <span class="progress-count">
+                                        ${completedCount}/${levelLessons.length}
+                                    </span>
+
+                                    <span class="progress-percent">
+                                        ${percent}%
                                     </span>
                                 </span>
 
-                                <span class="lesson-arrow" aria-hidden="true">→</span>
-                            </a>
-                        `).join("")}
+                                <span class="progress-track">
+                                    <span
+                                        class="progress-fill"
+                                        style="width: ${percent}%"
+                                    ></span>
+                                </span>
+
+                            </span>
+
+                        </span>
+
+                        <span
+                            class="level-arrow"
+                            aria-hidden="true"
+                        >
+                            ↓
+                        </span>
+
+                    </button>
+
+                    <div
+                        class="level-content"
+                        id="level-content-${level.id}"
+                    >
+
+                        <div class="level-content-inner">
+
+                            <div class="lesson-list">
+
+                                ${levelLessons
+                                    .map(
+                                        lesson =>
+                                            renderLessonItem(
+                                                lesson,
+                                                progress
+                                            )
+                                    )
+                                    .join("")}
+
+                            </div>
+
+                        </div>
+
                     </div>
-                </div>
+
+                </article>
+            `;
+        })
+        .join("");
+}
+
+/* =========================================
+   RENDER LESSON ITEM
+   ========================================= */
+
+function renderLessonItem(
+    lesson,
+    progress
+) {
+    const completed =
+        isLessonCompleted(
+            lesson.id,
+            progress
+        );
+
+    const unlocked =
+        isLessonUnlocked(
+            lesson.id,
+            progress
+        );
+
+    const classes = [
+        "lesson-item",
+        completed ? "completed" : "",
+        !unlocked ? "locked" : ""
+    ]
+        .filter(Boolean)
+        .join(" ");
+
+    if (!unlocked) {
+        return `
+            <div
+                class="${classes}"
+                data-lesson="${lesson.id}"
+                aria-disabled="true"
+            >
+
+                <span class="lesson-number">
+                    ${String(lesson.id).padStart(2, "0")}
+                </span>
+
+                <span class="lesson-content">
+
+                    <span class="lesson-title">
+                        ${escapeHTML(lesson.title)}
+                    </span>
+
+                    <span class="lesson-description">
+                        Complete Lesson ${String(
+                            lesson.id - 1
+                        ).padStart(2, "0")} to unlock this lesson.
+                    </span>
+
+                    <span class="lesson-meta">
+                        <span>
+                            ${lesson.duration} min
+                        </span>
+
+                        <span>
+                            ${escapeHTML(lesson.difficulty)}
+                        </span>
+
+                        <span>
+                            Locked
+                        </span>
+                    </span>
+
+                </span>
+
+                <span
+                    class="lesson-arrow"
+                    aria-hidden="true"
+                >
+                    🔒
+                </span>
+
             </div>
-        </article>
-    `).join("");
+        `;
+    }
+
+    return `
+        <a
+            href="lesson.html?lesson=${lesson.id}"
+            class="${classes}"
+            data-lesson="${lesson.id}"
+        >
+
+            <span class="lesson-number">
+                ${String(lesson.id).padStart(2, "0")}
+            </span>
+
+            <span class="lesson-content">
+
+                <span class="lesson-title">
+                    ${escapeHTML(lesson.title)}
+                </span>
+
+                <span class="lesson-description">
+                    ${escapeHTML(lesson.description)}
+                </span>
+
+                <span class="lesson-meta">
+
+                    <span>
+                        ${lesson.duration} min
+                    </span>
+
+                    <span>
+                        ${escapeHTML(lesson.difficulty)}
+                    </span>
+
+                    ${
+                        completed
+                            ? "<span>Completed</span>"
+                            : ""
+                    }
+
+                </span>
+
+            </span>
+
+            <span
+                class="lesson-arrow"
+                aria-hidden="true"
+            >
+                ${
+                    completed
+                        ? "✓"
+                        : "→"
+                }
+            </span>
+
+        </a>
+    `;
 }
 
 /* =========================================
    ACCORDION
-   Only one level stays open at a time
    ========================================= */
 
 function setupAccordion() {
-    document.querySelectorAll(".level-trigger").forEach(trigger => {
-        trigger.addEventListener("click", () => {
-            const level = trigger.closest(".level");
-            const isOpen = level.classList.contains("open");
+    document
+        .querySelectorAll(".level-trigger")
+        .forEach(trigger => {
+            trigger.addEventListener(
+                "click",
+                () => {
+                    const level =
+                        trigger.closest(".level");
 
-            document.querySelectorAll(".level.open").forEach(openLevel => {
-                if (openLevel !== level) closeLevel(openLevel);
-            });
+                    if (!level) {
+                        return;
+                    }
 
-            isOpen ? closeLevel(level) : openLevel(level);
+                    const isOpen =
+                        level.classList.contains(
+                            "open"
+                        );
+
+                    document
+                        .querySelectorAll(
+                            ".level.open"
+                        )
+                        .forEach(
+                            openLevel => {
+                                if (
+                                    openLevel !==
+                                    level
+                                ) {
+                                    closeLevel(
+                                        openLevel
+                                    );
+                                }
+                            }
+                        );
+
+                    if (isOpen) {
+                        closeLevel(level);
+                    } else {
+                        openLevel(level);
+                    }
+                }
+            );
         });
-    });
-}
-
-function openLevel(level) {
-    const trigger = level.querySelector(".level-trigger");
-    const items = level.querySelectorAll(".lesson-item");
-
-    level.classList.add("open");
-    trigger.setAttribute("aria-expanded", "true");
-
-    items.forEach((item, index) => {
-        item.style.transitionDelay = `${index * 60}ms`;
-    });
-}
-
-function closeLevel(level) {
-    const trigger = level.querySelector(".level-trigger");
-
-    level.classList.remove("open");
-    trigger.setAttribute("aria-expanded", "false");
-
-    level.querySelectorAll(".lesson-item").forEach(item => {
-        item.style.transitionDelay = "0ms";
-    });
 }
 
 /* =========================================
-   SCROLL REVEAL ANIMATION
-   Levels animate when entering the viewport
+   OPEN LEVEL
    ========================================= */
 
-function setupRevealAnimations() {
-    const elements = document.querySelectorAll(".reveal");
+function openLevel(level) {
+    const trigger =
+        level.querySelector(
+            ".level-trigger"
+        );
 
-    if (!elements.length) return;
+    const items =
+        level.querySelectorAll(
+            ".lesson-item"
+        );
 
-    if (!("IntersectionObserver" in window)) {
-        elements.forEach(element => element.classList.add("visible"));
-        return;
-    }
+    level.classList.add("open");
 
-    const observer = new IntersectionObserver(
-        entries => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-            });
-        },
-        {
-            threshold: 0.12,
-            rootMargin: "0px 0px -40px"
-        }
+    trigger?.setAttribute(
+        "aria-expanded",
+        "true"
     );
 
-    elements.forEach(element => observer.observe(element));
+    items.forEach(
+        (item, index) => {
+            item.style.transitionDelay =
+                `${index * 60}ms`;
+        }
+    );
 }
 
 /* =========================================
-   PROGRESS
-   Reads completed lessons from localStorage
+   CLOSE LEVEL
+   ========================================= */
+
+function closeLevel(level) {
+    const trigger =
+        level.querySelector(
+            ".level-trigger"
+        );
+
+    level.classList.remove("open");
+
+    trigger?.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+    level
+        .querySelectorAll(".lesson-item")
+        .forEach(item => {
+            item.style.transitionDelay =
+                "0ms";
+        });
+}
+
+/* =========================================
+   REFRESH PROGRESS
    ========================================= */
 
 function loadProgress() {
-    let completedLessons = [];
-
-    try {
-        completedLessons =
-            JSON.parse(localStorage.getItem("veltypeCompletedLessons")) || [];
-
-        if (!Array.isArray(completedLessons)) {
-            completedLessons = [];
-        }
-    } catch {
-        completedLessons = [];
+    if (!levelList) {
+        return;
     }
 
-    levels.forEach(level => {
-        const completed = level.lessons.filter(lesson =>
-            completedLessons.includes(String(lesson.id))
-        ).length;
+    const progress = getProgress();
 
-        const percent = Math.round(
-            (completed / level.lessons.length) * 100
-        );
+    renderLevels();
 
-        const levelElement = document.querySelector(
-            `[data-level="${level.id}"]`
-        );
+    setupAccordion();
 
-        if (!levelElement) return;
-
-        const count = levelElement.querySelector(".progress-count");
-        const percentage = levelElement.querySelector(".progress-percent");
-        const fill = levelElement.querySelector(".progress-fill");
-
-        if (count) {
-            count.textContent =
-                `${completed}/${level.lessons.length}`;
-        }
-
-        if (percentage) {
-            percentage.textContent =
-                `${percent}%`;
-        }
-
-        if (fill) {
-            requestAnimationFrame(() => {
-                fill.style.width = `${percent}%`;
-            });
-        }
-
-        level.lessons.forEach(lesson => {
-            const lessonElement = levelElement.querySelector(
-                `[data-lesson="${lesson.id}"]`
-            );
-
-            if (
-                lessonElement &&
-                completedLessons.includes(String(lesson.id))
-            ) {
-                lessonElement.classList.add("completed");
-            }
-        });
-    });
+    setupRevealAnimations();
 }
 
 /* =========================================
-   CROSS-PAGE PROGRESS UPDATE
-   Refresh progress when another page changes it
+   CROSS-PAGE STORAGE UPDATE
    ========================================= */
 
-window.addEventListener("storage", event => {
-    if (event.key === "veltypeCompletedLessons") {
+function handleStorageChange(event) {
+    if (
+        event.key === STORAGE_KEY
+    ) {
         loadProgress();
     }
-});
+}
+
+/* =========================================
+   SCROLL REVEAL
+   ========================================= */
+
+function setupRevealAnimations() {
+    const elements =
+        document.querySelectorAll(
+            ".reveal"
+        );
+
+    if (!elements.length) {
+        return;
+    }
+
+    if (
+        !(
+            "IntersectionObserver" in
+            window
+        )
+    ) {
+        elements.forEach(
+            element =>
+                element.classList.add(
+                    "visible"
+                )
+        );
+
+        return;
+    }
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+                entries.forEach(
+                    entry => {
+                        if (
+                            !entry.isIntersecting
+                        ) {
+                            return;
+                        }
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+                    }
+                );
+            },
+            {
+                threshold: 0.12,
+                rootMargin:
+                    "0px 0px -40px"
+            }
+        );
+
+    elements.forEach(
+        element =>
+            observer.observe(element)
+    );
+}
+
+/* =========================================
+   ESCAPE HTML
+   ========================================= */
+
+function escapeHTML(value) {
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+    }
