@@ -1,6 +1,14 @@
+VelType V1 Dashboard JavaScript
+
+/* VELTYPE — DASHBOARD V1 */
+
 (() => {
     "use strict";
-    
+
+    /* =========================================================
+       STORAGE
+       ========================================================= */
+
     const STORAGE_KEYS = {
         tests: "veltypeTests",
         lessons: "veltypeLessons",
@@ -8,24 +16,22 @@
         exercises: "veltypeExercises"
     };
 
-    const TOTAL_LESSONS = 24;
+    const $ = selector => document.querySelector(selector);
 
-    const $ = selector =>
-        document.querySelector(selector);
 
-    /* STORAGE */
+    /* =========================================================
+       LOCAL STORAGE HELPERS
+       ========================================================= */
 
     function getData(key, fallback = []) {
         try {
-            const stored =
-                localStorage.getItem(key);
+            const value = localStorage.getItem(key);
 
-            if (!stored) {
+            if (!value) {
                 return fallback;
             }
 
-            const data =
-                JSON.parse(stored);
+            const data = JSON.parse(value);
 
             return data ?? fallback;
         } catch {
@@ -34,59 +40,39 @@
     }
 
     function getTests() {
-        const data =
-            getData(
-                STORAGE_KEYS.tests,
-                []
-            );
+        const data = getData(STORAGE_KEYS.tests, []);
 
-        return Array.isArray(data)
-            ? data
-            : [];
+        return Array.isArray(data) ? data : [];
     }
 
     function getLessons() {
-        return getData(
-            STORAGE_KEYS.lessons,
-            []
-        );
+        const data = getData(STORAGE_KEYS.lessons, []);
+
+        return Array.isArray(data) ? data : [];
     }
 
-    /* UI HELPERS */
 
-    function setText(
-        selector,
-        value
-    ) {
+    /* =========================================================
+       BASIC UI HELPERS
+       ========================================================= */
+
+    function setText(selector, value) {
         const element = $(selector);
 
         if (element) {
-            element.textContent =
-                value;
+            element.textContent = value;
         }
     }
 
-    function setWidth(
-        selector,
-        percentage
-    ) {
+    function setWidth(selector, percent) {
         const element = $(selector);
 
-        if (!element) {
-            return;
-        }
+        if (!element) return;
 
-        const value = Math.max(
-            0,
-            Math.min(
-                100,
-                Number(percentage) || 0
-            )
-        );
+        const value = Math.max(0, Math.min(100, Number(percent) || 0));
 
         requestAnimationFrame(() => {
-            element.style.width =
-                `${value}%`;
+            element.style.width = `${value}%`;
         });
     }
 
@@ -99,175 +85,241 @@
             .replaceAll("'", "&#039;");
     }
 
-    /* TEST HISTORY */
 
-    function getTestTimestamp(test) {
-        if (!test) {
-            return 0;
+    /* =========================================================
+       TEST TIMESTAMP
+       ========================================================= */
+
+    function getTimestamp(test) {
+        if (!test) return 0;
+
+        const value =
+            test.timestamp ||
+            test.date ||
+            test.createdAt;
+
+        if (!value) return 0;
+
+        if (typeof value === "number") {
+            return value;
         }
 
-        if (
-            Number(test.timestamp) > 0
-        ) {
-            return Number(
-                test.timestamp
-            );
-        }
+        const timestamp = new Date(value).getTime();
 
-        const date =
-            new Date(
-                test.date ||
-                test.createdAt ||
-                0
-            ).getTime();
-
-        return Number.isNaN(date)
-            ? 0
-            : date;
+        return Number.isNaN(timestamp)
+            ? Number(value) || 0
+            : timestamp;
     }
+
+
+    /* =========================================================
+       DATE FORMAT
+       ========================================================= */
 
     function formatDate(value) {
         if (!value) {
             return "Recently";
         }
 
-        const date =
-            new Date(value);
+        const date = new Date(value);
 
-        if (
-            Number.isNaN(
-                date.getTime()
-            )
-        ) {
+        if (Number.isNaN(date.getTime())) {
             return "Recently";
         }
 
-        return new Intl.DateTimeFormat(
-            "en",
-            {
-                day: "numeric",
-                month: "short"
-            }
-        ).format(date);
+        return new Intl.DateTimeFormat("en", {
+            day: "numeric",
+            month: "short"
+        }).format(date);
     }
+
 
     /* =========================================================
        TEST STATISTICS
        ========================================================= */
 
     function getTestStats() {
-        const data =
-            getTests();
+        const data = getTests();
 
         if (!data.length) {
             return {
                 count: 0,
                 bestWpm: 0,
-                bestAccuracy: 0
+                bestAccuracy: 0,
+                averageWpm: 0,
+                averageAccuracy: 0
             };
         }
 
-        const wpm =
-            data.map(test =>
-                Number(test.wpm) || 0
-            );
+        const wpm = data.map(test =>
+            Number(test.wpm) || 0
+        );
 
-        const accuracy =
-            data.map(test =>
-                Number(test.accuracy) || 0
-            );
+        const accuracy = data.map(test =>
+            Number(test.accuracy) || 0
+        );
 
         return {
             count: data.length,
 
-            bestWpm:
-                Math.max(...wpm),
+            bestWpm: Math.max(...wpm),
 
-            bestAccuracy:
-                Math.max(...accuracy)
+            bestAccuracy: Math.max(...accuracy),
+
+            averageWpm: Math.round(
+                wpm.reduce(
+                    (sum, value) => sum + value,
+                    0
+                ) / wpm.length
+            ),
+
+            averageAccuracy: Math.round(
+                accuracy.reduce(
+                    (sum, value) => sum + value,
+                    0
+                ) / accuracy.length
+            )
         };
     }
+
 
     /* =========================================================
        NUMBER ANIMATION
        ========================================================= */
 
-    function animateNumber(
-        selector,
-        target,
-        suffix = ""
-    ) {
-        const element =
-            $(selector);
+    function animateNumber(selector, target, suffix = "") {
+        const element = $(selector);
 
-        if (!element) {
-            return;
-        }
+        if (!element) return;
 
-        const end =
-            Number(target) || 0;
-
+        const end = Number(target) || 0;
         const duration = 600;
+        const startTime = performance.now();
 
-        const startTime =
-            performance.now();
-
-        function update(
-            currentTime
-        ) {
-            const progress =
-                Math.min(
-                    (
-                        currentTime -
-                        startTime
-                    ) / duration,
-                    1
-                );
+        function update(currentTime) {
+            const progress = Math.min(
+                (currentTime - startTime) / duration,
+                1
+            );
 
             const eased =
-                1 -
-                Math.pow(
-                    1 - progress,
-                    3
-                );
+                1 - Math.pow(1 - progress, 3);
 
-            const value =
-                Math.round(
-                    end * eased
-                );
+            const value = Math.round(
+                end * eased
+            );
 
             element.textContent =
                 `${value}${suffix}`;
 
-            if (
-                progress < 1
-            ) {
-                requestAnimationFrame(
-                    update
-                );
+            if (progress < 1) {
+                requestAnimationFrame(update);
             }
         }
 
-        requestAnimationFrame(
-            update
-        );
+        requestAnimationFrame(update);
     }
 
-    /* =========================================================
-       LESSON HELPERS
-       ========================================================= */
 
-    function normalizePercent(
-        value
-    ) {
-        const number =
-            Number(value);
+    /* =========================================================
+       LESSON PROGRESS
+       =========================================================
+
+       Supports different lesson.js storage formats.
+
+       Examples:
+
+       {
+           id: 1,
+           progress: 50
+       }
+
+       {
+           lesson: 1,
+           progress: 50
+       }
+
+       {
+           id: "lesson-01",
+           progress: 0.5
+       }
+
+       {
+           id: 1,
+           completed: true
+       }
+    */
+
+    function getLessonNumber(lesson) {
+        if (!lesson) return null;
+
+        const value =
+            lesson.id ??
+            lesson.lessonId ??
+            lesson.lesson ??
+            lesson.number ??
+            lesson.lessonNumber;
+
+        if (value === undefined || value === null) {
+            return null;
+        }
+
+        const match =
+            String(value).match(/\d+/);
+
+        if (!match) {
+            return null;
+        }
+
+        return Number(match[0]);
+    }
+
+
+    function getLessonProgress(lesson) {
+        if (!lesson) {
+            return 0;
+        }
+
+        /* Fully completed lesson */
 
         if (
-            !Number.isFinite(
-                number
-            )
+            lesson.completed === true ||
+            lesson.status === "completed"
         ) {
+            return 100;
+        }
+
+
+        /* Possible progress property names */
+
+        let progress =
+            lesson.progress ??
+            lesson.percent ??
+            lesson.percentage ??
+            lesson.completion ??
+            0;
+
+
+        /* Convert strings such as "50%" */
+
+        if (typeof progress === "string") {
+            progress = progress.replace("%", "");
+        }
+
+        progress = Number(progress);
+
+
+        /* Support decimal progress: 0.5 = 50% */
+
+        if (
+            progress > 0 &&
+            progress <= 1
+        ) {
+            progress *= 100;
+        }
+
+
+        if (!Number.isFinite(progress)) {
             return 0;
         }
 
@@ -275,367 +327,112 @@
             0,
             Math.min(
                 100,
-                Math.round(number)
+                Math.round(progress)
             )
         );
     }
 
-    function getLessonId(
-        lesson,
-        index
-    ) {
-        if (
-            lesson &&
-            typeof lesson ===
-                "object"
-        ) {
-            const id =
-                Number(
-                    lesson.id ??
-                    lesson.lessonId ??
-                    lesson.lessonNumber ??
-                    lesson.number
-                );
-
-            if (
-                Number.isInteger(id) &&
-                id >= 1 &&
-                id <= TOTAL_LESSONS
-            ) {
-                return id;
-            }
-        }
-
-        return index + 1;
-    }
-
-    function getLessonTitle(
-        lesson,
-        lessonId
-    ) {
-        if (
-            lesson &&
-            typeof lesson ===
-                "object"
-        ) {
-            if (
-                typeof lesson.title ===
-                    "string" &&
-                lesson.title.trim()
-            ) {
-                return lesson.title;
-            }
-
-            if (
-                typeof lesson.name ===
-                    "string" &&
-                lesson.name.trim()
-            ) {
-                return lesson.name;
-            }
-        }
-
-        return `Lesson ${String(
-            lessonId
-        ).padStart(2, "0")}`;
-    }
-
-    function isCompleted(
-        lesson
-    ) {
-        if (!lesson) {
-            return false;
-        }
-
-        return (
-            lesson.completed ===
-                true ||
-            lesson.status ===
-                "completed"
-        );
-    }
 
     /* =========================================================
-       GET LESSON PROGRESS
+       SORT LESSONS
        ========================================================= */
 
-    function getLessonProgress(
-        lesson,
-        lessonId
-    ) {
-        if (!lesson) {
-            return {
-                id: lessonId,
-                title:
-                    `Lesson ${String(
-                        lessonId
-                    ).padStart(2, "0")}`,
-                percent: 0
-            };
-        }
-
-        if (
-            isCompleted(lesson)
-        ) {
-            return {
-                id: lessonId,
-                title:
-                    getLessonTitle(
-                        lesson,
-                        lessonId
-                    ),
-                percent: 100
-            };
-        }
-
-        let percent = null;
-
-        if (
-            lesson.percentage !==
-            undefined
-        ) {
-            percent =
-                lesson.percentage;
-        }
-
-        if (
-            percent === null &&
-            lesson.percent !==
-                undefined
-        ) {
-            percent =
-                lesson.percent;
-        }
-
-        if (
-            percent === null &&
-            typeof lesson.progress ===
-                "number"
-        ) {
-            percent =
-                lesson.progress;
-        }
-
-        /*
-         * If lesson.js stores exercises
-         * as an array, calculate progress
-         * from completed exercises.
-         */
-
-        const exercises =
-            Array.isArray(
-                lesson.exercises
+    function getSortedLessons() {
+        return getLessons()
+            .map(lesson => ({
+                lesson,
+                number: getLessonNumber(lesson),
+                progress: getLessonProgress(lesson)
+            }))
+            .filter(item =>
+                item.number !== null
             )
-                ? lesson.exercises
-                : null;
-
-        if (
-            exercises &&
-            exercises.length
-        ) {
-            const completed =
-                exercises.filter(
-                    exercise =>
-                        exercise ===
-                            true ||
-                        exercise?.completed ===
-                            true ||
-                        exercise?.status ===
-                            "completed"
-                ).length;
-
-            const exercisePercent =
-                Math.round(
-                    (
-                        completed /
-                        exercises.length
-                    ) * 100
-                );
-
-            percent =
-                Math.max(
-                    normalizePercent(
-                        percent
-                    ),
-                    exercisePercent
-                );
-        }
-
-        return {
-            id: lessonId,
-
-            title:
-                getLessonTitle(
-                    lesson,
-                    lessonId
-                ),
-
-            percent:
-                normalizePercent(
-                    percent
-                )
-        };
-    }
-
-    /* =========================================================
-       ALL 24 LESSONS
-       ========================================================= */
-
-    function getAllLessons() {
-        const stored =
-            getLessons();
-
-        const lessons = [];
-
-        for (
-            let id = 1;
-            id <= TOTAL_LESSONS;
-            id++
-        ) {
-            let lesson = null;
-
-            if (
-                Array.isArray(
-                    stored
-                )
-            ) {
-                lesson =
-                    stored.find(
-                        (item, index) =>
-                            getLessonId(
-                                item,
-                                index
-                            ) === id
-                    );
-            } else if (
-                stored &&
-                typeof stored ===
-                    "object"
-            ) {
-                lesson =
-                    stored[id] ||
-                    stored[
-                        `lesson${id}`
-                    ] ||
-                    stored[
-                        `lesson${String(
-                            id
-                        ).padStart(
-                            2,
-                            "0"
-                        )}`
-                    ];
-            }
-
-            lessons.push(
-                getLessonProgress(
-                    lesson,
-                    id
-                )
+            .sort((a, b) =>
+                a.number - b.number
             );
-        }
-
-        return lessons;
     }
 
+
     /* =========================================================
-       COMPLETED LESSON COUNT
+       TOTAL LESSONS
+       =========================================================
+
+       VelType currently has 24 learning lessons.
+    */
+
+    function getTotalLessons() {
+        return 24;
+    }
+
+
+    /* =========================================================
+       COMPLETED LESSONS
        ========================================================= */
 
     function getCompletedLessons() {
-        return getAllLessons()
-            .filter(
-                lesson =>
-                    lesson.percent >=
-                    100
+        return getSortedLessons()
+            .filter(item =>
+                item.progress >= 100
             ).length;
     }
 
+
     /* =========================================================
        CURRENT LESSON
-       First lesson below 100%
-       ========================================================= */
+       =========================================================
+
+       If Lesson 01 is complete:
+           show Lesson 02
+
+       If Lesson 01 is 50%:
+           show Lesson 01
+
+       If Lesson 01 and 02 are complete
+       but 03 is 40%:
+           show Lesson 03
+    */
 
     function getCurrentLesson() {
-        const lessons =
-            getAllLessons();
-
-        return (
-            lessons.find(
-                lesson =>
-                    lesson.percent <
-                    100
-            ) ||
-            lessons[
-                lessons.length - 1
-            ]
-        );
-    }
-
-    /* =========================================================
-       OVERALL ACADEMY PROGRESS
-       ========================================================= */
-
-    function getAcademyPercent() {
-        const lessons =
-            getAllLessons();
+        const lessons = getSortedLessons();
 
         if (!lessons.length) {
-            return 0;
+            return {
+                number: 1,
+                progress: 0
+            };
         }
 
-        const total =
-            lessons.reduce(
-                (
-                    sum,
-                    lesson
-                ) =>
-                    sum +
-                    lesson.percent,
-                0
+
+        const firstIncomplete =
+            lessons.find(
+                item => item.progress < 100
             );
 
-        return Math.round(
-            total /
-                TOTAL_LESSONS
-        );
+        if (firstIncomplete) {
+            return firstIncomplete;
+        }
+
+
+        /* All saved lessons are complete */
+
+        const last =
+            lessons[lessons.length - 1];
+
+        return {
+            number: last.number + 1,
+            progress: 0
+        };
     }
 
-    /* =========================================================
-       ACADEMY LEVEL
-       ========================================================= */
-
-    function getAcademyLevel(
-        percent
-    ) {
-        if (
-            percent >= 90
-        ) {
-            return "Advanced";
-        }
-
-        if (
-            percent >= 60
-        ) {
-            return "Intermediate";
-        }
-
-        if (
-            percent >= 30
-        ) {
-            return "Developing";
-        }
-
-        return "Foundation";
-    }
 
     /* =========================================================
-       UPDATE OVERVIEW
+       OVERVIEW
        ========================================================= */
 
     function updateOverview() {
-        const stats =
-            getTestStats();
+        const stats = getTestStats();
+        const completed =
+            getCompletedLessons();
 
         animateNumber(
             "#bestWpm",
@@ -655,15 +452,145 @@
 
         animateNumber(
             "#lessonsCompleted",
-            getCompletedLessons()
+            completed
         );
     }
 
+
     /* =========================================================
-       UPDATE TEST HISTORY
+       ACADEMY PROGRESS
+       ========================================================= */
+
+    function updateAcademy() {
+        const completed =
+            getCompletedLessons();
+
+        const total =
+            getTotalLessons();
+
+        /*
+         * A lesson that is 50% complete
+         * also contributes to overall academy
+         * progress.
+         */
+
+        const lessons =
+            getSortedLessons();
+
+        const partialProgress =
+            lessons.reduce(
+                (totalProgress, item) =>
+                    totalProgress + item.progress,
+                0
+            );
+
+        const percent = total
+            ? Math.min(
+                100,
+                Math.round(
+                    (partialProgress /
+                        (total * 100)) *
+                    100
+                )
+            )
+            : 0;
+
+
+        /* Ring percentage */
+
+        setText(
+            "#academyPercent",
+            `${percent}%`
+        );
+
+
+        /* Current level */
+
+        setText(
+            "#academyLevel",
+            getAcademyLevel(percent)
+        );
+
+
+        /* Current lesson */
+
+        const current =
+            getCurrentLesson();
+
+
+        if (current.progress > 0) {
+
+            setText(
+                "#academyProgressText",
+                `Lesson ${String(current.number).padStart(2, "0")} is ${current.progress}% complete.`
+            );
+
+        } else {
+
+            setText(
+                "#academyProgressText",
+                `Continue with Lesson ${String(current.number).padStart(2, "0")} to build your typing skills.`
+            );
+        }
+
+
+        /* Progress bar */
+
+        setWidth(
+            "#academyProgressBar",
+            percent
+        );
+
+
+        /* Progress ring */
+
+        const ring =
+            $(".academy-ring");
+
+        if (ring) {
+
+            requestAnimationFrame(() => {
+
+                ring.style.background = `
+                    conic-gradient(
+                        var(--ink) 0 ${percent}%,
+                        var(--surface-alt) ${percent}% 100%
+                    )
+                `;
+
+            });
+        }
+    }
+
+
+    /* =========================================================
+       ACADEMY LEVEL
+       ========================================================= */
+
+    function getAcademyLevel(percent) {
+
+        if (percent >= 90) {
+            return "Advanced";
+        }
+
+        if (percent >= 60) {
+            return "Intermediate";
+        }
+
+        if (percent >= 30) {
+            return "Developing";
+        }
+
+        return "Foundation";
+    }
+
+
+    /* =========================================================
+       TEST HISTORY
        ========================================================= */
 
     function updateTestHistory() {
+
         const container =
             $("#testHistory");
 
@@ -671,10 +598,15 @@
             return;
         }
 
+
         const data =
             getTests();
 
+
+        /* No history */
+
         if (!data.length) {
+
             container.innerHTML = `
                 <div class="empty-state">
 
@@ -687,16 +619,14 @@
                     </h3>
 
                     <p>
-                        Complete your first typing test
-                        and your results will appear here.
+                        Complete your first typing test and your results will appear here.
                     </p>
 
                     <a
                         href="test.html"
                         class="dashboard-button button-secondary"
                     >
-                        Take a Test
-                        <span>→</span>
+                        Take a Test <span>→</span>
                     </a>
 
                 </div>
@@ -705,166 +635,100 @@
             return;
         }
 
+
+        /* Latest tests first */
+
         const recent =
             [...data]
                 .sort(
                     (a, b) =>
-                        getTestTimestamp(b) -
-                        getTestTimestamp(a)
+                        getTimestamp(b) -
+                        getTimestamp(a)
                 )
                 .slice(0, 6);
 
+
         container.innerHTML = `
+
             <div class="history-list">
 
-                ${recent
-                    .map(test => {
+                ${recent.map(test => {
 
-                        const wpm =
-                            Number(
-                                test.wpm
-                            ) || 0;
+                    const wpm =
+                        Number(test.wpm) || 0;
 
-                        const accuracy =
-                            Number(
-                                test.accuracy
-                            ) || 0;
+                    const accuracy =
+                        Number(test.accuracy) || 0;
 
-                        const date =
-                            test.date ||
-                            test.createdAt ||
-                            test.timestamp;
+                    const errors =
+                        Number(test.errors) || 0;
 
-                        return `
-                            <div class="history-item">
+                    const mode =
+                        Number(test.mode) ||
+                        Number(test.duration) ||
+                        30;
 
-                                <div>
+                    const date =
+                        test.date ||
+                        test.timestamp ||
+                        test.createdAt;
 
-                                    <strong>
-                                        ${escapeHTML(
-                                            wpm
-                                        )}
-                                        WPM
-                                    </strong>
 
-                                    <span>
-                                        ${escapeHTML(
-                                            accuracy
-                                        )}% accuracy
-                                    </span>
+                    return `
 
-                                </div>
+                        <div class="history-item">
+
+                            <div class="history-main">
+
+                                <strong>
+                                    ${escapeHTML(wpm)} WPM
+                                </strong>
+
+                                <span>
+                                    ${escapeHTML(accuracy)}% accuracy
+                                </span>
+
+                            </div>
+
+
+                            <div class="history-details">
+
+                                <span>
+                                    ${escapeHTML(errors)} errors
+                                </span>
+
+                                <span>
+                                    ${escapeHTML(mode)}s
+                                </span>
 
                                 <time
-                                    datetime="${escapeHTML(
-                                        date ||
-                                        ""
-                                    )}"
+                                    datetime="${escapeHTML(date || "")}"
                                 >
-                                    ${formatDate(
-                                        date
-                                    )}
+                                    ${formatDate(date)}
                                 </time>
 
                             </div>
-                        `;
-                    })
-                    .join("")}
+
+                        </div>
+
+                    `;
+
+                }).join("")}
 
             </div>
         `;
     }
 
+
     /* =========================================================
-       UPDATE ACADEMY
+       RESET
        ========================================================= */
 
-    function updateAcademy() {
-        const percent =
-            getAcademyPercent();
+    let resetType = null;
 
-        const completed =
-            getCompletedLessons();
-
-        const current =
-            getCurrentLesson();
-
-        setText(
-            "#academyPercent",
-            `${percent}%`
-        );
-
-        setText(
-            "#academyLevel",
-            getAcademyLevel(
-                percent
-            )
-        );
-
-        setWidth(
-            "#academyProgressBar",
-            percent
-        );
-
-        const ring =
-            $(".academy-ring");
-
-        if (ring) {
-            requestAnimationFrame(
-                () => {
-                    ring.style.background =
-                        `
-                        conic-gradient(
-                            var(--ink)
-                            0 ${percent}%,
-                            var(--surface-alt)
-                            ${percent}% 100%
-                        )
-                    `;
-                }
-            );
-        }
-
-        if (!current) {
-            setText(
-                "#academyProgressText",
-                "All lessons completed. Great work!"
-            );
-
-            return;
-        }
-
-        const lessonNumber =
-            String(
-                current.id
-            ).padStart(
-                2,
-                "0"
-            );
-
-        if (
-            current.percent >=
-            100
-        ) {
-            setText(
-                "#academyProgressText",
-                "All lessons completed. Great work!"
-            );
-
-            return;
-        }
-
-        setText(
-            "#academyProgressText",
-            `${current.title} — ${current.percent}% complete. Continue building your typing skills.`
-        );
-    }
-
-    /* =========================================================
-       RESET*/
- let resetType = null;
 
     function setupResetActions() {
+
         const resetExercises =
             $("#resetExercises");
 
@@ -880,6 +744,7 @@
         const modal =
             $("#resetModal");
 
+
         resetExercises?.addEventListener(
             "click",
             () => {
@@ -891,8 +756,10 @@
                     "Reset exercises?",
                     "Your saved exercise progress will be removed. Your test history will remain."
                 );
+
             }
         );
+
 
         resetProgress?.addEventListener(
             "click",
@@ -905,13 +772,16 @@
                     "Reset your progress?",
                     "This will remove your saved lessons, tests and typing statistics. This action cannot be undone."
                 );
+
             }
         );
+
 
         cancelReset?.addEventListener(
             "click",
             closeResetModal
         );
+
 
         confirmReset?.addEventListener(
             "click",
@@ -921,15 +791,19 @@
                     resetType ===
                     "exercises"
                 ) {
+
                     localStorage.removeItem(
                         STORAGE_KEYS.exercises
                     );
+
                 }
+
 
                 if (
                     resetType ===
                     "progress"
                 ) {
+
                     localStorage.removeItem(
                         STORAGE_KEYS.tests
                     );
@@ -945,13 +819,17 @@
                     localStorage.removeItem(
                         STORAGE_KEYS.exercises
                     );
+
                 }
+
 
                 closeResetModal();
 
                 render();
+
             }
         );
+
 
         modal
             ?.querySelector(
@@ -962,18 +840,24 @@
                 closeResetModal
             );
 
+
         document.addEventListener(
             "keydown",
             event => {
+
                 if (
                     event.key ===
                     "Escape"
                 ) {
+
                     closeResetModal();
+
                 }
+
             }
         );
     }
+
 
     /* =========================================================
        RESET MODAL
@@ -983,6 +867,7 @@
         title,
         message
     ) {
+
         const modal =
             $("#resetModal");
 
@@ -1005,16 +890,18 @@
         document.body.style.overflow =
             "hidden";
 
-        requestAnimationFrame(
-            () => {
-                modal.classList.add(
-                    "is-visible"
-                );
-            }
-        );
+        requestAnimationFrame(() => {
+
+            modal.classList.add(
+                "is-visible"
+            );
+
+        });
     }
 
+
     function closeResetModal() {
+
         const modal =
             $("#resetModal");
 
@@ -1026,35 +913,33 @@
             "is-visible"
         );
 
-        setTimeout(
-            () => {
-                modal.hidden =
-                    true;
+        setTimeout(() => {
 
-                document.body.style.overflow =
-                    "";
-            },
-            220
-        );
+            modal.hidden = true;
+
+            document.body.style.overflow =
+                "";
+
+        }, 220);
 
         resetType = null;
     }
+
 
     /* =========================================================
        DASHBOARD ANIMATION
        ========================================================= */
 
     function revealDashboard() {
+
         const elements =
             document.querySelectorAll(
                 ".dashboard-header, .stats-grid, .dashboard-card"
             );
 
+
         elements.forEach(
-            (
-                element,
-                index
-            ) => {
+            (element, index) => {
 
                 element.style.opacity =
                     "0";
@@ -1062,38 +947,41 @@
                 element.style.transform =
                     "translateY(14px)";
 
-                setTimeout(
-                    () => {
 
-                        element.style.transition =
-                            "opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1)";
+                setTimeout(() => {
 
-                        element.style.opacity =
-                            "1";
+                    element.style.transition =
+                        "opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1)";
 
-                        element.style.transform =
-                            "translateY(0)";
+                    element.style.opacity =
+                        "1";
 
-                    },
-                    70 +
-                    index * 70
-                );
+                    element.style.transform =
+                        "translateY(0)";
+
+                }, 70 + index * 70);
+
             }
         );
     }
+
 
     /* =========================================================
        RENDER
        ========================================================= */
 
     function render() {
+
         updateOverview();
+
         updateTestHistory();
+
         updateAcademy();
     }
 
+
     /* =========================================================
-       INIT
+       INITIALIZATION
        ========================================================= */
 
     document.addEventListener(
@@ -1109,4 +997,4 @@
         }
     );
 
-})();
+})()
