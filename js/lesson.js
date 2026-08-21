@@ -1,10 +1,10 @@
-/* VELTYPE — LESSON ENGINE */
+/* VELTYPE — LESSON */
 (() => {
     "use strict";
 
-    /* =========================
+    /* =========================================================
        DOM
-    ========================= */
+       ========================================================= */
 
     const $ = id => document.getElementById(id);
 
@@ -54,46 +54,34 @@
         nextTitle: $("nextTitle")
     };
 
-    /* =========================
-       STORAGE
-    ========================= */
-
-    const STORAGE_KEYS = {
-        lessons: "veltypeLessons",
-        lessonProgress: "veltypeLessonProgress"
-    };
-
-    /* =========================
-       CURRENT LESSON
-    ========================= */
+    /* =========================================================
+       LESSON
+       lessondata.js provides the lessons array.
+       ========================================================= */
 
     const params = new URLSearchParams(window.location.search);
-
     const requestedLesson = Number.parseInt(
         params.get("lesson"),
         10
     );
 
     const lessonId =
-        Number.isInteger(requestedLesson) &&
-        requestedLesson > 0
+        Number.isInteger(requestedLesson) && requestedLesson > 0
             ? requestedLesson
             : 1;
 
-    /*
-     * lessonData.js must provide:
-     *
-     * const lessons = [...]
-     */
-
     const lesson =
-        Array.isArray(lessons)
-            ? lessons.find(item => item.id === lessonId) || lessons[0]
-            : null;
+        lessons.find(item => item.id === lessonId) || lessons[0];
 
-    /* =========================
+    /* =========================================================
+       STORAGE
+       ========================================================= */
+
+    const STORAGE_KEY = "veltypeLessonProgress";
+
+    /* =========================================================
        TYPING STATE
-    ========================= */
+       ========================================================= */
 
     let exerciseIndex = 0;
     let currentText = "";
@@ -107,13 +95,13 @@
     let finished = false;
     let completionShown = false;
 
-    /* =========================
-       INITIALIZE
-    ========================= */
+    /* =========================================================
+       INITIALIZATION
+       ========================================================= */
 
     function init() {
         if (!lesson) {
-            console.error("VelType: lesson data not found.");
+            console.error("VelType: lesson not found.");
             return;
         }
 
@@ -131,34 +119,24 @@
         loadExercise(0);
     }
 
-    /* =========================
+    /* =========================================================
        LESSON INFORMATION
-    ========================= */
+       ========================================================= */
 
     function renderLesson() {
-        setText(
-            els.level,
-            lesson.level
-        );
+        setText(els.level, lesson.level);
 
         setText(
             els.number,
             `LESSON ${String(lesson.id).padStart(2, "0")}`
         );
 
-        setText(
-            els.title,
-            lesson.title
-        );
-
-        setText(
-            els.description,
-            lesson.description
-        );
+        setText(els.title, lesson.title);
+        setText(els.description, lesson.description);
 
         setText(
             els.difficulty,
-            String(lesson.difficulty).toUpperCase()
+            String(lesson.difficulty || "").toUpperCase()
         );
 
         setText(
@@ -174,9 +152,9 @@
         renderGuide();
     }
 
-    /* =========================
+    /* =========================================================
        GUIDE
-    ========================= */
+       ========================================================= */
 
     function renderGuide() {
         if (!els.guideSection || !els.guide) {
@@ -194,13 +172,9 @@
         els.guideSection.hidden = false;
 
         const title =
-            lesson.guideTitle ||
-            "Build your technique.";
+            lesson.guideTitle || "Build your technique.";
 
-        setText(
-            els.guideTitle,
-            title
-        );
+        setText(els.guideTitle, title);
 
         const image = lesson.guideImage
             ? `
@@ -215,12 +189,8 @@
 
         els.guide.innerHTML = `
             <div class="guide-grid">
-
                 <div class="guide-copy">
-
-                    <h3>
-                        ${escapeHTML(title)}
-                    </h3>
+                    <h3>${escapeHTML(title)}</h3>
 
                     <p>
                         ${escapeHTML(
@@ -237,76 +207,68 @@
                             )
                             .join("")}
                     </ul>
-
                 </div>
 
                 <div class="guide-visual">
                     ${image}
                 </div>
-
             </div>
         `;
     }
 
-    /* =========================
+    /* =========================================================
        EXERCISES
-    ========================= */
+       ========================================================= */
 
     function renderExercises() {
-        els.tabs.innerHTML =
-            lesson.exercises
-                .map(
-                    (_, index) => `
-                        <button
-                            type="button"
-                            class="exercise-tab${
-                                index === 0
-                                    ? " active"
-                                    : ""
-                            }"
-                            data-index="${index}"
-                            aria-label="Exercise ${index + 1}"
-                        >
-                            Exercise ${String(
-                                index + 1
-                            ).padStart(2, "0")}
-                        </button>
-                    `
-                )
-                .join("");
+        if (!Array.isArray(lesson.exercises)) {
+            return;
+        }
+
+        els.tabs.innerHTML = lesson.exercises
+            .map(
+                (_, index) => `
+                    <button
+                        type="button"
+                        class="exercise-tab${index === 0 ? " active" : ""}"
+                        data-index="${index}"
+                        aria-label="Exercise ${index + 1}"
+                    >
+                        Exercise ${String(index + 1).padStart(2, "0")}
+                    </button>
+                `
+            )
+            .join("");
 
         els.tabs
             .querySelectorAll(".exercise-tab")
             .forEach(button => {
-                button.addEventListener(
-                    "click",
-                    () => {
-                        const index =
-                            Number(
-                                button.dataset.index
-                            );
+                button.addEventListener("click", () => {
+                    const index = Number(button.dataset.index);
 
-                        if (
-                            Number.isInteger(index) &&
-                            index <= exerciseIndex
-                        ) {
-                            loadExercise(index);
-                        }
+                    if (
+                        Number.isInteger(index) &&
+                        index <= exerciseIndex
+                    ) {
+                        loadExercise(index);
                     }
-                );
+                });
             });
     }
 
+    /* =========================================================
+       LOAD EXERCISE
+       ========================================================= */
+
     function loadExercise(index) {
-        if (!lesson.exercises[index]) {
+        if (!lesson.exercises?.[index]) {
             return;
         }
 
         clearTimer();
 
         exerciseIndex = index;
-        currentText =
-            lesson.exercises[index];
+        currentText = lesson.exercises[index];
 
         position = 0;
         errors = 0;
@@ -335,24 +297,27 @@
         focusTypingArea();
     }
 
+    /* =========================================================
+       TYPING TEXT
+       ========================================================= */
+
     function renderText() {
-        els.display.innerHTML =
-            [...currentText]
-                .map(
-                    (character, index) => `
-                        <span
-                            class="char${
-                                index === 0
-                                    ? " current"
-                                    : ""
-                            }"
-                            data-index="${index}"
-                        >
-                            ${formatCharacter(character)}
-                        </span>
-                    `
-                )
-                .join("");
+        if (!els.display) {
+            return;
+        }
+
+        els.display.innerHTML = [...currentText]
+            .map(
+                (character, index) => `
+                    <span
+                        class="char${index === 0 ? " current" : ""}"
+                        data-index="${index}"
+                    >
+                        ${formatCharacter(character)}
+                    </span>
+                `
+            )
+            .join("");
 
         setText(
             els.count,
@@ -360,25 +325,23 @@
         );
     }
 
-    /* =========================
-       KEYBOARD
-    ========================= */
+    /* =========================================================
+       KEYBOARD INPUT
+       ========================================================= */
 
     function handleKey(event) {
         if (finished) {
             return;
         }
 
-        const key =
-            normalizeEventKey(event);
+        const key = normalizeEventKey(event);
 
         if (!key) {
             return;
         }
 
         if (
-            ["Backspace", "Delete", "Tab"]
-                .includes(key)
+            ["Backspace", "Delete", "Tab"].includes(key)
         ) {
             event.preventDefault();
 
@@ -406,17 +369,17 @@
             return;
         }
 
-        if (
-            key.length !== 1 &&
-            key !== " "
-        ) {
+        if (key.length !== 1 && key !== " ") {
             return;
         }
 
         event.preventDefault();
-
         processCharacter(key);
     }
+
+    /* =========================================================
+       PROCESS CHARACTER
+       ========================================================= */
 
     function processCharacter(key) {
         if (finished) {
@@ -425,8 +388,7 @@
 
         startTypingIfNeeded();
 
-        const expected =
-            currentText[position];
+        const expected = currentText[position];
 
         if (key === expected) {
             correct++;
@@ -435,10 +397,7 @@
 
             position++;
 
-            if (
-                position >=
-                currentText.length
-            ) {
+            if (position >= currentText.length) {
                 finishExercise();
                 return;
             }
@@ -466,13 +425,12 @@
         updateExerciseProgress();
     }
 
-    /* =========================
+    /* =========================================================
        CHARACTER STATES
-    ========================= */
+       ========================================================= */
 
     function markCorrect() {
-        const character =
-            getCharacter(position);
+        const character = getCharacter(position);
 
         if (!character) {
             return;
@@ -483,44 +441,29 @@
             "wrong"
         );
 
-        character.classList.add(
-            "correct"
-        );
+        character.classList.add("correct");
     }
 
     function markWrong() {
-        const character =
-            getCharacter(position);
+        const character = getCharacter(position);
 
         if (!character) {
             return;
         }
 
-        character.classList.remove(
-            "wrong"
-        );
+        character.classList.remove("wrong");
 
         void character.offsetWidth;
 
-        character.classList.add(
-            "wrong"
-        );
+        character.classList.add("wrong");
 
         setTimeout(() => {
             if (
                 !finished &&
-                position ===
-                    Number(
-                        character.dataset.index
-                    )
+                position === Number(character.dataset.index)
             ) {
-                character.classList.remove(
-                    "wrong"
-                );
-
-                character.classList.add(
-                    "current"
-                );
+                character.classList.remove("wrong");
+                character.classList.add("current");
             }
         }, 260);
     }
@@ -529,17 +472,14 @@
         els.display
             ?.querySelectorAll(".char")
             .forEach(character => {
-                character.classList.remove(
-                    "current"
-                );
+                character.classList.remove("current");
             });
 
-        const current =
-            getCharacter(position);
+        const current = getCharacter(position);
 
-        current?.classList.add(
-            "current"
-        );
+        if (current) {
+            current.classList.add("current");
+        }
     }
 
     function getCharacter(index) {
@@ -548,44 +488,58 @@
         );
     }
 
-    /* =========================
+    function markAllComplete() {
+        els.display
+            ?.querySelectorAll(".char")
+            .forEach(character => {
+                character.classList.remove(
+                    "current",
+                    "wrong"
+                );
+
+                character.classList.add("correct");
+            });
+
+        const tab = els.tabs?.querySelector(
+            `[data-index="${exerciseIndex}"]`
+        );
+
+        if (tab) {
+            tab.classList.add("complete");
+        }
+    }
+
+    /* =========================================================
        STATISTICS
-    ========================= */
+       ========================================================= */
 
     function updateStats() {
-        const elapsed =
-            getElapsedSeconds();
-
-        const typed =
-            correct + errors;
-
-        const minutes =
-            elapsed / 60;
+        const elapsed = getElapsedSeconds();
+        const typed = correct + errors;
+        const minutes = elapsed / 60;
 
         const wpm =
             minutes > 0
                 ? Math.round(
-                      (correct / 5) /
-                          minutes
+                      (correct / 5) / minutes
                   )
                 : 0;
 
         const accuracy =
             typed > 0
                 ? Math.round(
-                      (correct / typed) *
-                          100
+                      (correct / typed) * 100
                   )
                 : 100;
 
         setText(
             els.wpm,
-            String(wpm)
+            String(Math.max(wpm, 0))
         );
 
         setText(
             els.accuracy,
-            `${accuracy}%`
+            `${Math.min(100, accuracy)}%`
         );
 
         setText(
@@ -608,32 +562,30 @@
         }
 
         return Math.max(
-            (Date.now() - startedAt) /
-                1000,
+            (Date.now() - startedAt) / 1000,
             0
         );
     }
 
-    /* =========================
+    /* =========================================================
        TIMER
-    ========================= */
+       ========================================================= */
 
     function startTimer() {
         clearTimer();
 
-        timerId =
-            window.setInterval(() => {
-                updateStats();
+        timerId = window.setInterval(() => {
+            updateStats();
 
-                setText(
-                    els.timer,
-                    formatTime(
-                        Math.floor(
-                            getElapsedSeconds()
-                        )
+            setText(
+                els.timer,
+                formatTime(
+                    Math.floor(
+                        getElapsedSeconds()
                     )
-                );
-            }, 250);
+                )
+            );
+        }, 250);
     }
 
     function clearTimer() {
@@ -672,9 +624,9 @@
         }
     }
 
-    /* =========================
+    /* =========================================================
        EXERCISE COMPLETION
-    ========================= */
+       ========================================================= */
 
     function finishExercise() {
         if (finished) {
@@ -694,7 +646,7 @@
         const wpm =
             Math.round(
                 (correct / 5) /
-                    (elapsed / 60)
+                (elapsed / 60)
             );
 
         const accuracy =
@@ -704,11 +656,10 @@
                         correct + errors,
                         1
                     )) *
-                    100
+                100
             );
 
         markAllComplete();
-
         updateStats();
 
         setStatus(
@@ -742,33 +693,9 @@
         );
     }
 
-    function markAllComplete() {
-        els.display
-            ?.querySelectorAll(".char")
-            .forEach(character => {
-                character.classList.remove(
-                    "current",
-                    "wrong"
-                );
-
-                character.classList.add(
-                    "correct"
-                );
-            });
-
-        const tab =
-            els.tabs?.querySelector(
-                `[data-index="${exerciseIndex}"]`
-            );
-
-        tab?.classList.add(
-            "complete"
-        );
-    }
-
-    /* =========================
+    /* =========================================================
        LESSON COMPLETION
-    ========================= */
+       ========================================================= */
 
     function finishLesson(
         wpm,
@@ -812,7 +739,7 @@
             els.completion.hidden = false;
         }
 
-        saveLessonCompletion(
+        saveLessonProgress(
             wpm,
             accuracy
         );
@@ -827,9 +754,9 @@
         }, 80);
     }
 
-    /* =========================
+    /* =========================================================
        PROGRESS
-    ========================= */
+       ========================================================= */
 
     function updateExerciseProgress() {
         const total =
@@ -843,8 +770,7 @@
         const percentage =
             total
                 ? Math.min(
-                      (completed / total) *
-                          100,
+                      (completed / total) * 100,
                       100
                   )
                 : 0;
@@ -862,151 +788,136 @@
 
     function updateTabs() {
         els.tabs
-            ?.querySelectorAll(
-                ".exercise-tab"
-            )
-            .forEach(
-                (tab, index) => {
-                    tab.classList.toggle(
-                        "active",
-                        index ===
-                            exerciseIndex
-                    );
+            ?.querySelectorAll(".exercise-tab")
+            .forEach((tab, index) => {
+                tab.classList.toggle(
+                    "active",
+                    index === exerciseIndex
+                );
 
-                    tab.disabled =
-                        index >
-                        exerciseIndex;
-                }
-            );
+                tab.disabled =
+                    index > exerciseIndex;
+            });
     }
 
-    /* =========================
-       STORAGE
-    ========================= */
+    /* =========================================================
+       LOCAL STORAGE
+       ========================================================= */
 
-    function readStorage(
-        key,
-        fallback = {}
-    ) {
+    function readProgress() {
         try {
-            const value =
-                localStorage.getItem(key);
+            const stored =
+                localStorage.getItem(STORAGE_KEY);
 
-            return value
-                ? JSON.parse(value)
-                : fallback;
+            if (!stored) {
+                return {};
+            }
+
+            const data = JSON.parse(stored);
+
+            return data &&
+                typeof data === "object" &&
+                !Array.isArray(data)
+                ? data
+                : {};
         } catch {
-            return fallback;
+            return {};
         }
     }
 
-    function writeStorage(
-        key,
-        value
-    ) {
+    function saveProgress(progress) {
         try {
             localStorage.setItem(
-                key,
-                JSON.stringify(value)
+                STORAGE_KEY,
+                JSON.stringify(progress)
             );
-
-            return true;
         } catch {
             console.warn(
-                `VelType: unable to save "${key}".`
+                "VelType: unable to save lesson progress."
             );
-
-            return false;
         }
-    }
-
-    function getLessonStorageKey() {
-        return `veltype_lesson_${lesson.id}`;
     }
 
     function saveExerciseProgress(
         wpm,
         accuracy
     ) {
-        const key =
-            getLessonStorageKey();
+        const progress = readProgress();
 
-        const data =
-            readStorage(key, {});
+        const existing =
+            progress[lesson.id] || {};
 
-        if (
-            !Array.isArray(
-                data.exercises
-            )
-        ) {
-            data.exercises = [];
-        }
+        const total =
+            lesson.exercises.length;
 
-        const now =
-            new Date().toISOString();
+        const completedExercises =
+            Math.max(
+                existing.completedExercises || 0,
+                exerciseIndex + 1
+            );
 
-        data.lessonId =
-            lesson.id;
+        progress[lesson.id] = {
+            ...existing,
 
-        data.lessonTitle =
-            lesson.title;
-
-        data.level =
-            lesson.level;
-
-        data.difficulty =
-            lesson.difficulty;
-
-        data.lastUpdated =
-            now;
-
-        data.exercises[
-            exerciseIndex
-        ] = {
-            exerciseNumber:
-                exerciseIndex + 1,
-
-            completed: true,
-
-            wpm: Math.max(
-                0,
-                Number(wpm) || 0
-            ),
-
-            accuracy: Math.min(
-                100,
-                Math.max(
-                    0,
-                    Number(accuracy) || 0
-                )
-            ),
-
-            errors: Math.max(
-                0,
-                Number(errors) || 0
-            ),
-
-            completedAt: now
-        };
-
-        writeStorage(
-            key,
-            data
-        );
-    }
-
-    function saveLessonCompletion(
-        wpm,
-        accuracy
-    ) {
-        const now =
-            new Date().toISOString();
-
-        const result = {
             lessonId: lesson.id,
             title: lesson.title,
             level: lesson.level,
-            difficulty: lesson.difficulty,
+
+            totalExercises: total,
+
+            completedExercises:
+                Math.min(
+                    completedExercises,
+                    total
+                ),
+
+            completed:
+                completedExercises >= total,
+
+            wpm: Math.max(
+                0,
+                Number(wpm) || 0
+            ),
+
+            accuracy: Math.min(
+                100,
+                Math.max(
+                    0,
+                    Number(accuracy) || 0
+                )
+            ),
+
+            errors: Math.max(
+                0,
+                Number(errors) || 0
+            ),
+
+            updatedAt:
+                new Date().toISOString()
+        };
+
+        saveProgress(progress);
+    }
+
+    function saveLessonProgress(
+        wpm,
+        accuracy
+    ) {
+        const progress = readProgress();
+
+        progress[lesson.id] = {
+            ...(progress[lesson.id] || {}),
+
+            lessonId: lesson.id,
+            title: lesson.title,
+            level: lesson.level,
+
+            totalExercises:
+                lesson.exercises.length,
+
+            completedExercises:
+                lesson.exercises.length,
+
             completed: true,
 
             wpm: Math.max(
@@ -1027,41 +938,19 @@
                 Number(errors) || 0
             ),
 
-            completedAt: now
+            completedAt:
+                new Date().toISOString(),
+
+            updatedAt:
+                new Date().toISOString()
         };
 
-        const progress =
-            readStorage(
-                STORAGE_KEYS.lessonProgress,
-                {}
-            );
-
-        progress[lesson.id] =
-            result;
-
-        writeStorage(
-            STORAGE_KEYS.lessonProgress,
-            progress
-        );
-
-        const lessonsData =
-            readStorage(
-                STORAGE_KEYS.lessons,
-                {}
-            );
-
-        lessonsData[lesson.id] =
-            result;
-
-        writeStorage(
-            STORAGE_KEYS.lessons,
-            lessonsData
-        );
+        saveProgress(progress);
     }
 
-    /* =========================
+    /* =========================================================
        NAVIGATION
-    ========================= */
+       ========================================================= */
 
     function setupNavigation() {
         const previous =
@@ -1143,9 +1032,9 @@
         }
     }
 
-    /* =========================
+    /* =========================================================
        EVENTS
-    ========================= */
+       ========================================================= */
 
     function setupEvents() {
         els.display?.addEventListener(
@@ -1174,9 +1063,7 @@
 
                 window.setTimeout(() => {
                     document
-                        .querySelector(
-                            ".practice-card"
-                        )
+                        .querySelector(".practice-card")
                         ?.scrollIntoView({
                             behavior: "smooth",
                             block: "start"
@@ -1188,19 +1075,16 @@
         document.addEventListener(
             "keydown",
             event => {
-                if (
-                    event.key ===
-                    "Escape"
-                ) {
+                if (event.key === "Escape") {
                     stopTyping();
                 }
             }
         );
     }
 
-    /* =========================
+    /* =========================================================
        UI HELPERS
-    ========================= */
+       ========================================================= */
 
     function focusTypingArea() {
         if (!finished) {
@@ -1258,6 +1142,10 @@
         );
     }
 
+    /* =========================================================
+       FORMATTERS
+       ========================================================= */
+
     function normalizeEventKey(event) {
         return event.key === "Spacebar"
             ? " "
@@ -1304,37 +1192,26 @@
         const secs =
             seconds % 60;
 
-        return `${String(minutes).padStart(
-            2,
-            "0"
-        )}:${String(secs).padStart(
-            2,
-            "0"
-        )}`;
+        return `${String(minutes).padStart(2, "0")}:${String(
+            secs
+        ).padStart(2, "0")}`;
     }
 
-    function setText(
-        element,
-        value
-    ) {
+    function setText(element, value) {
         if (element) {
-            element.textContent =
-                value;
+            element.textContent = value;
         }
     }
 
-    function setLink(
-        element,
-        href
-    ) {
+    function setLink(element, href) {
         if (element) {
             element.href = href;
         }
     }
 
-    /* =========================
+    /* =========================================================
        START
-    ========================= */
+       ========================================================= */
 
     init();
 
