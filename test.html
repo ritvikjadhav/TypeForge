@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta name="description" content="VelType typing test — improve your speed, accuracy and consistency.">
     <meta name="theme-color" content="#FAF7EE">
+
     <title>Typing Test — VelType</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+        rel="stylesheet"
+    >
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/test.css">
 </head>
 
 <body>
+
 <div class="site-shell">
 
+    <!-- NAVBAR -->
     <header class="navbar">
+
         <a href="index.html" class="brand" aria-label="VelType home">
             <span class="brand-mark">V</span>
             <span>VelType</span>
@@ -32,49 +41,115 @@
         </nav>
 
         <div class="nav-actions">
-            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+
+            <button
+                class="theme-toggle"
+                id="themeToggle"
+                type="button"
+                aria-label="Toggle theme"
+            >
                 <span aria-hidden="true">◐</span>
             </button>
-            <a href="test.html" class="nav-cta">Start Test <span>↗</span></a>
+
+            <a href="test.html" class="nav-cta">
+                Start Test <span>↗</span>
+            </a>
+
         </div>
 
-        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+        >
             <span></span>
             <span></span>
         </button>
+
     </header>
 
+
+    <!-- MAIN -->
     <main class="test-page">
 
+        <!-- HEADER -->
         <section class="test-header">
+
             <div>
                 <span class="section-label">01 — TYPING TEST</span>
-                <h1>Find your <em>flow.</em></h1>
+
+                <h1>
+                    Find your <em>flow.</em>
+                </h1>
             </div>
 
-            <p>Type naturally. Stay accurate. Let the speed follow.</p>
+            <p>
+                Type naturally. Stay accurate. Let the speed follow.
+            </p>
+
         </section>
 
+
+        <!-- TEST CONTROLS -->
         <section class="test-controls">
+
             <div class="session-controls">
+
                 <span class="control-label">SESSION</span>
 
                 <div class="mode-buttons">
-                    <button class="mode-button active" data-time="30" type="button">30s</button>
-                    <button class="mode-button" data-time="60" type="button">60s</button>
-                    <button class="mode-button" data-time="120" type="button">120s</button>
+
+                    <button
+                        class="mode-button active"
+                        data-time="30"
+                        type="button"
+                    >
+                        30s
+                    </button>
+
+                    <button
+                        class="mode-button"
+                        data-time="60"
+                        type="button"
+                    >
+                        60s
+                    </button>
+
+                    <button
+                        class="mode-button"
+                        data-time="120"
+                        type="button"
+                    >
+                        120s
+                    </button>
+
                 </div>
+
             </div>
 
-            <button class="restart-button" id="restartTest" type="button">
+            <button
+                class="restart-button"
+                id="restartTest"
+                type="button"
+            >
                 <span>↻</span>
                 Restart
             </button>
+
         </section>
 
-        <section class="typing-stage" id="typingTest">
 
+        <!-- TYPING TEST -->
+        <section
+            class="typing-stage"
+            id="typingTest"
+        >
+
+            <!-- LIVE METRICS -->
             <div class="typing-metrics">
+
                 <div class="metric">
                     <span>TIME</span>
                     <strong id="timer">30</strong>
@@ -95,14 +170,28 @@
                     <span>ERRORS</span>
                     <strong id="errors">0</strong>
                 </div>
+
             </div>
 
-            <div class="typing-box" id="typingSurface">
+
+            <!-- TYPING BOX -->
+            <div
+                class="typing-box"
+                id="typingSurface"
+            >
+
                 <div class="typing-box-header">
+
                     <span>TYPE THE PASSAGE</span>
-                    <span id="testModeLabel">30 SEC</span>
+
+                    <span id="testModeLabel">
+                        30 SEC
+                    </span>
+
                 </div>
 
+
+                <!-- PASSAGE -->
                 <div
                     class="typing-passage"
                     id="passage"
@@ -113,6 +202,8 @@
                     Loading passage...
                 </div>
 
+
+                <!-- INPUT -->
                 <textarea
                     id="typingInput"
                     class="typing-input"
@@ -123,79 +214,189 @@
                     aria-label="Typing input"
                 ></textarea>
 
+
+                <!-- HINT -->
                 <div class="typing-hint">
-                    <span class="hint-key">SPACE</span>
-                    <span>Accuracy first. Speed follows.</span>
+
+                    <span class="hint-key">
+                        SPACE
+                    </span>
+
+                    <span>
+                        Accuracy first. Speed follows.
+                    </span>
+
                 </div>
+
             </div>
-            
+
         </section>
 
-            <div class="result-actions">
-                <button class="button button-primary" id="resultRestart" type="button">
-                    Try again <span>↗</span>
-                </button>
 
-                <a href="dashboard.html" class="button button-secondary">
-                    View progress
-                </a>
-            </div>
-        </section>
+        <!-- RESULT ACTIONS -->
+        <div class="result-actions">
 
+            <button
+                class="button button-primary"
+                id="resultRestart"
+                type="button"
+            >
+                Try again <span>↗</span>
+            </button>
+
+            <a
+                href="dashboard.html"
+                class="button button-secondary"
+            >
+                View progress
+            </a>
+
+        </div>
+
+
+        <!-- GUIDANCE -->
         <section class="test-guidance">
+
             <article>
+
                 <span>01</span>
+
                 <div>
-                    <strong>Don't chase the number</strong>
-                    <p>Build a clean rhythm instead of forcing speed.</p>
+                    <strong>
+                        Don't chase the number
+                    </strong>
+
+                    <p>
+                        Build a clean rhythm instead of forcing speed.
+                    </p>
                 </div>
+
             </article>
 
+
             <article>
+
                 <span>02</span>
+
                 <div>
-                    <strong>Accuracy builds speed</strong>
-                    <p>Correct keystrokes create faster typing over time.</p>
+                    <strong>
+                        Accuracy builds speed
+                    </strong>
+
+                    <p>
+                        Correct keystrokes create faster typing over time.
+                    </p>
                 </div>
+
             </article>
 
+
             <article>
+
                 <span>03</span>
+
                 <div>
-                    <strong>Practice consistently</strong>
-                    <p>Short focused sessions beat occasional long ones.</p>
+                    <strong>
+                        Practice consistently
+                    </strong>
+
+                    <p>
+                        Short focused sessions beat occasional long ones.
+                    </p>
                 </div>
+
             </article>
+
         </section>
 
     </main>
 
+
+    <!-- FOOTER -->
     <footer class="footer">
+
         <div class="footer-brand">
             <p>Flow Into Speed</p>
         </div>
+
+
         <div class="footer-socials">
+
             <!-- INSTAGRAM -->
-            <a href="https://www.instagram.com/veltype/" target="_blank" rel="noopener noreferrer" aria-label="VelType on Instagram">
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/>
-                    <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/>
-                    <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
+            <a
+                href="https://www.instagram.com/veltype/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="VelType on Instagram"
+            >
+                <svg
+                    width="21"
+                    height="21"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                >
+                    <rect
+                        x="3"
+                        y="3"
+                        width="18"
+                        height="18"
+                        rx="5"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    />
+
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="4.2"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    />
+
+                    <circle
+                        cx="17.5"
+                        cy="6.5"
+                        r="1.1"
+                        fill="currentColor"
+                    />
                 </svg>
             </a>
+
+
             <!-- FACEBOOK -->
-            <a href="https://www.facebook.com/veltype/" target="_blank" rel="noopener noreferrer" aria-label="VelType on Facebook">
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <a
+                href="https://www.facebook.com/veltype/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="VelType on Facebook"
+            >
+                <svg
+                    width="21"
+                    height="21"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                >
                     <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.6 1.7-1.6h1.8V3.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.5v3h2.8v8h3.2z"/>
                 </svg>
             </a>
+
         </div>
+
+
         <div class="footer-copy">
             © 2026 All rights reserved.
         </div>
+
     </footer>
 
+</div>
+
+
+<!-- JAVASCRIPT -->
 <script src="js/main.js"></script>
 <script src="js/typing.js"></script>
+
 </body>
-</html>
+                </html>
