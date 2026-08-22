@@ -234,25 +234,42 @@
 
 
         <!-- RESULT ACTIONS -->
-        <div class="result-actions">
+        <section class="test-result" id="testResult" hidden>
+    <span class="section-label">TEST COMPLETE</span>
+    <h2>Your <em>result.</em></h2>
 
-            <button
-                class="button button-primary"
-                id="resultRestart"
-                type="button"
-            >
-                Try again <span>↗</span>
-            </button>
-
-            <a
-                href="dashboard.html"
-                class="button button-secondary"
-            >
-                View progress
-            </a>
-
+    <div class="result-stats">
+        <div>
+            <span>WPM</span>
+            <strong id="resultWpm">0</strong>
         </div>
 
+        <div>
+            <span>ACCURACY</span>
+            <strong id="resultAccuracy">100%</strong>
+        </div>
+
+        <div>
+            <span>ERRORS</span>
+            <strong id="resultErrors">0</strong>
+        </div>
+
+        <div>
+            <span>RAW WPM</span>
+            <strong id="resultRawWpm">0</strong>
+        </div>
+    </div>
+
+    <div class="result-actions">
+        <button class="button button-primary" id="resultRestart" type="button">
+            Try again <span>↗</span>
+        </button>
+
+        <a href="dashboard.html" class="button button-secondary">
+            View progress
+        </a>
+    </div>
+        </section>
 
         <!-- GUIDANCE -->
         <section class="test-guidance">
