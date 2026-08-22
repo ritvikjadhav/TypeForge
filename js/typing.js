@@ -405,46 +405,51 @@ class TypingTest {
 
     // Save test result to localStorage
     saveResult() {
-        const elapsed = Math.max(
-            Math.round(this.getElapsedTime()),
-            1
+    const elapsed = Math.max(1, Math.round(this.getElapsedTime()));
+    const minutes = elapsed / 60;
+
+    const wpm = Math.round((this.correct / 5) / minutes);
+    const rawWpm = Math.round((this.typed / 5) / minutes);
+    const accuracy = this.typed > 0
+        ? Math.round((this.correct / this.typed) * 100)
+        : 100;
+
+    const result = {
+        wpm: Math.max(wpm, 0),
+        rawWpm: Math.max(rawWpm, 0),
+        accuracy: Math.min(100, accuracy),
+        errors: this.errors,
+        characters: this.typed,
+        correctCharacters: this.correct,
+        duration: elapsed,
+        mode: this.timeLimit,
+        date: new Date().toISOString(),
+        timestamp: Date.now()
+    };
+
+    try {
+        const history = JSON.parse(
+            localStorage.getItem("veltypeTests") || "[]"
         );
 
-        const minutes = Math.max(
-            elapsed / 60,
-            1 / 60
+        const tests = Array.isArray(history) ? history : [];
+
+        tests.unshift(result);
+
+        localStorage.setItem(
+            "veltypeTests",
+            JSON.stringify(tests.slice(0, 50))
         );
 
-        const wpm = Math.round(
-            (this.correct / 5) / minutes
+        console.log("VelType test saved:", result);
+        console.log(
+            "VelType test history:",
+            JSON.parse(localStorage.getItem("veltypeTests"))
         );
 
-        const rawWpm = Math.round(
-            (this.typed / 5) / minutes
-        );
-
-        const accuracy = this.typed > 0
-            ? Math.round(
-                (this.correct / this.typed) * 100
-            )
-            : 100;
-
-        let history = [];
-
-        // Read existing test history
-        try {
-            const stored =
-                localStorage.getItem("veltypeTests");
-
-            history = stored
-                ? JSON.parse(stored)
-                : [];
-
-            if (!Array.isArray(history)) {
-                history = [];
-            }
-        } catch {
-            history = [];
+    } catch (error) {
+        console.error("VelType could not save test:", error);
+    }
         }
 
         // Add current test
